@@ -1,6 +1,11 @@
 # GenCyber-web-content
 These files are intended to provide step-by-step self paced tutorials to teachers seeking to learn about cybersecurity first principles as part of the UNO Gencyber camp
 
+#Live preview of current versions
+Each step-by-step tutorial is specified by day and hosted at the following urls:
+
+Day1: <https://dl.dropboxusercontent.com/u/4594444/GenCyber-web/day1/day1.html>
+
 #License
 Gencyber web content.
 Copyright (C) 2016  Dr. Matthew L. Hale
