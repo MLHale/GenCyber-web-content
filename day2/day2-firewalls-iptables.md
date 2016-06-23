@@ -65,10 +65,39 @@ Lets look at an example.
 
 **Rule 3** is to deny all other traffic that does not match the previous rules. So all three match conditions are specified as “any” and the action is "reject". 
 
-**Discussion**  
-What would happen if we re-ordered these rules? Specifically if Rule 3 was exchanged with Rule 1
+### Question
+
+What would happen if we re-ordered these rules? Specifically if Rule 3 was exchanged with Rule 1.
+
+Discussion:
+Rule 3 is often implemented as a "Default Policy". This policy applies ONLY if a packet matches NONE of the rules specified for the firewall.
 
 ## Working with `iptables`
+
+As mentioned before Linux has a firewall built right into the kernel and it is configured using the `iptables` command. Since it is a utility for privileged users, you will need to elevate your privilege level using `sudo` prepended to the `iptables` command everytime. See code block below.This firewall can be set up in several modes like packet filtering, which is the default mode, network address translation, and many others such as mangle, where you can modify the packets as they pass through the firewall. We will focus on the IPv4 packet filtering function here.
+
+To view your current firewall settings, fire off this command in your Linux Server VM. Enter your password if prompted.
+
+```bash
+sudo iptables -nL 
+```
+You should see something like this:
+![iptables screenshot](../img/iptables.png)
+
+What are those `-nL` commandline parameters for?  
+
+`-n` This option tell iptables to not resolve domain names for the ip addresses in the matching rules. This results in faster display of the rules.
+ 
+`-L` Lists all the rules in a specified chain. If no chain is specified then all chains are listed.
+
+But wait! what is a **Chain**? A chain is a list of rules that can match a set of packets. There are several built-in chains: INPUT, FORWARD and OUTPUT. For simple usecases INPUT and OUTPUT chains are sufficient. As their names suggest, INPUT chain is a set of rules that match the "incoming" packets to your computer. Similarly, OUTPUT chain is a set of rules that match the "outgoing" packets. As you can see currently both these chains are empty! Also `(policy ACCEPT)` suggests that the default policy for both chains is to accept all packets. So essentially, your firewall is WIDE OPEN at this point. We better start to close it!
+
+> A note before we move forward: When in doubt, consult the iptables manual pages using the following command: `man iptables`. Alternatively, here is the [web version](http://ipset.netfilter.org/iptables.man.html).
+
+
+
+
+
 
 
 
