@@ -76,7 +76,7 @@ Rule 3 is often implemented as a "Default Policy". This policy applies ONLY if a
 
 As mentioned before Linux has a firewall built right into the kernel and it is configured using the `iptables` command. Since it is a utility for privileged users, you will need to elevate your privilege level using `sudo` prepended to the `iptables` command everytime. See code block below.This firewall can be set up in several modes like packet filtering, which is the default mode, network address translation, and many others such as mangle, where you can modify the packets as they pass through the firewall. We will focus on the IPv4 packet filtering function here.
 
-To view your current firewall settings, fire off this command in your Linux Server VM. Enter your password if prompted.
+To view your current firewall rules, fire off this command in your Linux Server VM. Enter your password if prompted.
 
 ```bash
 sudo iptables -nL 
@@ -95,8 +95,82 @@ But wait! what is a **Chain**? A chain is a list of rules that can match a set o
 > A note before we move forward: When in doubt, consult the iptables manual pages using the following command: `man iptables`. Alternatively, here is the [web version](http://ipset.netfilter.org/iptables.man.html).
 
 
+Based on a whitelisting philosopy, let's begin by denying all traffic by default.
+
+```bash
+sudo iptables -P INPUT DROP 
+```
+This command uses the `-P` switch to set the default policy for the INPUT chain to DROP. This means drop all incoming packets to your computer. Let's see what the INPUT chain looks like now.
+
+```bash
+sudo iptables -nL INPUT
+```
+You should see something like this. Notice `(policy DROP)`. You should NOT be able to access your server now from your client web-app. Go ahead and try it!
+![iptables screenshot](../img/inputdrop.png)
+
+A firewall that does not allow any traffic is not very user friendly or useful. So let's add some rules to the INPUT chain to allow web requests made on the web port, i.e. port 80.
+
+```bash
+sudo iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
+```
+
+The command follows this general structure: `iptables <option> <chain> <matching criteria> <target>`   
+Let's examine each element in this structure in detail. 
+
+---
+`<option>`  Immediately following the iptables command the options components allows to specify the position in which the rule will be inserted into a chain. For example `–A` appends the rule in the specified chain. `–I` inserts the rule at a specified position in the chain starting with 1. 
+
+So this part `-I INPUT 1` says: Insert this Rule at position 1 in the INPUT chain. 
+
+> A few more useful switches: `–D` to delete a rule in a specified position in the chain. `–F` is for flushing the chain, which deletes all rules in a chain. 
+
+---
+`<matching criteria>`  
+Next comes the MATCH criteria. `-p tcp --dport 80` says: Match all packets with the TCP protocol headed for port 80. Again, port 80 is your default webserver port.
 
 
+---
+`<target>`  
+
+Finally the target component specifies what to do if the matching criteria is met. This component is specified with a `-j` switch which siginifies a jump or go to the specified target chain. So if the packet matches the matching criteria, then the next rule is specified by the value of the target, which can be the name of a user-defined chain or one of the special values that terminate the rule processing. The special terminating values are ACCEPT, DROP, or RETURN.ACCEPT allows the packet in. `-j ACCEPT` above says: Jump to ACCEPT this packet and terminate the rule processing.DROP and REJECT chains, both deny the packet and stop rule processing. But, DROP is safer than REJECT. When REJECT is used, an error packet is sent in response to the matched packet. It is better not to do this to avoid giving any additional information when access is denied.
+
+A non-terminating target chain is the LOG chain. The log chains help to document any anomalies that have been detected in the kernel log. Log prefixes are specified using the following syntax:`--log-prefix prefix`. The prefix can be about 29 characters long.
+---
+
+Let's examine the INPUT chain now.
+
+```bash
+sudo iptables -nL INPUT
+```
+![iptables screenshot](../img/inputwebrule.png)
+
+This output looks much similar to the example table that we created earlier. `0.0.0.0\0` is a more detailed description of "any". So the rule is equivalent to saying, match TCP packets from **any** source to **any** desitination on destination port 80. 
+
+If you did it right, your webserver should be accessible again. Go ahead and confirm. 
+
+What about other ports? You would also need port 443 for HTTPS to be open. To do this we need to add another rule. This time let's append it to the INPUT chain using the `-A` option.
+
+```bash
+sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+```
+
+Notice that with `-A` you do not have to specify the rule number. The rule just gets added to the bottom of the INPUT chain. Let's look at the INPUT chain now. 
+
+```bash
+sudo iptables -nL INPUT
+```
+![iptables screenshot](../img/inputhttpsrule.png)
+
+The secure web portion of your server should also be now available to client apps. Go ahead and confirm.
+
+There many other advanced firewall rules that can be authored. But these simple rules should be sufficient to demonstrate the inner workings of a Firewall. We have also managed to significantly reduce the exposed ports of the server to those that are absolutely necessary for our application to work. Nothing more.
+
+For more details on iptables, consult these web resources:
+
+[Ubuntu iptables Wiki](https://help.ubuntu.com/community/IptablesHowTo)  
+[CentOS iptables Wiki](https://wiki.centos.org/HowTos/Network/IPTables)
+
+### Making Firewall Settings Persistent
 
 
 
@@ -105,4 +179,8 @@ But wait! what is a **Chain**? A chain is a list of rules that can match a set o
 
 ## Additional Readings
 
-[Microsoft The OSI Model's Seven Layers Defined and Functions Explained] (https://support.microsoft.com/en-us/kb/103884)
+* [Microsoft The OSI Model's Seven Layers Defined and Functions Explained] (https://support.microsoft.com/en-us/kb/103884)  
+* [Ubuntu iptables Wiki](https://help.ubuntu.com/community/IptablesHowTo)  
+* [CentOS iptables Wiki](https://wiki.centos.org/HowTos/Network/IPTables)
+
+Copyright 2010-2016 Robin Gandhi All Rights Reserved
