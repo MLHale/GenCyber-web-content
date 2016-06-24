@@ -123,8 +123,8 @@ This `iptables` command follows a general structure: `iptables <option> <chain> 
 Let's examine each element in this structure in detail. 
 
 ---
-`<option>`  
-Immediately following the iptables command the **option** component allows to specify the position in which the rule will be inserted into a chain. For example `–A` appends the rule in the specified chain. `–I` inserts the rule at a specified position in the chain starting with 1. 
+`<option> <chain>`  
+Immediately following the iptables command the **option** component allows to specify the position in which the rule will be inserted into a **chain**. For example `–A INPUT` appends the rule in the INPUT chain. `–I OUTPUT 3` inserts the rule at a specified position in the OUTPUT chain. The rule numbers start at position 1. 
 
 So this option `-I INPUT 1` says: Insert this Rule at position 1 in the INPUT chain. 
 
@@ -135,7 +135,6 @@ So this option `-I INPUT 1` says: Insert this Rule at position 1 in the INPUT ch
 Next comes the **match criteria** component. This components specifies the conditions that will be used to match specific types of incoming network packets.
 
 So this matching critiera  `-p tcp --dport 80` says: Match all packets with the TCP protocol with a destination port 80. Again, port 80 on the server is your default webserver port. For incoming packets, the "destination" is the server where you are authoring the iptables rules, and the "source" is the client computer. For outgoing packets, the "source" is the server and the "destination" is the client computer.
-
 
 ---
 `<target>`  
@@ -191,7 +190,6 @@ Now step back and ponder this question: Have I taken care of all "network" openi
 
 Let's check something. `ss` is a great linux network utility. Among other things it shows a summary of network statistics. 
 
-
 ```bash
 ss -s 
 ```
@@ -204,7 +202,8 @@ How about now?
 
 ![iptables screenshot](../img/ssoutput2.png)
 
-Turns out we controlled the IPv4, but completely forgot about **IPv6**. This happens a lot in real systems too. In particular, while port 22 may be blocked in IPv4, but often left accessible using a IPv6 address.
+Turns out we controlled the IPv4 network interface, but completely forgot about **IPv6**. This happens a lot in real systems too. In particular, while port 22 for ssh access may be blocked in IPv4, but it is often left accessible using a IPv6 address. Check if that is the case with your server. 
+
 
 Run the following command to check the state of IPv6 interface on our server. Notice the `6` in the `ip6tables` command.
 
@@ -231,8 +230,6 @@ sudo ip6tables -nL
 
 
 ### Making Firewall Settings Persistent
-
-
 
 
 
