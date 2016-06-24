@@ -25,11 +25,11 @@ At what [network layer] (https://support.microsoft.com/en-us/kb/103884) does it 
 - [ ] Network layer and above  
 
 Discussion:  
-Since the headers on frames are not useful for routing across networks, typically firewalls rules are authored using information starting at the Network (also called the IP layer in the TCP/IP implemenation) layer and above, all the way to the application layer. IP layer firewalls are the simplest and most widely used.
+The headers on ethernet frames at the Data link layer and below are not useful for routing across networks. Firewalls rules are authored using routing information starting at the Network (also called the IP layer in the TCP/IP implemenation) layer and above, all the way to the application layer. As a result IP layer firewalls are the simplest and most widely used.
 
 ### Firewall as a Collection of Valves
 
-Firewall can be understood as a collection of valves  
+A Firewall can be understood as a collection of valves  
 
 * Each valve/port corresponds to single service  (e.g. http, ssh, https, smtp)
 * Each valve can  
@@ -237,7 +237,6 @@ apt-get install iptables-persistent
 iptables-save > /etc/iptables/rules.v4
 ip6tables-save > /etc/iptables/rules.v6
 ```
-
 That's it for Firewalls in this Unit. Happy Surfing.
 
 ## Additional Readings
