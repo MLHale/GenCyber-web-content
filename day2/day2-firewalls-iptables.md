@@ -239,7 +239,7 @@ ip6tables-save > /etc/iptables/rules.v6
 ```
 That's it for Firewalls in this Unit. Happy Surfing.
 
-> NOTE: Firewalls are an essential component of "Defense-in-Depth" strategy. It can certainly slowdown an attacker. However, firewalls cannot keep a determined adversary out. There are many ways in which firewalls can be abused and easily bypassed. Such attacks need to be constantly monitored for using Intrusion Detection Systems (IDS). The final line of defense is applications built using secure coding practices and proper encryption implementations.  
+> Firewalls are an essential component of "Defense-in-Depth" strategy. It can certainly slowdown an attacker. However, firewalls cannot keep a determined adversary out. There are many ways in which firewalls can be abused and easily bypassed. Such attacks need to be constantly monitored for using Intrusion Detection Systems (IDS). The final line of defense is applications built using secure coding practices and proper encryption implementations.  
 
 ## Additional Readings
 
