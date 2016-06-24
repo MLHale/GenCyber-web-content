@@ -10,11 +10,11 @@ The name firewall is inspired from its physical manifestation in construction wh
 
 While these firewalls are "cool", we are interesting in a different kind of firewall. The ones that protect internal networks from external networks. These kinds of firewalls allow us to control the flow of information across networks. 
 
-![network firewalls](../img/networkfirewall.png)
+![network firewalls](../img/firewall/networkfirewall.png)
 
 All popular operating systems now come with a firewall installed. For server installations we will focus on the NETfilter packet filtering module built into the linux kernel itself. This module acts as a firewall and is configured using the `iptables` command. The command line use of iptables provides the utmost flexibility and control over the firewall configuration.
 
-![iptables screenshot](../img/iptables.png)
+![iptables screenshot](../img/firewall/iptables.png)
 
 ### Question
 
@@ -36,7 +36,7 @@ A Firewall can be understood as a collection of valves
   - Permit traffic in one or both directions  
   - Deny traffic  
 
-![valves](../img/valves.png)  
+![valves](../img/firewall/valves.png)  
 
 Here are three basic scenarios to keep in mind.  
 
@@ -57,7 +57,7 @@ Always start firewall configuration with a _whitelisting_ philosophy, where you 
 
 Lets look at an example. 
 
-![valves](../img/examplerules.png)  
+![valves](../img/firewall/examplerules.png)  
 
 **Rule 1** permits externally initiated requests to a webserver behind the firewall. So the source is “any”, since we cannot anticipate a specific IP address at the time of writing the rule. The destination is the IP address of the webserver and the service specifies the port number where the service is typically hosted. That would be port 80 for a web server. If these three match an incoming packet then the action is “ACCEPT”
 
@@ -85,7 +85,7 @@ sudo iptables -nL
 ```
 You should see something like this:
 
-![iptables screenshot](../img/iptables.png)
+![iptables screenshot](../img/firewall/iptables.png)
 
 What are those `-nL` commandline parameters for?  
 
@@ -109,7 +109,7 @@ sudo iptables -nL INPUT
 ```
 You should see something like this. 
 
-![iptables screenshot](../img/inputdrop.png)
+![iptables screenshot](../img/firewall/inputdrop.png)
 
 Notice `(policy DROP)`. You should NOT be able to access your server now from your client web-app. Go ahead and try it!
 
@@ -155,7 +155,7 @@ Let's examine the INPUT chain now.
 ```bash
 sudo iptables -nL INPUT
 ```
-![iptables screenshot](../img/inputwebrule.png)
+![iptables screenshot](../img/firewall/inputwebrule.png)
 
 This output looks much similar to the example table that we discussed earlier. Here source and desination ip addresses of `0.0.0.0\0` is equivalent to "any". So the rule is equivalent to saying, match all TCP packets from **any** source to **any** desitination with a destination port 80. 
 
@@ -172,7 +172,7 @@ Notice that with `-A` you do not have to specify the rule number. The rule just 
 ```bash
 sudo iptables -nL INPUT
 ```
-![iptables screenshot](../img/inputhttpsrule.png)
+![iptables screenshot](../img/firewall/inputhttpsrule.png)
 
 The secure web portion of your server should also be now available to client apps. Go ahead and confirm.
 
@@ -196,11 +196,11 @@ ss -s
 
 Notice anything in the output? 
 
-![iptables screenshot](../img/ssoutput.png)
+![iptables screenshot](../img/firewall/ssoutput.png)
 
 How about now?
 
-![iptables screenshot](../img/ssoutput2.png)
+![iptables screenshot](../img/firewall/ssoutput2.png)
 
 Turns out we controlled the IPv4 network interface, but completely forgot about **IPv6**. This happens a lot in real systems too. In particular, while port 22 for ssh access may be blocked in IPv4, but it is often left accessible using a IPv6 address. Check if that is the case with your server. 
 
@@ -209,7 +209,7 @@ Run the following command to check the state of IPv6 interface on our server. No
 ```bash
 sudo ip6tables -nL
 ```
-![iptables screenshot](../img/ip6tablesoutput.png)
+![iptables screenshot](../img/firewall/ip6tablesoutput.png)
 
 The IPv6 network interface is WIDE OPEN!!! So if a ssh service was running, it would be easily accessible using the IPv6 address.
 
