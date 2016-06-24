@@ -134,12 +134,12 @@ So this option `-I INPUT 1` says: Insert this Rule at position 1 in the INPUT ch
 `<matching criteria>`  
 Next comes the **match criteria** component. This components specifies the conditions that will be used to match specific types of incoming network packets.
 
-So this matching critiera  `-p tcp --dport 80` says: Match all packets with the TCP protocol with a destination port 80. Again, port 80 on the server is your default webserver port. For incoming packets, the "destination" is the server where you are authoring the iptables rules, and the "source" is the client computer. For outgoing packets, the "source" is the server and the "destination" is the client computer.
+So this matching critiera  `-p tcp --dport 80` says: Match all packets with the TCP protocol with a destination port 80. Again, port 80 on the server is your default webserver port. We did not specify any source or destination IP addresses so it will match all ip addresses. For incoming packets, the "destination" is the server where you are authoring the iptables rules, and the "source" is the client computer. For outgoing packets, the "source" is the server and the "destination" is the client computer.
 
 ---
 `<target>`  
 
-Finally the **target** component specifies what to do if the matching criteria is met. This component is specified with a `-j` switch. It siginifies a "jump" to the target chain that follows after it. So if a incoming packet passes the matching criteria, then the next rule is specified by the value of the target chain, which can be the name of a user-defined chain or one of the special values that terminate the rule processing. The special terminating values are ACCEPT, DROP, or RETURN.
+Finally the **target** component specifies what to do if the matching criteria is met. This component is specified with a `-j` switch. It siginifies a "jump" to the target chain that follows after it. So if an incoming packet passes the matching criteria, then the next rule is specified by the value of the target chain, which can be the name of a user-defined chain or one of the special values that terminate the rule processing. The special terminating values are ACCEPT, DROP, or RETURN.
 
 ACCEPT allows the packet in. So this target `-j ACCEPT` says: Jump to ACCEPT this packet and terminate the rule processing.
 
