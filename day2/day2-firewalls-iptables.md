@@ -212,9 +212,9 @@ sudo ip6tables -nL
 ```
 ![iptables screenshot](../img/ip6tablesoutput.png)
 
-The IPv6 network interface is WIDE OPEN!!!
+The IPv6 network interface is WIDE OPEN!!! So if a ssh service was running, it would be easily accessible using the IPv6 address.
 
-Let's fix it by setting the default policy on all chains to DROP.
+Let's fix this by setting the default policy on all IPv6 chains to DROP.
 
 ```bash
 sudo ip6tables -P INPUT DROP 
@@ -222,17 +222,23 @@ sudo ip6tables -P OUTPUT DROP
 sudo ip6tables -P FORWARD DROP
 ```
 
-Then check if the settings were correctly applied.
+Check if the settings were correctly applied.
 
 ```bash
 sudo ip6tables -nL
 ```
 
-
 ### Making Firewall Settings Persistent
 
+Unless you commit your iptables rules to a specific location, they will be reset upon machine restart. Now we don't want that to happen so let's save the rule and make them persistent across machine reboots. The following commands will work on Ubuntu OS.
 
+```bash
+apt-get install iptables-persistent
+iptables-save > /etc/iptables/rules.v4
+ip6tables-save > /etc/iptables/rules.v6
+```
 
+That's it for Firewalls in this Unit. Happy Surfing.
 
 ## Additional Readings
 
