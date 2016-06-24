@@ -134,7 +134,7 @@ So this option `-I INPUT 1` says: Insert this Rule at position 1 in the INPUT ch
 `<matching criteria>`  
 Next comes the **match criteria** component. This components specifies the conditions that will be used to match specific types of incoming network packets.
 
-So this matching critiera  `-p tcp --dport 80` says: Match all packets with the TCP protocol with a destination port 80. Again, port 80 on the server is your default webserver port. We did not specify any source or destination IP addresses so it will match all ip addresses. For incoming packets, the "destination" is the server where you are authoring the iptables rules, and the "source" is the client computer. For outgoing packets, the "source" is the server and the "destination" is the client computer.
+So this matching critiera  `-p tcp --dport 80` says: Match all packets with the TCP protocol with a destination port 80. Again, port 80 on the server is your default webserver port. We did not specify any source or destination IP addresses so it will match all IP addresses. For incoming packets, the "destination" is the server where you are authoring the iptables rules, and the "source" is the client computer. For outgoing packets, the "source" is the server and the "destination" is the client computer.
 
 ---
 `<target>`  
@@ -178,15 +178,15 @@ The secure web portion of your server should also be now available to client app
 
 If your website defaults to https then you may consider making the port 443 rule the first rule. This will avoid unecessary evaluation of the port 80 rule for most network packets. 
 
-There many other advanced firewall rules that can be authored. But these simple rules should be sufficient to demonstrate the inner workings of a Firewall. We have also managed to significantly reduce the exposed ports of the server to those that are absolutely necessary for our application to work. Nothing more.
+There many other advanced firewall rules that can be authored. But these simple rules should be sufficient to demonstrate the inner workings of a Firewall. We have also managed to significantly reduce the exposed ports of the server to those that are absolutely necessary for our application to work. Nothing more. Any IPv4 network traffic that does not match our rules will be processed by the default policy. In our case, the default policy is DROP. 
 
-For more details on iptables, consult these web resources:
+For more details on `iptables`, consult these web resources:
 
 [Ubuntu iptables Wiki](https://help.ubuntu.com/community/IptablesHowTo)  
 [CentOS iptables Wiki](https://wiki.centos.org/HowTos/Network/IPTables)
 
 Discussion:
-Now step back and ponder this question: Have I taken care of all "network" openings into the server? 
+Now step back and ponder this question: Have I taken care of all network openings into the server? 
 
 Let's check something. `ss` is a great linux network utility. Among other things it shows a summary of network statistics. 
 
@@ -203,7 +203,6 @@ How about now?
 ![iptables screenshot](../img/ssoutput2.png)
 
 Turns out we controlled the IPv4 network interface, but completely forgot about **IPv6**. This happens a lot in real systems too. In particular, while port 22 for ssh access may be blocked in IPv4, but it is often left accessible using a IPv6 address. Check if that is the case with your server. 
-
 
 Run the following command to check the state of IPv6 interface on our server. Notice the `6` in the `ip6tables` command.
 
@@ -230,7 +229,7 @@ sudo ip6tables -nL
 
 ### Making Firewall Settings Persistent
 
-Unless you commit your iptables rules to a specific location, they will be reset upon machine restart. Now we don't want that to happen so let's save the rule and make them persistent across machine reboots. The following commands will work on Ubuntu OS.
+Unless you commit your iptables rules to a specific location, they will be reset upon machine restart. Now we don't want that to happen, so let's save the rule and make them persistent across machine reboots. The following commands will work on Ubuntu OS.
 
 ```bash
 apt-get install iptables-persistent
@@ -239,7 +238,7 @@ ip6tables-save > /etc/iptables/rules.v6
 ```
 That's it for Firewalls in this Unit. Happy Surfing.
 
-> Firewalls are an essential component of "Defense-in-Depth" strategy. It can certainly slowdown an attacker. However, firewalls cannot keep a determined adversary out. There are many ways in which firewalls can be abused and easily bypassed. Such attacks need to be constantly monitored for using Intrusion Detection Systems (IDS). The final line of defense is applications built using secure coding practices and proper encryption implementations.  
+> Firewalls are an essential component of "Defense-in-Depth" strategy. It can certainly slowdown an attacker. However, firewalls cannot keep a determined adversary out. There are many ways in which firewalls can be abused and easily bypassed. Such attacks need to be constantly monitored using Intrusion Detection Systems (IDS) and Network Monitoring solutions. The final line of defense is applications built using secure coding practices and proper encryption implementations.  
 
 ## Additional Readings
 
