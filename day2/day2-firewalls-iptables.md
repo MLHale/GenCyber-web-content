@@ -140,13 +140,13 @@ So this matching critiera  `-p tcp --dport 80` says: Match all packets with the 
 ---
 `<target>`  
 
-Finally the **target** component specifies what to do if the matching criteria is met. This component is specified with a `-j` switch which siginifies a jump or go to the specified target chain. So if the packet matches the matching criteria, then the next rule is specified by the value of the target, which can be the name of a user-defined chain or one of the special values that terminate the rule processing. The special terminating values are ACCEPT, DROP, or RETURN.
+Finally the **target** component specifies what to do if the matching criteria is met. This component is specified with a `-j` switch. It siginifies a "jump" to the target chain that follows after it. So if a incoming packet passes the matching criteria, then the next rule is specified by the value of the target chain, which can be the name of a user-defined chain or one of the special values that terminate the rule processing. The special terminating values are ACCEPT, DROP, or RETURN.
 
-ACCEPT allows the packet in. `-j ACCEPT` above says: Jump to ACCEPT this packet and terminate the rule processing.
+ACCEPT allows the packet in. So this target `-j ACCEPT` says: Jump to ACCEPT this packet and terminate the rule processing.
 
-DROP and REJECT chains, both deny the packet and stop rule processing. But, DROP is safer than REJECT. When REJECT is used, an error packet is sent in response to the matched packet. It is better not to do this to avoid giving any additional information when access is denied.
+DROP and REJECT, both deny the packet and stop rule processing. But, DROP is safer than REJECT. When REJECT is used, an error packet is sent in response to the matched packet. It is best to avoid giving additional information when access is denied for any reason.
 
-A non-terminating target chain is the LOG chain. The log chains help to document any anomalies that have been detected in the kernel log. Log prefixes are specified using the following syntax:
+A non-terminating target chain is the LOG chain. The LOG chain helps to document any anomalies that have been detected in the kernel log. Log prefixes are specified using the following syntax:
 `--log-prefix prefix`. The prefix can be about 29 characters long.
 
 ---
@@ -158,7 +158,7 @@ sudo iptables -nL INPUT
 ```
 ![iptables screenshot](../img/inputwebrule.png)
 
-This output looks much similar to the example table that we created earlier. `0.0.0.0\0` is a more detailed description of "any". So the rule is equivalent to saying, match TCP packets from **any** source to **any** desitination on destination port 80. 
+This output looks much similar to the example table that we discussed earlier. Here source and desination ip addresses of `0.0.0.0\0` is equivalent to "any". So the rule is equivalent to saying, match all TCP packets from **any** source to **any** desitination with a destination port 80. 
 
 If you did it right, your webserver should be accessible again. Go ahead and confirm. 
 
@@ -177,12 +177,58 @@ sudo iptables -nL INPUT
 
 The secure web portion of your server should also be now available to client apps. Go ahead and confirm.
 
+If your website defaults to https then you may consider making the port 443 rule the first rule. This will avoid unecessary evaluation of the port 80 rule for most network packets. 
+
 There many other advanced firewall rules that can be authored. But these simple rules should be sufficient to demonstrate the inner workings of a Firewall. We have also managed to significantly reduce the exposed ports of the server to those that are absolutely necessary for our application to work. Nothing more.
 
 For more details on iptables, consult these web resources:
 
 [Ubuntu iptables Wiki](https://help.ubuntu.com/community/IptablesHowTo)  
 [CentOS iptables Wiki](https://wiki.centos.org/HowTos/Network/IPTables)
+
+Discussion:
+Now step back and ponder this question: Have I taken care of all "network" openings into the server? 
+
+Let's check something. `ss` is a great linux network utility. Among other things it shows a summary of network statistics. 
+
+
+```bash
+ss -s 
+```
+
+Notice anything in the output? 
+
+![iptables screenshot](../img/ssoutput.png)
+
+How about now?
+
+![iptables screenshot](../img/ssoutput2.png)
+
+Turns out we controlled the IPv4, but completely forgot about **IPv6**. This happens a lot in real systems too. In particular, while port 22 may be blocked in IPv4, but often left accessible using a IPv6 address.
+
+Run the following command to check the state of IPv6 interface on our server. Notice the `6` in the `ip6tables` command.
+
+```bash
+sudo ip6tables -nL
+```
+![iptables screenshot](../img/ip6tablesoutput.png)
+
+The IPv6 network interface is WIDE OPEN!!!
+
+Let's fix it by setting the default policy on all chains to DROP.
+
+```bash
+sudo ip6tables -P INPUT DROP 
+sudo ip6tables -P OUTPUT DROP
+sudo ip6tables -P FORWARD DROP
+```
+
+Then check if the settings were correctly applied.
+
+```bash
+sudo ip6tables -nL
+```
+
 
 ### Making Firewall Settings Persistent
 
