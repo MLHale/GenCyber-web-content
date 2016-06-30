@@ -159,7 +159,7 @@
 			            <pre><code>sudo apt-get update
 sudo apt-get install apache2</code></pre><br>
 			            <br>
-			            You should see: <img src="images/lab2/apache-install.png"/><br>
+			            You should see: <img src="images/apache-install.png"/><br>
 
 			            You will also need a module called mod_wsgi to allow apache to talk to the django python kernal (a run time environment for python). Lets go ahead and install it:<br>
 
@@ -172,7 +172,7 @@ sudo apt-get install apache2</code></pre><br>
 			            <br>
 			            With the server restarted, open your a browser (click chrome icon on the left) and navigate to "localhost" (without quotes)
 			            You should see the default configuration running and it should look something like this:<br>
-			            <img src="images/lab2/apache-it-works.png"/><br>
+			            <img src="images/apache-it-works.png"/><br>
 			            <br>
 			            At this point you are hosting a webserver just like you would find almost anywhere online. Pretty simple to start with right? Well at this point apache is just serving a single page called a "static file." You can find this page (the configuration page) in the /var/www/html/ directory using the file browser or command line. Open it up and take a look and you will see the raw html used to make the "It works" page.
 
@@ -184,43 +184,31 @@ sudo apt-get install apache2</code></pre><br>
 			            First install Django by typing the following in the command line:<br>
 			            <pre><code>sudo apt-get install python-pip
 pip install Django==1.9.7</code></pre><br>
-			           
-			            Then create your first django app by invoking the django-admin script as follows:<br>
-			            You can call your app whatever you want, just adjust 'myapp' to your chosen name throughout the rest of this tutorial.<br>
-			            <pre><code>cd /var/www/
-sudo django-admin.py startproject myapp
-sudo chown iasc8080:www-data -R /var/www/
-sudo chmod 775 /var/www/myapp
-cd myapp/</code></pre><br>
-		            
-			            This command will create and initialize a new django project for you called myapp. You will get a directory structure that looks like
-			            <img src="images/lab2/django-fresh-install2.png"/><br>
-			            If you were on your dev server, all you would need to do to get it running is:
-			            <pre><code>sudo python manage.py runserver</code></pre><br>
-			            <br>
-			            But since this is a 'production' server, lets set Django up to work with apache through mod_wsgi. <br>
-			            Lets first flatten the django directory structure - because the extra depth is unnecessary and we want to exclude some files like manage.py and the database file from our git repo.<br>
-			            on the terminal run:
-			            <pre><code>mv /var/www/myapp/myapp/* /var/www/myapp/
-rmdir /var/www/myapp/myapp/
-mv /var/www/myapp/manage.py /var/www/</code></pre><br>
-			            Since we moved some files around we need to fix a few references so they point to the right files.<br>
-			            First open /var/www/myapp/wsgi.py and change 'myapp.settings' to simply 'settings'<br>
-			            For the rest of this tutorial I suggest you make changes to your production server using Winscp (so you can have a better editor than vim or nano in a putty terminal)<br>
-			            Your wsgi file should look like:<br>
+			           	Easy enough to install...<br>
+			            Next, lets create your first Django app by starting with some basic code I created for you to get going.<br>
+						
+						Go to <a href="https://github.com/MLHale/gencyberdjango">https://github.com/MLHale/gencyberdjango</a> and fork the repository by clicking the "fork" button in the upper right.<br>
+						<img src="images/fork-django-project.png"/><br>
+
+						This should create a copy of the repository that you can control.<br> 
+						If you go to "https://github.com/&lt;yourusername&gt;/gencyberdjango" you should see the repo.<br>
+			            Back in your virtual machine, lets get started with this code (we will review what is in there in a moment)<br>
+			            (make sure to replace &lt;yourusername&gt; with your actual github username)
+			            <pre><code>sudo ln -s /home/student/.local/lib/python2.7/site-packages/django/bin/django-admin.py /usr/local/bin/django-admin.py
+sudo chown student:www-data -R /var/www/
+cd /var/www/
+git clone https://github.com/&lt;yourusername&gt;/gencyberdjango
+cd gencybersite/</code></pre><br>
+		            	
+			            With this project, you will get a directory structure that looks like
+			            <img src="images/django-fresh-install.png"/><br>
+
+			            
+
+			            Since this is a 'production' server, lets set Django up to work with apache through mod_wsgi. <br>
+
 			            <img src="images/lab2/wsgi-file.png"/><br>
-			            Now change your settings.py file by removing references to 'myapp' in your ROOT_URLCONF<br>
-			            A quick way to do this is (in winscp) open your /var/www/myapp/settings.py file then press ctrl+h to find/replace. Find "myapp." with nothing.<br>
-			            When you're done your "ROOT_URLCONF" should be set equal to simply "urls"<br>
-			            You also need to change the "DATABASES" block to look like the following:<br>
-			            <pre><code>DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/var/www/myapp/db.sqlite3',
-    }
-}</code></pre><br>
-			            This step will ensure that manage.py creates your db in the myapp folder in the next steps.<br>
-			            <br>
+			            
 			            Now tell apache to talk to django instead of loading the "It works" page<br>
 			            <pre><code>sudo nano /etc/apache2/sites-available/000-default.conf</code></pre><br>
 			            Change it to the following:<br>
