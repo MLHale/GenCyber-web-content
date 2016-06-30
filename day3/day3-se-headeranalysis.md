@@ -52,7 +52,7 @@ It is obvious that in all cases, this information is not easy to find.
 Once you do find it, there is a ton of information in the header about the path taken from the senders' email server to your email server. Let's look at some actual email headers. Open up the files in the ["email-headers" Folder](./email-headers).
 
 -----
-Here is the full header from [email-header1.txt](./email-headers/email-header1.txt)
+Here is the raw message from [email-header1.txt](./email-headers/email-header1.txt)
 
 ```text
 Received: from BL2PRD0711HT001.namprd07.prod.outlook.com (10.255.104.164) by
@@ -99,12 +99,19 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: Microsoft Outlook Express 6.00.2600.0000
 X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
 To: Undisclosed recipients:;
-Return-Path: vieria@aol.com
+Return-Path: 32309uslisidfj@mail.shako.com.tw.com
 X-MS-Exchange-Organization-SCL: 7
 X-MS-Exchange-Organization-AVStamp-Mailbox: MSFTFF;1;0;0 0 0
 X-MS-Exchange-Organization-AuthSource: BL2PRD0711HT002.namprd07.prod.outlook.com
 X-MS-Exchange-Organization-AuthAs: Anonymous
 MIME-Version: 1.0
+Dear Sir/Madam,
+my name is Joseph Camarah Vieira, i  am from Guinea Bissau, my late father was the former minister of mines in my country Guinea Bissau, he was short dead by the rebels in my country, before his death he deposited $60 million Dollars with Global Trust Security Company Accra Ghana, i want you to help me receive this money in your country for investment in your country i will give you 30% of the total sum when the funds arrive your country.
+
+Regards.
+Mr Joseph Camarah Vieira
+00233 244 617 863
+my email:carrr444@yahoo.com
 
 ```
 
@@ -112,8 +119,15 @@ MIME-Version: 1.0
 
 ## Headers are like Passports
 
-The header is like a passport for your email. It fills up as the email travels from its source to the destination. It includes a "stamp" from every email-server that it has encountered in reaching your inbox from the senders email server. As a result, the more servers the email is routed through, the longer the header. This would be akin to traveling from the U.S. to China via Frankfurt and India. Each leg of the trip would be recorded in the passport for a citizen of Turkey, considering that she has appropriate visas for all the visited countries. Leg 1: U.S. to Frankfurt.
+The header is like a passport for your email. The header receives an entry at every stop along the way the email travels from its source to the destination. It includes a "stamp" from every email-server that it has encountered in reaching your inbox from the senders email server. As a result, the more servers the email is routed through, the longer the header. This would be akin to traveling from the U.S. to China via Frankfurt and India. Each leg of the trip would be recorded in the passport for a citizen of Turkey, considering that she has appropriate visas for all the visited countries. So if want to describe the journey of this passenger, one possibility would be:
 
+```text
+END
+Received: from India by China
+Received: from Frankfurt by India
+Received: from U.S. by Frankfurt
+START
+```
 Entries in the email header are somewhat similar. But, there seems to be a bunch of **`Received:`** entries in there. Where in this file do we start to figure out the email source and its destination?
 
 As an email travels from the source to its destination, each server adds its header entries to the top of the header. So if we want to trace the origination of the email, this will be the _first_ **`Received:`** entry encountered from the **bottom of the header**.
@@ -130,9 +144,63 @@ by mail.shako.com.tw (8.14.3/8.14.3/4.90) with ESMTP
 
 This is the first email-server encountered by the email after leaving the sender's computer. If the email client is web-based then this entry will include details about the server hosting the email web application.
 
-Let's break it down further. The `from` portion of this entry indicates source of the email for this leg of the fight is `User (85-250-54-29.bb.netvision.net.il[85.250.54.29])`. The `by` portion indicates the
+Let's break it down further.   
+The `from` portion of this entry indicates source of the email for this leg of the travel:  
+`User (85-250-54-29.bb.netvision.net.il[85.250.54.29])`.
 
-This entry and every other entry below it is added by the first email server. It may very well be the possibility that the sender is malicious and has full control of this server. So this information should not be readily trusted.  
+The `by` portion indicates the destination:  
+`mail.shako.com.tw (8.14.3/8.14.3/4.90)`
+
+This header entry and every other entry below it is added by the first email server. It may very well be the possibility that the sender is malicious and has full control of this server. So this information should not be readily trusted.  
+Regardless, we now have some information to do further investigation. Let's try and figure out where the mail server is geographically located.
+
+We can use a online utility like http://network-tools.com and enter the domain name or IP address as a query. Here we use `netvision.net.il` and `mail.shako.com.tw` as queries.
+
+```text
+
+SEARCH RESULTS: netvision.net.il
+
+192.118.28.52 is from Israel (IL) in region Middle East
+Input: netvision.net.il
+canonical name: netvision.net.il
+Registered Domain: netvision.net.il
+
+SEARCH RESULTS: mail.shako.com.tw
+
+202.39.131.130 is from Taiwan (TW) in region Southern and Eastern Asia
+Input: mail.shako.com.tw
+canonical name: mail.shako.com.tw
+Registered Domain: shako.com.tw
+
+```
+
+The searches reveal that a computer in `Israel` used a email server in `Taiwan`, while the actual body of the email claims to be from `Guinea Bissau.` Something is not right!
+
+There are few other fields that you should investigate in the email header.  
+
+* `Return-Path:` See if the email address in this entry matches the email address in the `From:` entry. They typically will not match for mass emailers like advertisers or spammers. The `Return-Path:` email address is used when a email cannot be delivered to its recipients. Naturally, spammers don't want all the undelivered email to end up in their inboxes!
+
+* `Reply-To:` See if the email address in this entry matches the email address in the `From:` entry. When you hit reply to an email, the `Reply-To` entry is used to populate the recipients' email. You may accidentally send your reply to someone else.
+
+* `X-Distribution:` Value is *bulk*
+
+* `X-Mailer` Includes weird names
+
+* `Bcc:` or `X-UIDL:` entries exist. This is a sign of poorly crafted header.
+
+* `X-Spam score`, `X-Spam flag` and `X-Spam status` entries help determine “spaminess”. But the scores are not standardized across servers so have to examined on a case by case basis.
+
+Google has a [online tool](https://toolbox.googleapps.com/apps/messageheader/) that also helps to examine the "hops" and the time delay between them. Large delays in accepting email from the origination server may be a sign of issues. Here's what the tool shows about [email-header1.txt](./email-headers/email-header1.txt). There is a suspicious 12 minute delay, which may indicate a large bulk of email being sent out as spam.
+
+![google header analysis](../img/email/googleheaderanalyzer.png)
+
+## Exercise (15 Mins)
+
+Open up the files in the ["email-headers" Folder](./email-headers) and then answer the questions in each one of them. Check these answers with a peer. If they differ then work with your peer to come to a final conclusion. Use the online tools indicated above.
+
+## What about that email from President Barack Obama?
+
+All **`Received:`** entries can be q
 
 
 
