@@ -15,7 +15,7 @@ Here is an interesting one:
 
 If you are a bad guy planning a heist, that is the easiest way for getting malware into an organization. So it is prudent to understand exactly where an email is “really” coming from before opening attachments or clicking links in it. By the end of this unit you be able to do just that.
 
-## Email Headers
+## Email Headers (10 Mins)
 
 Email Headers hold a lot of information. In fact they have so much information that they are never fully displayed to the user! The email reader only sees a select few pieces of information.
 
@@ -26,4 +26,26 @@ Before we get started, consider this email from President Barack Obama to a Rese
 
 Anyways...we see emails like this all the time using desktop or web-based email clients. The section pointed to by the big red arrow, is the part of the email header that most people are familiar with.
 
-There is more to this header.
+There is more to this header. To reveal the full message header, different desktop or web email applications have different methods. Here are instructions for some popular email applications:
+
+-----
+#### Apple Mail
+![applemail](../img/email/applemail.png)
+
+-----
+#### Outlook Desktop Client
+![outlook](../img/email/outlook.png)
+
+-----
+#### Outlook Web Client
+![outlookweb](../img/email/outlookweb.png)
+
+-----
+#### Gmail
+![gmail](../img/email/gmail.png)
+
+It is obvious that in all cases, this information is not easy to find. Once you do find it, there is a ton of information in the header about the path taken from the senders' email server to your email server.
+
+Let's look at some actual email headers.
+
+Open up the files in the ["Email Headers" Folder](./Email\ Headers).
