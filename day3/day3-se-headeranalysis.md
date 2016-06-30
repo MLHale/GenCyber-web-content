@@ -44,8 +44,22 @@ There is more to this header. To reveal the full message header, different deskt
 #### Gmail
 ![gmail](../img/email/gmail.png)
 
-It is obvious that in all cases, this information is not easy to find. Once you do find it, there is a ton of information in the header about the path taken from the senders' email server to your email server.
+-----
 
-Let's look at some actual email headers.
+It is obvious that in all cases, this information is not easy to find.
 
-Open up the files in the ["Email Headers" Folder](./Email\ Headers).
+
+Once you do find it, there is a ton of information in the header about the path taken from the senders' email server to your email server. Let's look at some actual email headers. Open up the files in the ["Email Headers" Folder](./email-headers).
+
+-----
+Here is a snippet from email-header1.txt(./Email\ Headers/email-header1.txt)
+![header 1](../img/email/header1.png)
+
+-----
+
+This header is like a passport for your email. It includes a "stamp" from every email-server that it has encountered in reaching your inbox. The more servers it passes through the longer the header.
+
+
+
+License:
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Cybersecurity Modules</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://faculty.ist.unomaha.edu/rgandhi/" property="cc:attributionName" rel="cc:attributionURL">Robin Gandhi</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
