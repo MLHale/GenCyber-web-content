@@ -1,0 +1,298 @@
+<!--
+	Gencyber web content: Day 1. These files are intended to provide step-by-step self paced tutorials to teachers seeking to learn about cybersecurity first principles as part of the UNO Gencyber camp.
+	Copyright (C) 2016  Dr. Matthew L. Hale
+
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" title="Monokai Sublime" href="css/monokai-sublime.css">
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+		<title>Gencyber Day One</title>
+		<style>
+			#unologo{font-size: 1.2em;text-transform:uppercase;font-family:'urwgroteskregular';color:#FFF;display:inline-block;vertical-align:middle;margin-top:10px;margin-left:3px;font-weight:bold;}
+			.logo {
+				float: left;
+				margin-left: 0px;
+				margin-top: 5px;
+			}
+
+			#tagline{font-size: 1em;font-family:'urwgroteskregular';color:#FFF;display:inline-block;vertical-align:middle;margin-top:15px;margin-left:30px;font-weight:bold;}
+
+			.tagline {
+				float: left;
+				margin-left: -175px;
+				margin-top: 25px;
+			}
+			#main{
+				margin-top: 90px;
+				margin-bottom: 50px;
+				margin-left: 0px;
+				width: 100%;
+			}
+
+			pre {padding: 0em;}
+			img {
+				padding-bottom: 20px;
+				padding-top: 10px;
+			}
+			body {
+				font-size: 16px;
+				position: relative;
+			}
+
+			.copy-stmt {
+				margin-right: 20px;
+			}
+			#leftnav ul {
+				position: fixed;
+			}
+			#leftnav ul li a {
+				padding-top: 2px;
+				padding-bottom: 2px;
+
+			}
+			#taskitem {
+				min-height: 1px;
+				height: 1000px;
+			}
+			#scrollable-content {
+				position: relative;
+				height: 100%;
+				overflow-y: scroll;
+			}
+			:target:before {
+				content:"";
+				display:block;
+				height:90px; /* fixed header height*/
+				margin:-90px 0 0; /* negative fixed header height */
+			}
+
+
+		</style>
+	</head>
+	<body>
+		<!-- <nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<img alt="University of Nebraska Omaha" src="images/logo-subsite-o-2.png">
+					<p id="unologo">UNO: Techademy</p>
+					<p id="tagline">Secure Web Development &copy; 2016 - Dr. Matt Hale</p>
+				</div>
+			</div>
+		</nav> -->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="row">
+					<img alt="University of Nebraska Omaha" src="images/logo-subsite-o-2.png" style="float: left;">
+					<div class="row logo">
+						<p id="unologo">UNO: Gencyber</p>
+					</div>
+					<div class="row tagline">
+						<p id="tagline">Day Two &copy; 2016 - Dr. Matthew Hale</p>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<div id="main" class="container">
+			<div class="row">
+				<nav class="col-sm-1 hidden-xs" id="leftnav">
+					<ul class="nav nav-pills nav-stacked">
+						<h5>Step:</h5>
+						<li><a href="#task1">1</a></li>
+						<li><a href="#task2">2</a></li>
+						<li><a href="#task3">3</a></li>
+						<li><a href="#task4">4</a></li>
+						<li><a href="#task5">5</a></li>
+						<li><a href="#task6">6</a></li>
+						<li><a href="#task7">7</a></li>
+						<li><a href="#task8">8</a></li>
+						<li><a href="#task9">9</a></li>
+						<li><a href="#task10">10</a></li>
+						<li><a href="#task11">11</a></li>
+						<li><a href="#task12">12</a></li>
+						<li><a href="#task13">13</a></li>
+						<li><a href="#task14">14</a></li>
+						<li><a href="#task15">15</a></li>
+						<li><a href="#task16">16</a></li>
+						<li><a href="#task17">17</a></li>
+						<li><a href="#task18">18</a></li>
+						<li><a href="#task19">19</a></li>
+						<li><a href="#task20">20</a></li>
+						<li><a href="#task21">21</a></li>
+						<li><a href="#task22">22</a></li>
+					</ul>
+				</nav>
+				<!--start content -->
+				<div class="col-sm-11 col-xs-12" id="scrollable-content" data-spy="scroll" data-target="#leftnav" data-offset="90">
+					<div class="jumbotron">
+						<h1>Welcome to Gencyber Day 2</h1>
+						<p>This guide will get you up and running with Apache, Django, and Django REST framework. You may want to replace 'myapp' with your actually application name below.</p>
+						<p><a class="btn btn-primary btn-lg" href="#task1" role="button">Get started</a></p>
+					</div>
+					<div class="list-group">
+						<a href="#task1" class="list-group-item">Unit 1: Installing Apache</a>
+					</div>
+					<div id="task1" class="taskitem">
+						<h3 class="taskitem">1. Installing and running Apache</h3>
+
+			            Open your ubuntu server-vm. Once its booted up, login and then press ctrl+alt+t to open a new terminal <br>
+			           	To install apache type the followin in the terminal:<br>
+			            <pre><code>sudo apt-get update
+sudo apt-get install apache2</code></pre><br>
+			            <br>
+			            You should see: <img src="images/lab2/apache-install.png"/><br>
+
+			            You will also need a module called mod_wsgi to allow apache to talk to the django python kernal (a run time environment for python). Lets go ahead and install it:<br>
+
+			            <pre><code>sudo apt-get install libapache2-mod-wsgi</code></pre>
+			            <br>
+
+			            Lets run apache and confirm that "It Works!"<br>
+			            To do so, restart apache from the command line via:<br>
+			            <pre><code>sudo service apache2 restart</code></pre><br>
+			            <br>
+			            With the server restarted, open your a browser (click chrome icon on the left) and navigate to "localhost" (without quotes)
+			            You should see the default configuration running and it should look something like this:<br>
+			            <img src="images/lab2/apache-it-works.png"/><br>
+			            <br>
+			            At this point you are hosting a webserver just like you would find almost anywhere online. Pretty simple to start with right? Well at this point apache is just serving a single page called a "static file." You can find this page (the configuration page) in the /var/www/html/ directory using the file browser or command line. Open it up and take a look and you will see the raw html used to make the "It works" page.
+
+					</div><!-- End Task 1-->
+					<div id="task2" class="taskitem">
+						<h3 class="taskitem">2. Installing and configuring Django</h3>
+			            Now that we have a default install of apache ready, lets make our webserver more interesting by installing and configuring a web development framework called "Django" to work with the server. The mod-wsgi plugin we installed earlier allows Apache to 'talk' to Django and run what the web framework asks it to.<br>
+
+			            First install Django by typing the following in the command line:<br>
+			            <pre><code>sudo apt-get install python-pip
+pip install Django==1.9.7</code></pre><br>
+			           
+			            Then create your first django app by invoking the django-admin script as follows:<br>
+			            You can call your app whatever you want, just adjust 'myapp' to your chosen name throughout the rest of this tutorial.<br>
+			            <pre><code>cd /var/www/
+sudo django-admin.py startproject myapp
+sudo chown iasc8080:www-data -R /var/www/
+sudo chmod 775 /var/www/myapp
+cd myapp/</code></pre><br>
+		            
+			            This command will create and initialize a new django project for you called myapp. You will get a directory structure that looks like
+			            <img src="images/lab2/django-fresh-install2.png"/><br>
+			            If you were on your dev server, all you would need to do to get it running is:
+			            <pre><code>sudo python manage.py runserver</code></pre><br>
+			            <br>
+			            But since this is a 'production' server, lets set Django up to work with apache through mod_wsgi. <br>
+			            Lets first flatten the django directory structure - because the extra depth is unnecessary and we want to exclude some files like manage.py and the database file from our git repo.<br>
+			            on the terminal run:
+			            <pre><code>mv /var/www/myapp/myapp/* /var/www/myapp/
+rmdir /var/www/myapp/myapp/
+mv /var/www/myapp/manage.py /var/www/</code></pre><br>
+			            Since we moved some files around we need to fix a few references so they point to the right files.<br>
+			            First open /var/www/myapp/wsgi.py and change 'myapp.settings' to simply 'settings'<br>
+			            For the rest of this tutorial I suggest you make changes to your production server using Winscp (so you can have a better editor than vim or nano in a putty terminal)<br>
+			            Your wsgi file should look like:<br>
+			            <img src="images/lab2/wsgi-file.png"/><br>
+			            Now change your settings.py file by removing references to 'myapp' in your ROOT_URLCONF<br>
+			            A quick way to do this is (in winscp) open your /var/www/myapp/settings.py file then press ctrl+h to find/replace. Find "myapp." with nothing.<br>
+			            When you're done your "ROOT_URLCONF" should be set equal to simply "urls"<br>
+			            You also need to change the "DATABASES" block to look like the following:<br>
+			            <pre><code>DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '/var/www/myapp/db.sqlite3',
+    }
+}</code></pre><br>
+			            This step will ensure that manage.py creates your db in the myapp folder in the next steps.<br>
+			            <br>
+			            Now tell apache to talk to django instead of loading the "It works" page<br>
+			            <pre><code>sudo nano /etc/apache2/sites-available/000-default.conf</code></pre><br>
+			            Change it to the following:<br>
+			            <pre><code>&lt;VirtualHost *:80&gt;
+        # The ServerName directive sets the request scheme, hostname and port that
+        # the server uses to identify itself. This is used when creating
+        # redirection URLs. In the context of virtual hosts, the ServerName
+        # specifies what hostname must appear in the request's Host: header to
+        # match this virtual host. For the default virtual host (this file) this
+        # value is not decisive as it is used as a last resort host regardless.
+        # However, you must set it for any further virtual host explicitly.
+        ServerName iasc8080-08.ist.unomaha.edu
+
+        ServerAdmin mlhale@unomaha.edu
+
+        # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+        # error, crit, alert, emerg.
+        # It is also possible to configure the loglevel for particular
+        # modules, e.g.
+        LogLevel info
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        Alias /static/ /var/www/myapp/static/
+        Alias /favicon.ico /var/www/myapp/static/icons/favicon.ico
+        
+        #allow access to static files
+        &lt;Directory /var/www/myapp/static&gt;
+            Options -Indexes
+            Require all granted
+        &lt;/Directory&gt;
+
+        #allow access to wsgi file
+        &lt;Directory /var/www/myapp&gt;
+            &lt;Files wsgi.py&gt;
+                Require all granted
+            &lt;/Files&gt;
+        &lt;/Directory&gt;
+
+        ServerSignature Off
+
+        # For most configuration files from conf-available/, which are
+        # enabled or disabled at a global level, it is possible to
+        # include a line for only one particular virtual host. For example the
+        # following line enables the CGI configuration for this host only
+        # after it has been globally disabled with "a2disconf".
+        #Include conf-available/serve-cgi-bin.conf
+&lt;/VirtualHost&gt;
+WSGIScriptAlias / /var/www/myapp/wsgi.py
+WSGIPythonPath /var/www/myapp/
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet</code></pre><br>
+			            <br>
+			            This virtual host is apache's way of binding certain ports to certain hosted files. In this configuration we are enabling django to run inside of apache using the WSGI interface. The WSGIScriptAlias maps to the wsgi.py file in our django install and the python path points to the directory where our project code is at. This configuration also hosts a static files directory in myapp that can be used to host any static files (like css or js or ...your ember app).<br>
+			            Now we just need to do a few things<br>
+			            <pre><code>mkdir /var/www/myapp/static
+			sudo service apache2 reload
+			sudo service apache2 restart</code></pre><br>
+			            This will restart the server and load the configuration.<br>
+			            If all went well you should see:<br>
+			            <img src="images/lab2/django-working2.png"/><br>	
+					</div><!-- End of Task 2-->
+
+				</div><!--end scrollable content -->
+				<!-- Copyright info -->
+				<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">UNO Gencyber Content</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="mlhale.com" property="cc:attributionName" rel="cc:attributionURL">Dr. Matthew L. Hale</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/MLHale/GenCyber-web-content" rel="dct:source">https://github.com/MLHale/GenCyber-web-content</a>.
+			</div><!-- end row -->
+			
+			
+			
+
+		</div><!-- end main -->
+		<p class="text-muted pull-right copy-stmt">Secure Web Development &copy; 2015 - Dr. Matt Hale</p>
+	</body>
+</html>

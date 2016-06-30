@@ -107,7 +107,7 @@
 						<p id="unologo">UNO: Gencyber</p>
 					</div>
 					<div class="row tagline">
-						<p id="tagline">Day One &copy; 2016 - Dr. Matt Hale</p>
+						<p id="tagline">Day One &copy; 2016 - Dr. Matthew Hale</p>
 					</div>
 				</div>
 			</div>
@@ -139,14 +139,25 @@
 						<li><a href="#task20">20</a></li>
 						<li><a href="#task21">21</a></li>
 						<li><a href="#task22">22</a></li>
-						<li><a href="#task23">23</a></li>
 					</ul>
 				</nav>
 				<!--start content -->
 				<div class="col-sm-11 col-xs-12" id="scrollable-content" data-spy="scroll" data-target="#leftnav" data-offset="90">
-					<h2>Techademy Programming guide </h2>
-					This guide will get you up and running with Ember.js and interacting with Flickr (via a REST API)
+					<div class="jumbotron">
+						<h1>Welcome to Gencyber Day 1</h1>
+						<p>This guide will get you up and running with Ember.js and interacting with Flickr (via a REST API). The guide is split into 6 subunits. Select a unit below or start from the beginning.</p>
+						<p><a class="btn btn-primary btn-lg" href="#task1" role="button">Get started</a></p>
+					</div>
+					<div class="list-group">
+						<a href="#task1" class="list-group-item">Unit 1: Ember Hello World and app bootstrapping</a>
+						<a href="#task11" class="list-group-item">Unit 2: App refinement and debugging</a>
+						<a href="#task14" class="list-group-item">Unit 3: Interfacing with external web APIs</a>
+						<a href="#task15" class="list-group-item">Unit 4: Separating Data and Logic layers</a>
+						<a href="#task16" class="list-group-item">Unit 5: Creating a good user experience</a>
+						<a href="#task22" class="list-group-item">Unit 6: Deployment to Github.io</a>
+					</div>
 					<div id="task1" class="taskitem">
+						<h2>UNIT1: Ember Hello World and App Bootstrapping</h2>
 						<h3>1. Start a new ember project</h3>
 
 							Press ctrl + alt + t to open a new terminal.
@@ -378,75 +389,8 @@ git add -A
 git commit -m "end of task 10, created basic flickr page"</code></pre>
 					</div><!-- end task 10-->
 					<div id="task11" class="taskitem">
-						<h3>11. Content Security Policy</h3>
-						One thing you may notice in your ember console when you load the page is a bunch of white-text warnings about content security policy violations. <br>
-						<br>
-						<b>Content security policies (CSPs)</b> are a type of client-side protection against cross-site scripting (XSS) attacks and other malicious data or content. Ember uses CSPs by default. For more information, I suggest you read through <a href="http://www.html5rocks.com/en/tutorials/security/content-security-policy/">this CSP Intro article</a>.<br>
-						<br>
-						In ember, we can set a CSP easily in the <i>environment.js</i> file. Ember allows a developer to test CSPs in something called "report only" mode. If you were deploying to a live production enviornment, you would just copy the ember cli headers to a <i>X-Content-Security-Policy</i> header in your server configuration. That may sound scary, but its not - we will return to this later in the class.<br>
-						<br>
-						For our purposes now, lets fix our content security policy to allow the sources of our third party image files. To do this, open the "/config/environment.js" file in sublime. <br>
-						<br>
-						You should see something like:<br>
-						<pre><code>/* jshint node: true */
-
-module.exports = function(environment) {
-  var ENV = {
-	modulePrefix: 'myproject',
-	environment: environment,
-	baseURL: '/',
-	locationType: 'auto',
-	EmberENV: {
-	  FEATURES: {
-		// Here you can enable experimental features on an ember canary build
-		// e.g. 'with-controller': true
-	  }
-	},
-
-	APP: {
-	  // Here you can pass flags/options to your application instance
-	  // when it is created
-	}
-  };</code></pre>
-						<br>
-						Lets change it to:<br>
-						<pre><code>/* jshint node: true */
-
-module.exports = function(environment) {
-  var ENV = {
-	modulePrefix: 'myproject',
-	environment: environment,
-	baseURL: '/',
-	locationType: 'auto',
-	EmberENV: {
-	  FEATURES: {
-		// Here you can enable experimental features on an ember canary build
-		// e.g. 'with-controller': true
-	  }
-	},
-
-	APP: {
-	  // Here you can pass flags/options to your application instance
-	  // when it is created
-	},
-	contentSecurityPolicy: {
-	  'default-src': "'self' ",
-	  'script-src': "'self' ", // Allow scripts from self only, this prevents injection and XSS attacks
-	  'font-src': "'self' http: https:", // Allow fonts to be loaded from self or any http/https source
-	  'connect-src': "'self' ", // Allow data (ajax/websocket) from self only (The same IP as this app)
-	  'img-src': "'self' http: https:", //Allow images from any http/https server
-	  'style-src': "'self' ", // Allow inline styles and loaded CSS from same IP
-	  'media-src': "'self' "
-	}
-  };</code></pre>
-						<br>
-						Now our app is set up to generate headers correctly for some basic client-side protections. You can also whitelist certain resources if you want to load scripts from trusted third parties (like an API or google hosting services). CSP is a first line of defense for an app developer. In combination with server-side protections on any APIs you create, its a strong security measure. <br>
-						<br>
-						At any rate, you shouldn't see those white warning messages anymore in your ember server terminal.
-
-					</div><!-- end task 11-->
-					<div id="task12" class="taskitem">
-						<h3>12. Adding libraries to your app</h3>
+						<h2>UNIT2: App Refinement and debugging</h2>
+						<h3>11. Adding libraries to your app</h3>
 						At the moment our content looks pretty boring and poorly formatted. Lets spice it up with some CSS. We'll use bootstrap for this project (its pretty widely used). You're probably used to using a bunch of CSS import statements that look like<br>
 						<pre><code>&lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"&gt;</code></pre>
 						<br>
@@ -582,8 +526,8 @@ export default Ember.Controller.extend({
 						Notice, that our hubble image is now scaled to fit into our window. Better yet, it re-scales automatically if you change the window width. <br>
 						go ahead and make a git add, git commit, and git push, like you did before <br>
 					</div><!-- end task 12-->
-					<div id="task13" class="taskitem">
-						<h3>13. Handle some data and do some automatic updates as a user types </h3>
+					<div id="task12" class="taskitem">
+						<h3>12. Handle some data and do some automatic updates as a user types </h3>
 						The thing is if all we wanted was static content we could have simply made a static HTML page without javascript at all. Obviously, we're not stopping here. Lets introduce some actual user functionality to our app. <br>
 						<br>
 						Lets start by adding a search bar, so that users can sort through content by title.<br>
@@ -708,8 +652,8 @@ git commit -m "end of task 13, created search bar"
 git push</code></pre>
 						<br>
 					</div><!-- end task 13-->
-					<div id="task14" class="taskitem">
-						<h3>14. Jazzing up the search bar </h3>
+					<div id="task13" class="taskitem">
+						<h3>13. Jazzing up the search bar </h3>
 						Lets make the search autocomplete as well. It turns out this is really easy to do in ember!<br>
 						<br>
 						go back to your application.js controller and add the following:<br>
@@ -795,8 +739,9 @@ git push</code></pre>
 						Ah, much cleaner yeah?<br>
 						<br>
 					</div><!-- end task 14-->
-					<div id="task15" class="taskitem">
-						<h3>15. First look at flickr </h3>
+					<div id="task14" class="taskitem">
+						<h2>UNIT3: Interfacing with external Web APIs</h2>
+						<h3>14. First look at flickr </h3>
 						Up to this point, we've been working with some dummy data to build out a simple interface. Now its time to connect our app up to flickr to get some real data!<br>
 						<br>
 						Before we get started, lets take a closer look at the flickr API. Flickr provides an open (un-authenticated) API to do most operations on their site (e.g. lookup photos, find tag clusters, read comments, etc) and also offers authenticated API calls for certain other operations (e.g. uploading new pictures, viewing private or group photos, etc).<br>
@@ -990,8 +935,9 @@ git add -A
 git commit -m "end of task 15, basic integration with flickr"</code></pre>
 						<br>
 					</div><!-- end task 15-->
-					<div id="task16" class="taskitem">
-						<h3>16. Cleaning up</h3>
+					<div id="task15" class="taskitem">
+						<h2>UNIT4: Separating Data and Logic Layers</h2>
+						<h3>15. Cleaning up</h3>
 						Now that we can connect with flicker, lets clean up our app. <br>
 						Start by removing the test content from our application.js controller<br>
 						<br>
@@ -1229,8 +1175,9 @@ getPhotos: function(tag){
 git add -A
 git commit -m "end of task 16, using ember store"</code></pre>
 					</div><!-- end task 16-->
-					<div id="task17" class="taskitem">
-						<h3>17. Adding a tag hotlist to the landing page</h3>
+					<div id="task16" class="taskitem">
+						<h2>UNIT5: Creating a Good User Experience</h2>
+						<h3>16. Adding a tag hotlist to the landing page</h3>
 						Lets add a list of the hottest tags to the landing page so that users have somewhere to start rather than just searching tags<br>
 						<br>
 						As usual, start with the template, lets add some ui to display tags<br>
@@ -1314,8 +1261,8 @@ git add -A
 git commit -m "end of task 17, loads data when the page loads"</code></pre>
 
 					</div><!-- end task 17-->
-					<div id="task18" class="taskitem">
-						<h3>18. Making your app more robust</h3>
+					<div id="task17" class="taskitem">
+						<h3>17. Making your app more robust</h3>
 						Up until this point, we've been using the <b>tags.getClusterPhotos</b> method in the flickr API because it was a quick and dirty way to get the data we needed.<br>
 						<br>
 						Unfortunately, as you may have noticed by now, tag cluster photos aren't the most current photos for a given tag.<br>
@@ -1577,8 +1524,8 @@ git add -A
 git commit -m "end of task 18, photo feed working"</code></pre>
 
 					</div><!-- end task 18-->
-					<div id="task19" class="taskitem">
-						<h3 class="taskitem" id="task19">19. Making a couple of nice visual changes</h3>
+					<div id="task18" class="taskitem">
+						<h3 class="taskitem">18. Making a couple of nice visual changes</h3>
 						You may have noticed, that if you search another tag after you've already searched a tag, there is a moment where the app switches back to the landing page then jumps to your results<br>
 						This happens, because we set up a simple if in our template that checked to see if filteredPhotos was empty. When we clear it as part of the clickedTag and search methods, we end up temporarily making the if false.<br>
 						Lets add a condition to make the transition smoother.<br>
@@ -1712,8 +1659,8 @@ filteredPhotosLoaded: false,</code></pre>
 						
 						Our app is really coming along.<br>
 					</div><!-- end task 19-->
-					<div id="task20" class="taskitem">
-						<h3>20. Adding some rich features</h3>
+					<div id="task19" class="taskitem">
+						<h3>19. Adding some rich features</h3>
 
 						Lets make one last modification to allow users to click images and have them expand full screen for larger viewing<br>
 						For this we will use another ember-addon called "ember-cli-lightbox"<br>
@@ -1765,17 +1712,18 @@ sudo chown student -R ~/Desktop/myproject</code></pre>
 						If everything went well, you should see something this if you click on an image:<br>
 						<img src="images/lightbox.png"/><br>
 					</div><!-- end task 20-->
-					<div id="task21" class="taskitem">
+					<div id="task20" class="taskitem">
 						
-						<h3>21. Time to go off on your own and tinker around</h3>
+						<h3>20. Time to go off on your own and tinker around</h3>
 						If you have questions - we will be happy to help you move towards whatever vision you have.<br>
 						Idea 1 - Display things like comments and likes<br>
 						Idea 2 - Port your app to apache cordova and build a mobile app for your phone.<br>
 						Idea 3 - integrate OAuth into your app <br>
 			
 					</div><!-- end task 21-->
-					<div id="task22" class="taskitem">
-						<h3>22. Deployment to GitHub.io</h3>
+					<div id="task21" class="taskitem">
+						<h2>UNIT6: Deployment to Github.io</h2>
+						<h3>21. Deployment to GitHub.io</h3>
 						So, now you have this awesome application, but it's stuck on your VM at UNO.  How can we share the application with the world?<br>
 
 						You already have your project on GitHub, which means you can take advantage of GitHub's IO or <b><a href="https://pages.github.com/">GitHub Pages.</a></b>.  GitHub Pages is a service that lets you host HTML/CSS/JS pages through your GitHub account using a special repository.  Since our application is a client-side app, it will work here too!  GitHub pages is  free!<br><br>
@@ -1850,8 +1798,8 @@ git push
 
 						
 					</div><!-- end task 22-->
-					<div id="task23" class="taskitem">
-						<h3>23.   Continue at Home</h3>
+					<div id="task22" class="taskitem">
+						<h3>22.   Continue at Home</h3>
 						Want to continue this work at home?<br><br>
 
 						All you really need to do is install <b>ember-cli</b> and its dependencies.<br>
