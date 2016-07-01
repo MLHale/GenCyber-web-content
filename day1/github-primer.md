@@ -153,13 +153,64 @@ Now if we see our local README.MD file, it should have the updated link.
 At this point you know enough to keep both the local and remote repositories synchronized.
 
 ### Step 6
-Forking a repository.
+Forking a repository. This is as easy as pie. But what is a fork and what do you use it for?
+
+Here is what Github [says](https://help.github.com/articles/fork-a-repo/):
+> A fork is a copy of a repository. Forking a repository allows you to freely experiment with changes without affecting the original project.
+
+> Most commonly, forks are used to either propose changes to someone else's project or to use someone else's project as a starting point for your own idea.
+
+> Every public repository can be forked
+
+So head-on over to a hello-world repository developed by one of your peers. Then click the "Fork" button.
+
+![githubfork](../img/primer/githubfork.png)
+
+Now you will have your very own copy of your peer's repository to work on. Using Step 3 you can clone this repository to your local computer. Make changes to files and push it back to this forked remote repository. You may also make direct changes to it on Github itself (Step 5).
 
 ### Step 7
-Make changes to your peers' repository create a pull request.
+In this step we make changes to the fork of your peers' repository and create a pull request.
+
+Let's assume that a `gencyber` user forks `robinagandhi/hello-world` repository.
+
+![forkedrepo](../img/primer/forkedrepo.png)
+
+The gencyber user now makes changes to the README.md file in this forked repository. She is also the owner of this forked repository.
+
+![forkupdate](../img/primer/forkupdate.png)
+
+To suggest these changes to `robinagandhi`; `gencyber` user has to create a pull request. So `gencyber` user switches over to the Pull Request tab and clicks the pull request button.
+
+![forkpulltab](../img/primer/forkpulltab.png)
+
+Here is a open pull request that compares the master branches across the two repositories.
+
+![forkpullopen](../img/primer/forkpullopen.png)
+
+`robinagandhi` user is now notified of a pull request on his hello-world repository.
+He examines the suggested changes, and in this case the files can be automatically merged.
+
+![forkmerge](../img/primer/forkmerge.png)
+
+In cases where files cannot be merged automatically, discussions around the pull request can help to resolve the conflicts manually. In this case that won't be necessary. With a few more simple clicks the changes are merged.
+
+![mergeconfirm](../img/primer/mergeconfirm.png)
+
+Confirmation message after a successful merge.
+
+![mergemsg](../img/primer/mergemsg.png)
+
+The updated content is now reflected in `robinagandhi/hello-world` repository.
+
+![finalupdate](../img/primer/forkupdatefinal.png)
+
+And that is how you collaborate using Github.
 
 ### Step 8
-Learn Markdown and Github Flavor Variants. https://help.github.com/categories/writing-on-github/
+To communicate and write on Github, it is useful to learn Markdown and its Github Flavor Variants. https://help.github.com/categories/writing-on-github/
+
+
+You are now ready to explore the wonderful world of open source on Github. Enjoy and make your own contributions!
 
 
 ## Additional Resources
