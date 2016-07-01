@@ -20,7 +20,7 @@ First things first, create a free account on Github. https://github.com/join
 Complete the Github tutorial.
 https://guides.github.com/activities/hello-world/
 
-At the end of Step 2, you have created a **Remote** repository. It is "remote" because all your files are in the Github cloud. How do you continue to work on your repository if you had no Internet connection? Also, it is not convenient to write and test code online. It would be great to your own **Local** repository. We will do just that in the next step.
+At the end of Step 2, you will have created a **Remote** repository. It is "remote" because all your files are in the Github cloud. How do you continue to work on your repository if you had no Internet connection? Also, it is not convenient to write and test code online. It would be great to your own **Local** repository. We will do just that in the next step.
 
 ### Step 3
 To create a **Local** repository there are two basic options.
@@ -128,7 +128,29 @@ If you visit your remote repository your changes will be reflected there. You sh
 git version control is very efficient for text files. It does not store entire files for old versions but only the differences. So it is prudent to make frequent commits. Then push these changes to the remote repository.
 
 ### Step 5
-Make remote changes and pull changes to local repository.
+What happens if we make some changes to README.md on Github.com? How do we get these changes back into our local repository. We will learn just that in this step.
+
+I realized that I forgot to add a link to UNO's Cybersecurity programs in the README.md file. So I will go ahead and do that and commit those changes online.
+Click on README.md file on Github and click the edit option.
+
+#### Edit mode
+![githubedit](../img/primer/githubedit.png)
+
+#### Make changes and commit
+![githubcommit](../img/primer/githubcommit.png)
+
+#### See changes
+![githubupdated](../img/primer/githubupdated.png)
+
+Now the remote repository is one commit ahead of my local repository. To bring the local repository up to speed, we use the `git pull` command.
+
+![gitpull](../img/primer/gitpull.png)
+
+Now if we see our local README.MD file, it should have the updated link.
+
+![localpullupdate](../img/primer/localpullupdate.png)
+
+At this point you know enough to keep both the local and remote repositories synchronized.
 
 ### Step 6
 Forking a repository.
@@ -138,3 +160,14 @@ Make changes to your peers' repository create a pull request.
 
 ### Step 8
 Learn Markdown and Github Flavor Variants. https://help.github.com/categories/writing-on-github/
+
+
+## Additional Resources
+
+* Creating a local repository first and then adding a remote repository, [Github](https://try.github.io/)
+* [Github cheatsheet](https://services.github.com/kit/downloads/github-git-cheat-sheet.pdf)
+* Collection of [Github tutorials](https://help.github.com/articles/good-resources-for-learning-git-and-github/)
+
+
+#### License
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Cybersecurity Modules</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://faculty.ist.unomaha.edu/rgandhi/" property="cc:attributionName" rel="cc:attributionURL">Robin Gandhi</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
