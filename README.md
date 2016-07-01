@@ -4,7 +4,7 @@ These files are intended to provide step-by-step self paced tutorials to teacher
 # Live preview of current versions
 Each step-by-step tutorial is specified by day and hosted at the following urls:
 
-Day1:
+Day1:  
 1. Virtual Machines Primer  
 2. [Github Primer](./day1/github-primer.md)  
 3. [Unit 1: Ember Hello World and app bootstrapping](https://dl.dropboxusercontent.com/u/4594444/GenCyber-web/day1/day1.html#task1)  
@@ -14,11 +14,11 @@ Day1:
 7. [Unit 5: Creating a good user experience](https://dl.dropboxusercontent.com/u/4594444/GenCyber-web/day1/day1.html#task16)  
 9. [Unit 6: Deployment to Github.io](https://dl.dropboxusercontent.com/u/4594444/GenCyber-web/day1/day1.html#task21)  
 
-Day 2:
+Day 2:  
 1. [Firewalls](./day2-firewalls-iptables.md)  
 2. [Django](./day2/day2.html)  
 
-Day 3:
+Day 3:  
 1. [Email Header Analysis](./day3/day3-se-headeranalysis.md)  
 
 #License
