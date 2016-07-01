@@ -11,10 +11,13 @@ Git is a popular developer tool for collaboration and version control. It is not
 [Step 6: Fork Repository](#step-6)  
 [Step 7: Pull Request](#step-7)  
 [Step 8: Markdown](#step-8)  
+[Additional Resources](#additional-resources)
 
 
 ### Step 1
 First things first, create a free account on Github. https://github.com/join
+
+[Top](#table-of-contents)
 
 ### Step 2
 Complete the Github tutorial.
@@ -22,10 +25,14 @@ https://guides.github.com/activities/hello-world/
 
 At the end of Step 2, you will have created a **Remote** repository. It is "remote" because all your files are in the Github cloud. How do you continue to work on your repository if you had no Internet connection? Also, it is not convenient to write and test code online. It would be great to your own **Local** repository. We will do just that in the next step.
 
+[Top](#table-of-contents)
+
 ### Step 3
 To create a **Local** repository there are two basic options.
 1. Clone a remote repository on your computer, or
 2. Initialize a new git repository from scratch on your computer.
+
+[Top](#table-of-contents)
 
 ##### Clone a remote repository
 Let's go with option #1. Git tools do not come pre-installed. To check if they exist on your operating system, open up a command line interface and type `git`. If git is installed, this command will give you some help options. If the command is not recognized, then use this link to install git for your operating system flavor. https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
@@ -65,6 +72,8 @@ LICENSE  README.md
 ##### Initialize a new repository
 
 For option #2, navigate to the folder with your files. Then use the init command: `git init`. That's it! We do not need to use this option currently, so let's move to [Step 4](#step-4)
+
+[Top](#table-of-contents)
 
 ### Step 4
 In this step we will make changes to files in our Local repository and then `push` changes back to the remote repository.
@@ -127,6 +136,8 @@ If you visit your remote repository your changes will be reflected there. You sh
 
 git version control is very efficient for text files. It does not store entire files for old versions but only the differences. So it is prudent to make frequent commits. Then push these changes to the remote repository.
 
+[Top](#table-of-contents)
+
 ### Step 5
 What happens if we make some changes to README.md on Github.com? How do we get these changes back into our local repository. We will learn just that in this step.
 
@@ -152,6 +163,8 @@ Now if we see our local README.MD file, it should have the updated link.
 
 At this point you know enough to keep both the local and remote repositories synchronized.
 
+[Top](#table-of-contents)
+
 ### Step 6
 Forking a repository. This is as easy as pie. But what is a fork and what do you use it for?
 
@@ -167,6 +180,8 @@ So head-on over to a hello-world repository developed by one of your peers. Then
 ![githubfork](../img/primer/githubfork.png)
 
 Now you will have your very own copy of your peer's repository to work on. Using Step 3 you can clone this repository to your local computer. Make changes to files and push it back to this forked remote repository. You may also make direct changes to it on Github itself (Step 5).
+
+[Top](#table-of-contents)
 
 ### Step 7
 In this step we make changes to the fork of your peers' repository and create a pull request.
@@ -206,12 +221,15 @@ The updated content is now reflected in `robinagandhi/hello-world` repository.
 
 And that is how you collaborate using Github.
 
+[Top](#table-of-contents)
+
 ### Step 8
 To communicate and write on Github, it is useful to learn Markdown and its Github Flavor Variants. https://help.github.com/categories/writing-on-github/
 
 
 You are now ready to explore the wonderful world of open source on Github. Enjoy and make your own contributions!
 
+[Top](#table-of-contents)
 
 ## Additional Resources
 
@@ -219,6 +237,7 @@ You are now ready to explore the wonderful world of open source on Github. Enjoy
 * [Github cheatsheet](https://services.github.com/kit/downloads/github-git-cheat-sheet.pdf)
 * Collection of [Github tutorials](https://help.github.com/articles/good-resources-for-learning-git-and-github/)
 
+[Top](#table-of-contents)
 
 #### License
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Cybersecurity Modules</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://faculty.ist.unomaha.edu/rgandhi/" property="cc:attributionName" rel="cc:attributionURL">Robin Gandhi</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
