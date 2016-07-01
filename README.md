@@ -4,26 +4,34 @@ These files are intended to provide step-by-step self paced tutorials to teacher
 # Live preview of current versions
 Each step-by-step tutorial is specified by day and hosted at the following urls:
 
-Day1:  
+#### Day1: Development Environment and Client-side App Creation
 1. Virtual Machines Primer  
-2. [Github Primer](./day1/github-primer.md)  
-3. [Unit 1: Ember Hello World and app bootstrapping](https://dl.dropboxusercontent.com/u/4594444/GenCyber-web/day1/day1.html#task1)  
-4. [Unit 2: App refinement and debugging](https://dl.dropboxusercontent.com/u/4594444/GenCyber-web/day1/day1.html#task11)  
-5. [Unit 3: Interfacing with external web APIs](https://dl.dropboxusercontent.com/u/4594444/GenCyber-web/day1/day1.html#task13)  
-6. [Unit 4: Separating Data and Logic layers](https://dl.dropboxusercontent.com/u/4594444/GenCyber-web/day1/day1.html#task15)  
-7. [Unit 5: Creating a good user experience](https://dl.dropboxusercontent.com/u/4594444/GenCyber-web/day1/day1.html#task16)  
-9. [Unit 6: Deployment to Github.io](https://dl.dropboxusercontent.com/u/4594444/GenCyber-web/day1/day1.html#task21)  
+2. [Github Primer](./day1/github-primer.md)
+3. Client-side web app setup and development
+  * [Sub-Unit 1: Ember Hello World and app bootstrapping](https://htmlpreview.github.io/?https://github.com/MLHale/GenCyber-web-content/blob/master/day1/day1.html#task1)  
+  * [Sub-Unit 2: App refinement and debugging](https://htmlpreview.github.io/?https://github.com/MLHale/GenCyber-web-content/blob/master/day1/day1.html#task11)  
+  * [Sub-Unit 3: Interfacing with external web APIs](https://htmlpreview.github.io/?https://github.com/MLHale/GenCyber-web-content/blob/master/day1/day1.html#task14)  
+  * [Sub-Unit 4: Separating Data and Logic layers](https://htmlpreview.github.io/?https://github.com/MLHale/GenCyber-web-content/blob/master/day1/day1.html#task15)  
+  * [Sub-Unit 5: Creating a good user experience](https://htmlpreview.github.io/?https://github.com/MLHale/GenCyber-web-content/blob/master/day1/day1.html#task16)  
+  * [Sub-Unit 6: Deployment to Github.io](https://htmlpreview.github.io/?https://github.com/MLHale/GenCyber-web-content/blob/master/day1/day1.html#task21)  
 
-Day 2:  
-1. [Firewalls](./day2-firewalls-iptables.md)  
-2. [Django](./day2/day2.html)  
+#### Day 2: Server-side Application Creation
+1. [Firewalls](./day2/day2-firewalls-iptables.md)  
+2. [Django](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html)  
 
-Day 3:  
+#### Day 3: Reducing Exposure: Training the Human and Cryptography
 1. [Email Header Analysis](./day3/day3-se-headeranalysis.md)  
 
-#License
-Gencyber web content.
-Copyright (C) 2016  Dr. Matthew L. Hale
+#### Day 4: Teacher-Student group exercises
+
+
+#### Day 5: Capture the Flag Contest
+Jeopardy style contest among student-teacher teams.
+
+
+### License  
+Gencyber web content.  
+Copyright (C) 2016  Dr. Matthew L. Hale  
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
