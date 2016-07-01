@@ -1,6 +1,16 @@
 # Email Header Analysis
 
-## Introduction (5 Mins)
+### Table of Contents  
+[Introduction](#introduction)  
+[Email Headers](#email-headers)  
+[Headers are like Passports](#headers-are-like-passports)  
+[Exercise](#exercise)  
+[Investigation](#investigation)  
+[Additional Tasks](#additional-tasks)  
+[Additional Readings and Tools](#additional-readings-and-tools)  
+
+
+## Introduction
 
 Email is an indispensable communication tool. We use it everyday. Unfortunately many attacks also originate in emails. Wouldn't it be great if everyone had some mad email ninja skills! Don't worry, you will feel pretty good about your email analysis skills at the end of this session.
 
@@ -15,7 +25,9 @@ Here is an interesting one:
 
 If you are a bad guy planning a heist, that is the easiest way for getting malware into an organization. So it is prudent to understand exactly where an email is “really” coming from. Do not rush to open attachments or click links in emails.
 
-## Email Headers (10 Mins)
+[Top](#table-of-contents)
+
+## Email Headers
 
 Email Headers hold a lot of information. Much of this information is never displayed to the user! The email reader only sees a select few pieces of information like From, Name, Subject, Date, and Sender's email.
 
@@ -116,6 +128,8 @@ my email:carrr444@yahoo.com
 #### Discussion:
 What are your first thoughts?
 
+[Top](#table-of-contents)
+
 ## Headers are like Passports
 
 Consider a Turkey citizen, who is traveling from the U.S. to China via stops in Germany and India. Authorities in countries in each leg of her trip would record the source and destination of the previous leg in the passport.  Assume that she has appropriate visas for all the visited countries. One way to describe the journey in her passport could be as follows, with the most recent entry at the top:
@@ -190,15 +204,20 @@ Google has a [online tool](https://toolbox.googleapps.com/apps/messageheader/) t
 
 ![google header analysis](../img/email/googleheaderanalyzer.png)
 
-## Exercise (15 Mins)
+[Top](#table-of-contents)
+
+## Exercise
 
 Open up the files in the ["email-headers" Folder](./email-headers) and then answer the questions in each one of them. Check your answers with a peer. If they differ then work with your peer to come to a final conclusion. Use the following online tools as shown above.
 
 * [network-tools](http://network-tools.com)
 * [Google Message Header Analyzer](https://toolbox.googleapps.com/apps/messageheader/)
 
+[Top](#table-of-contents)
 
-## What about that email from President Barack Obama? (5 Mins)
+
+## Investigation
+What about that email from President Barack Obama?
 
 Here is the raw header:
 
@@ -260,7 +279,9 @@ Questions:
 * What website is linked to “Grant funding request.” in the message?
 * How likely is it that this message is spam?
 
-## Additional Tasks:
+[Top](#table-of-contents)
+
+## Additional Tasks
 
 Pick an spam email in your inbox. Inspect discrepancies in its headers and investigate the source of the email. Spot traps that can misguide a email user. Share this knowledge with your friends and family.
 
@@ -268,11 +289,14 @@ Pick an spam email in your inbox. Inspect discrepancies in its headers and inves
 
 Stay Vigilant!
 
-## Additional Readings and Tools:
+[Top](#table-of-contents)
+
+## Additional Readings and Tools
 
 * How to locate raw headers in email clients. [mxtoolbox](https://mxtoolbox.com/Public/Content/EmailHeaders/)
-
 * Advanced email headers. [ARCLAB](https://www.arclab.com/en/kb/email/how-to-read-and-analyze-the-email-header-fields-spf-dkim.html)
+
+[Top](#table-of-contents)
 
 
 
