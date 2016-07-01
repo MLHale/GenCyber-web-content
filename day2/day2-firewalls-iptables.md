@@ -2,13 +2,21 @@
 
 Firewalls are often a first line of defense for an enterprise or home network. In this unit we will understand the fundamentals of firewalls, write firewall rules that configure its behavior and then test if the firewall performs as expected.
 
+### Table of Contents  
+[Overview](#overview)  
+[Firewalls as a Collection of Valves](#firewalls-as-a-collection-of-valves)  
+[Firewall Rules](#firewall-rules)  
+[Working with iptables](#working-with-iptables)  
+[Making Firewall Settings Persistent](#making-firewall-settings-persistent)  
+[Additional Readings](#additional-readings)  
+
 ## Overview
 
 The name firewall is inspired from its physical manifestation in construction which refers to walls that are designed to stop a fire from spreading.
 
 ![Firewall in a substation](https://upload.wikimedia.org/wikipedia/commons/3/3c/Firewall_Electrical_Substation.jpg)
 
-While these firewalls are "cool", we are interesting in a different kind of firewall. The ones that protect internal networks from external networks. These kinds of firewalls allow us to control the flow of information across networks. 
+While these firewalls are "cool", we are interesting in a different kind of firewall. The ones that protect internal networks from external networks. These kinds of firewalls allow us to control the flow of information across networks.
 
 ![network firewalls](../img/firewall/networkfirewall.png)
 
@@ -26,6 +34,8 @@ At what [network layer] (https://support.microsoft.com/en-us/kb/103884) does it 
 
 Discussion:  
 The headers on ethernet frames at the Data link layer and below are not useful for routing across networks. Firewalls rules are authored using routing information starting at the Network (also called the IP layer in the TCP/IP implemenation) layer and above, all the way to the application layer. As a result IP layer firewalls are the simplest and most widely used.
+
+[Top](#table-of-contents)
 
 ### Firewall as a Collection of Valves
 
@@ -47,6 +57,8 @@ In the case of **Port 2**, it allows unrestricted flow of information if the con
 
 Finally, **Port 3** is closed. Which means that it denies all traffic. A closed port may just drop the packets or send back a RST or "Reset" packet. From a security and resource consumption standpoint, it is always better to just drop the packet. Upon denial of access, no additional or useful information should be communicated back.
 
+[Top](#table-of-contents)
+
 ## Firewall Rules
 
 Firewalls are configured using simple `if then` rules. In a packet filtering firewall, a rule says: `if source, destination, protocol and service is a match THEN take this action`. Since there are many rules involved, the order of the rules matters. **A LOT!**
@@ -55,15 +67,15 @@ Rules are evaluated in order, starting with the first one at the top until a fir
 
 Always start firewall configuration with a _whitelisting_ philosophy, where you “Deny by default” and then allow only specific information flows. This means, start the firewall configuration by dropping all packets. Then add rules to allow specific traffic patterns as required by application needs.
 
-Lets look at an example. 
+Lets look at an example.
 
 ![valves](../img/firewall/examplerules.png)  
 
 **Rule 1** permits externally initiated requests to a webserver behind the firewall. So the source is “any”, since we cannot anticipate a specific IP address at the time of writing the rule. The destination is the IP address of the webserver and the service specifies the port number where the service is typically hosted. That would be port 80 for a web server. If these three match an incoming packet then the action is “ACCEPT”
 
-**Rule 2** permits internally initiated requests out to the Internet. So the source is any ip address in the local network, which we specify as a range of IP addresses but stated here as "localnet". The destination and the service cannot be anticipated at the time of writing the rule so both are specified as “any”. If a packet matches these conditions then the action is "ACCEPT". 
+**Rule 2** permits internally initiated requests out to the Internet. So the source is any ip address in the local network, which we specify as a range of IP addresses but stated here as "localnet". The destination and the service cannot be anticipated at the time of writing the rule so both are specified as “any”. If a packet matches these conditions then the action is "ACCEPT".
 
-**Rule 3** is to deny all other traffic that does not match the previous rules. So all three match conditions are specified as “any” and the action is "REJECT". 
+**Rule 3** is to deny all other traffic that does not match the previous rules. So all three match conditions are specified as “any” and the action is "REJECT".
 
 ### Question
 
@@ -72,7 +84,9 @@ What would happen if we re-ordered these rules? Specifically if Rule 3 was excha
 Discussion:
 Rule 3 is often implemented as a "Default Policy", instead of an explicit rule in the table. This policy applies ONLY if a packet matches NONE of the rules specified for the firewall. More on this shortly.
 
-## Working with `iptables`
+[Top](#table-of-contents)
+
+## Working with iptables
 
 As mentioned before Linux has a firewall built right into the kernel and it is configured using the `iptables` command. Since it is a utility for privileged users, you will need to first elevate your privilege level using `sudo` prepended to the `iptables` command. Do this everytime an `iptables` command is issued. See code block below.
 
@@ -81,7 +95,7 @@ This firewall can be set up in several modes like packet filtering, which is the
 To view your current firewall rules, fire off this command in your Linux Server VM. Enter your password if prompted.
 
 ```bash
-sudo iptables -nL 
+sudo iptables -nL
 ```
 You should see something like this:
 
@@ -90,7 +104,7 @@ You should see something like this:
 What are those `-nL` commandline parameters for?  
 
 `-n` This option tell iptables to not resolve domain names for the ip addresses in the matching rules. This results in faster display of the rules.
- 
+
 `-L` Lists all the rules in a specified chain. If no chain is specified then all chains are listed.
 
 But wait! what is a **Chain**? A chain is a list of rules that can match a set of packets. It is similar to the example table that we discussed before. There are several built-in chains: INPUT, FORWARD and OUTPUT. For packet filtering, INPUT and OUTPUT chains are sufficient. As their names suggest, INPUT chain is a set of rules that match the "incoming" packets to your computer. Similarly, OUTPUT chain is a set of rules that match the "outgoing" packets. In the screenshot you can observe that currently both these chains are empty! Also `(policy ACCEPT)` suggests that the default policy for both chains is set to ACCEPT all packets. So essentially, your firewall is WIDE OPEN at this point. We better start to close it!
@@ -100,14 +114,14 @@ But wait! what is a **Chain**? A chain is a list of rules that can match a set o
 Based on a whitelisting philosopy, let's begin by denying all traffic by default.
 
 ```bash
-sudo iptables -P INPUT DROP 
+sudo iptables -P INPUT DROP
 ```
 This command uses the `-P` switch to set the default policy for the INPUT chain to DROP. This means drop all incoming packets to your computer. Let's see what the INPUT chain looks like now.
 
 ```bash
 sudo iptables -nL INPUT
 ```
-You should see something like this. 
+You should see something like this.
 
 ![iptables screenshot](../img/firewall/inputdrop.png)
 
@@ -120,15 +134,15 @@ sudo iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
 ```
 
 This `iptables` command follows a general structure: `iptables <option> <chain> <matching criteria> <target>`   
-Let's examine each element in this structure in detail. 
+Let's examine each element in this structure in detail.
 
 ---
 `<option> <chain>`  
-Immediately following the iptables command the **option** component allows to specify the position in which the rule will be inserted into a **chain**. For example `–A INPUT` appends the rule in the INPUT chain. `–I OUTPUT 3` inserts the rule at a specified position in the OUTPUT chain. The rule numbers start at position 1. 
+Immediately following the iptables command the **option** component allows to specify the position in which the rule will be inserted into a **chain**. For example `–A INPUT` appends the rule in the INPUT chain. `–I OUTPUT 3` inserts the rule at a specified position in the OUTPUT chain. The rule numbers start at position 1.
 
-So this option `-I INPUT 1` says: Insert this Rule at position 1 in the INPUT chain. 
+So this option `-I INPUT 1` says: Insert this Rule at position 1 in the INPUT chain.
 
-> A few more useful options: `–D` to delete a rule in a specified position in the chain. `–F` is for flushing the chain, which deletes all rules in a chain. 
+> A few more useful options: `–D` to delete a rule in a specified position in the chain. `–F` is for flushing the chain, which deletes all rules in a chain.
 
 ---
 `<matching criteria>`  
@@ -157,9 +171,9 @@ sudo iptables -nL INPUT
 ```
 ![iptables screenshot](../img/firewall/inputwebrule.png)
 
-This output looks much similar to the example table that we discussed earlier. Here source and desination ip addresses of `0.0.0.0\0` is equivalent to "any". So the rule is equivalent to saying, match all TCP packets from **any** source to **any** desitination with a destination port 80. 
+This output looks much similar to the example table that we discussed earlier. Here source and desination ip addresses of `0.0.0.0\0` is equivalent to "any". So the rule is equivalent to saying, match all TCP packets from **any** source to **any** desitination with a destination port 80.
 
-If you did it right, your webserver should be accessible again. Go ahead and confirm. 
+If you did it right, your webserver should be accessible again. Go ahead and confirm.
 
 What about other ports? You would also need port 443 for HTTPS to be open. To do this we need to add another rule. This time let's append it to the INPUT chain using the `-A` option.
 
@@ -167,7 +181,7 @@ What about other ports? You would also need port 443 for HTTPS to be open. To do
 sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 ```
 
-Notice that with `-A` you do not have to specify the rule number. The rule just gets added to the bottom of the INPUT chain. Let's look at the INPUT chain now. 
+Notice that with `-A` you do not have to specify the rule number. The rule just gets added to the bottom of the INPUT chain. Let's look at the INPUT chain now.
 
 ```bash
 sudo iptables -nL INPUT
@@ -176,9 +190,17 @@ sudo iptables -nL INPUT
 
 The secure web portion of your server should also be now available to client apps. Go ahead and confirm.
 
-If your website defaults to https then you may consider making the port 443 rule the first rule. This will avoid unecessary evaluation of the port 80 rule for most network packets. 
+If your website defaults to https then you may consider making the port 443 rule the first rule. This will avoid unnecessary evaluation of the port 80 rule for most network packets.
 
-There many other advanced firewall rules that can be authored. But these simple rules should be sufficient to demonstrate the inner workings of a Firewall. We have also managed to significantly reduce the exposed ports of the server to those that are absolutely necessary for our application to work. Nothing more. Any IPv4 network traffic that does not match our rules will be processed by the default policy. In our case, the default policy is DROP. 
+Just these rules can be very restrictive and hamper debugging. For example, right now your server will not even respond to a simple "ping" request. Also we want to allow "incoming" packets that are in response to an "outgoing" request initiated by the server. Such packets are refered to be in a `ESTABLISHED` or `RELATED` state. Here are iptables commands to do just that.
+
+```bash
+sudo iptables -A INPUT -p icmp --icmp-type 0 -j ACCEPT
+sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+```
+These rules should make your server much more convenient to debug and operate.
+
+There many other advanced firewall rules that can be authored. But these simple rules should be sufficient to demonstrate the inner workings of a Firewall. We have also managed to significantly reduce the exposed ports of the server to those that are absolutely necessary for our application to work. Nothing more. Any IPv4 network traffic that does not match our rules will be processed by the default policy. In our case, the default policy is DROP.
 
 For more details on `iptables`, consult these web resources:
 
@@ -186,15 +208,15 @@ For more details on `iptables`, consult these web resources:
 [CentOS iptables Wiki](https://wiki.centos.org/HowTos/Network/IPTables)
 
 Discussion:
-Now step back and ponder this question: Have I taken care of all network openings into the server? 
+Now step back and ponder this question: Have I taken care of all network openings into the server?
 
-Let's check something. `ss` is a great linux network utility. Among other things it shows a summary of network statistics. 
+Let's check something. `ss` is a great linux network utility. Among other things it shows a summary of network statistics.
 
 ```bash
-ss -s 
+ss -s
 ```
 
-Notice anything in the output? 
+Notice anything in the output?
 
 ![iptables screenshot](../img/firewall/ssoutput.png)
 
@@ -202,7 +224,7 @@ How about now?
 
 ![iptables screenshot](../img/firewall/ssoutput2.png)
 
-Turns out we controlled the IPv4 network interface, but completely forgot about **IPv6**. This happens a lot in real systems too. In particular, while port 22 for ssh access may be blocked in IPv4, but it is often left accessible using a IPv6 address. Check if that is the case with your server. 
+Turns out we controlled the IPv4 network interface, but completely forgot about **IPv6**. This happens a lot in real systems too. In particular, while port 22 for ssh access may be blocked in IPv4, but it is often left accessible using a IPv6 address. Check if that is the case with your server.
 
 Run the following command to check the state of IPv6 interface on our server. Notice the `6` in the `ip6tables` command.
 
@@ -216,7 +238,7 @@ The IPv6 network interface is WIDE OPEN!!! So if a ssh service was running, it w
 Let's fix this by setting the default policy on all IPv6 chains to DROP.
 
 ```bash
-sudo ip6tables -P INPUT DROP 
+sudo ip6tables -P INPUT DROP
 sudo ip6tables -P OUTPUT DROP
 sudo ip6tables -P FORWARD DROP
 ```
@@ -226,6 +248,8 @@ Check if the settings were correctly applied.
 ```bash
 sudo ip6tables -nL
 ```
+
+[Top](#table-of-contents)
 
 ### Making Firewall Settings Persistent
 
@@ -240,10 +264,16 @@ That's it for Firewalls in this Unit. Happy Surfing.
 
 > Firewalls are an essential component of "Defense-in-Depth" strategy. It can certainly slowdown an attacker. However, firewalls cannot keep a determined adversary out. There are many ways in which firewalls can be abused and easily bypassed. Such attacks need to be constantly monitored using Intrusion Detection Systems (IDS) and Network Monitoring solutions. The final line of defense is applications built using secure coding practices and proper encryption implementations.  
 
+[Top](#table-of-contents)
+
 ## Additional Readings
 
 * [Microsoft The OSI Model's Seven Layers Defined and Functions Explained] (https://support.microsoft.com/en-us/kb/103884)  
 * [Ubuntu iptables Wiki](https://help.ubuntu.com/community/IptablesHowTo)  
 * [CentOS iptables Wiki](https://wiki.centos.org/HowTos/Network/IPTables)
 
-Copyright 2010-2016 Robin Gandhi All Rights Reserved
+[Top](#table-of-contents)
+
+
+#### License:
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Cybersecurity Modules</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://faculty.ist.unomaha.edu/rgandhi/" property="cc:attributionName" rel="cc:attributionURL">Robin Gandhi</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
