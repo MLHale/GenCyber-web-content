@@ -1,57 +1,0 @@
-                                                                                                                                                                                                                                                               
-Email Header
-============================================================================
-
-Received: from BY2PR07MB042.namprd07.prod.outlook.com (10.255.240.146) by
- SN2PR07MB048.namprd07.prod.outlook.com (10.255.174.148) with Microsoft SMTP
- Server (TLS) id 15.0.837.10 via Mailbox Transport; Tue, 10 Dec 2013 03:53:20
- +0000
-Received: from CO2PR07CA008.namprd07.prod.outlook.com (10.141.194.176) by
- BY2PR07MB042.namprd07.prod.outlook.com (10.255.240.146) with Microsoft SMTP
- Server (TLS) id 15.0.837.10; Tue, 10 Dec 2013 03:53:17 +0000
-Received: from BN1BFFO11FD039.protection.gbl (2a01:111:f400:7c10::1:118) by
- CO2PR07CA008.outlook.office365.com (2a01:111:e400:1414::48) with Microsoft
- SMTP Server (TLS) id 15.0.800.7 via Frontend Transport; Tue, 10 Dec 2013
- 03:53:17 +0000
-Received: from loki.ist.unomaha.edu (137.48.187.123) by
- BN1BFFO11FD039.mail.protection.outlook.com (10.58.144.102) with Microsoft
- SMTP Server id 15.0.825.6 via Frontend Transport; Tue, 10 Dec 2013 03:53:16
- +0000
-Received: from loki.ist.unomaha.edu (localhost [127.0.0.1])	by
- loki.ist.unomaha.edu (Postfix) with ESMTP id DC7C51E0577	for
- <smartprof@unomaha.edu>; Mon,  9 Dec 2013 21:53:15 -0600 (CST)
-Subject: RE: Research
-Date: Mon, 9 Dec 2013 21:53:15 -0600
-Content-Type: text/html; charset="utf-8"
-To: <smartprof@unomaha.edu>
-Content-Transfer-Encoding: quoted-printable
-From: <barack.obama@whitehouse.gov>
-Message-ID: <20131210035315.DC7C51E0577@loki.ist.unomaha.edu>
-Return-Path: barack.obama@whitehouse.gov
-X-MS-Exchange-Organization-MessageDirectionality: Incoming
-X-Forefront-Antispam-Report: CIP:137.48.187.123;CTRY:US;IPV:NLI;EFV:NLI;SFV:NSPM;SFS:(199002)(189002)(44976005)(49866001)(74366001)(558084003)(70486001)(221733001)(80976001)(76786001)(76796001)(87836001)(19580395003)(81542001)(83322001)(90146001)(87266001)(47736001)(79102001)(15975445006)(4396001)(69226001)(46102001)(50466002)(80022001)(76482001)(65816001)(74876001)(74706001)(54356001)(56776001)(53806001)(23846002)(47976001)(50986001)(81686001)(59766001)(51856001)(54316002)(23676002)(76176001)(2171001)(31966008)(85306002)(81816001)(56816005)(81342001)(77982001)(20776003)(47446002)(74662001)(74502001)(83072002)(90896003)(85852003)(63696002)(33656001)(14943795004);DIR:INB;SFP:;SCL:1;SRVR:BY2PR07MB042;H:loki.ist.unomaha.edu;CLIP:137.48.187.123;FPR:;RD:loki.ist.unomaha.edu;A:1;MX:1;LANG:en;
-X-MS-Exchange-Organization-Network-Message-Id: d79a623f-5a28-4790-fab8-08d0c3727ebc
-X-MS-Exchange-Organization-AVStamp-Service: 1.0
-Received-SPF: SoftFail (: domain of transitioning whitehouse.gov discourages
- use of 137.48.187.123 as permitted sender)
-X-MS-Exchange-Organization-SCL: 1
-X-MS-Exchange-Organization-AuthSource: BN1BFFO11FD039.protection.gbl
-X-MS-Exchange-Organization-AuthAs: Anonymous
-MIME-Version: 1.0
-
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8">Dr=
-. Gandhi,<br>
-Congratulations on your most recent achievements in your
-research.<br>
-Please refer to the below URL to review your funding
-request.<br>
-<a href=3D"https://nullifyctf.com">Grant funding request.</a><br>
-Yours truly,<br>
-Barack Obama<br>
-President, United States of America
-
-===============================================================================
-
-Questions:
-
-Check the From and Return Path email addresses. Do they match? What are they?_______________________________________________________________What is the name of the sending computer or server?_______________________________________________________________Where is the sending computer geo-located?_______________________________________________________________What website is linked to “Grant funding request.” in the message?_______________________________________________________________How likely is it that this message is spam? _______________________________________________________________
