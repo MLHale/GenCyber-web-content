@@ -192,15 +192,40 @@ The secure web portion of your server should also be now available to client app
 
 If your website defaults to https then you may consider making the port 443 rule the first rule. This will avoid unnecessary evaluation of the port 80 rule for most network packets.
 
-Just these rules can be very restrictive and hamper debugging. For example, right now your server will not even respond to a simple "ping" request. Also we want to allow "incoming" packets that are in response to an "outgoing" request initiated by the server. Such packets are refered to be in a `ESTABLISHED` or `RELATED` state. Here are iptables commands to do just that.
+Are these rules enough? Yes. But, just these rules can be very restrictive and may hamper debugging. For example, try running the following command on your server to update its software repositories.
 
 ```bash
-sudo iptables -A INPUT -p icmp --icmp-type 0 -j ACCEPT
+sudo apt-get update
+```
+This command will most likely timeout due to firewall restrictions. The error messages are not likely to be useful either. So let's add a few additional firewall rules will make server administration and updates much easier.
+
+First you want the server to be able to communicate with itself. This is often called sending traffic to "loopback" interface. Also, a special network adapter is dedicated to the loopback interface. You may check its name by using the `ifconfig` command. This command shows all the network adapters and associated network addresses. Below we see that the name for the loopback adapter is `lo`.
+
+![ifconfig](../img/firewall/ifconfig.png)
+
+To author a permissive firewall rule on the INPUT chain we use the `-i lo` matching criteria for the input loopback interface, with the target ACCEPT.
+
+```bash
+sudo iptables -A INPUT -i lo -j ACCEPT
+```
+Next we want to be able to "ping" the server from any other machine to determine reachability. "Pings" are based on the ICMP protocol and the specific type of message is `echo-request`. Hence the matching criteria becomes `-p icmp --icmp-type echo-request`.
+
+```bash
+sudo iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+```
+Finally, we want to allow all "incoming" packets that are in response to a internal server request. Such response network packets are said to be in a `ESTABLISHED` or `RELATED` state. Such a firewall rule requires tracking the state of various network connections. Hence, we invoke the `conntrack` module using the `-m` switch. The entire matching criteria is specified as `-m conntrack --ctstate ESTABLISHED,RELATED`. The `--ctstate` switch is an abbreviation for "connection state".
+
+```bash
 sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 ```
-These rules should make your server much more convenient to debug and operate.
+These rules should make your server much more convenient to operate. Try running the update command now.
 
-There many other advanced firewall rules that can be authored. But these simple rules should be sufficient to demonstrate the inner workings of a Firewall. We have also managed to significantly reduce the exposed ports of the server to those that are absolutely necessary for our application to work. Nothing more. Any IPv4 network traffic that does not match our rules will be processed by the default policy. In our case, the default policy is DROP.
+```bash
+sudo apt-get update
+```
+It should succeed now.
+
+There many other advanced firewall rules that can be authored. But these set of rules should be sufficient to demonstrate the inner workings of a Firewall. We have also managed to significantly reduce the exposed ports of the server to those that are absolutely necessary for our application to work. Nothing more. Any IPv4 network traffic that does not match our rules will be processed by the default policy. In our case, the default policy is DROP.
 
 For more details on `iptables`, consult these web resources:
 
@@ -268,6 +293,8 @@ That's it for Firewalls in this Unit. Happy Surfing.
 
 ## Additional Readings
 
+* Observe the output of the following command: `sudo iptables -L -n -v`
+* 25 Most Used iptables commands, [The Geek Stuff](http://www.thegeekstuff.com/2011/06/iptables-rules-examples/)
 * [Microsoft The OSI Model's Seven Layers Defined and Functions Explained] (https://support.microsoft.com/en-us/kb/103884)  
 * [Ubuntu iptables Wiki](https://help.ubuntu.com/community/IptablesHowTo)  
 * [CentOS iptables Wiki](https://wiki.centos.org/HowTos/Network/IPTables)
