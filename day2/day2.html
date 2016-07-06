@@ -155,16 +155,11 @@
 						<h3 class="taskitem">1. Installing and running Apache</h3>
 
 			            Open your ubuntu server-vm. Once its booted up, login and then press ctrl+alt+t to open a new terminal <br>
-			           	To install apache type the followin in the terminal:<br>
+			           	To install apache type the following in the terminal:<br>
 			            <pre><code>sudo apt-get update
 sudo apt-get install apache2</code></pre><br>
 			            <br>
 			            You should see: <img src="images/apache-install.png"/><br>
-
-			            You will also need a module called mod_wsgi to allow apache to talk to the django python kernal (a run time environment for python). Lets go ahead and install it:<br>
-
-			            <pre><code>sudo apt-get install libapache2-mod-wsgi</code></pre>
-			            <br>
 
 			            Lets run apache and confirm that "It Works!"<br>
 			            To do so, restart apache from the command line via:<br>
@@ -178,8 +173,9 @@ sudo apt-get install apache2</code></pre><br>
 
 					</div><!-- End Task 1-->
 					<div id="task2" class="taskitem">
-						<h3 class="taskitem">2. Installing Django and Forking the starter serverside code</h3>
-			            Now that we have a default install of apache ready, lets make our webserver more interesting by installing and configuring a web application framework called "Django" to work with the server. The mod-wsgi plugin we installed earlier allows Apache to 'talk' to Django and run what the web framework asks it to.<br>
+						<h3 class="taskitem">2. Setup your development environment: Installing Django and Forking the starter serverside code</h3>
+			            
+			            Now that we have a default install of apache ready, lets make our webserver more interesting by installing and configuring a web application framework called "Django" to work with the server. We will start with setting up a development environment. Step 3 will get django setup for production<br>
 
 			            First install Django by typing the following in the command line:<br>
 			            <pre><code>sudo apt-get install python-pip
@@ -224,6 +220,65 @@ cd gencybersite/</code></pre><br>
 						then: <img src="images/api-likes.png"/><br>
 			        </div><!-- End Task 2-->
 			        <div id="task3" class="taskitem">
+			        	<h3 class="taskitem">3. Configuring Django for production</h3>
+			        	In the first step we installed apache. In the second, we install django. Notice they are running on different ports (port 80 for apache, i.e. just localhost, and port 8000 for django, i.e. localhost:8000). What we want is to setup apache to actually host django - so that when we make changes to our development enviornment we can 'push' them to production. Usually your production server would be an entirely different system. For the rest of this tutorial, we will just use a seperate folder. Lets get this setup. <br>
+
+			        	First, start by cloning your django repo into a new folder.
+			        	<pre><code>cd /var/www/
+git clone https://github.com/&lt;yourusername&gt;/gencyberdjango production
+cd production</code></pre><br>
+						Now you have two copies of django, one for development in /var/www/gencybersite/ and one in /var/www/production/ that you will be letting apache serve. <br>
+						Lets get this 'production environment' (a term based in the domain seperation and layering first principles) configured. <br>
+
+						You will need a module called mod_wsgi to allow apache to talk to the django python kernal (a run time environment for python). Lets go ahead and install it:<br>
+
+			            <pre><code>sudo apt-get install libapache2-mod-wsgi</code></pre>
+			            This library allows Django to tell apache what to serve at any given time. <br>
+			            To make it work, we need to make some changes to our apache configuration file in /etc/apache2/sites-available/ to tell it to host django instead of the default "it works" page that we started with.
+			            <br>
+			            Lets take a look at our current running apache config: open a new terminal window (ctrl+shift+t in terminal) and type<br>
+			            <pre><code>nano /etc/apache2/sites-available/000-default.conf</code></pre><br>
+			            Notice that it is hosting the files in /var/www/html/ that we looked at in step 1.<br>
+						<img src="images/apache-default-conf.png"/><br>
+			            To change it to django lets disable this site and create a new virtualhost setup for django:<br>
+			            First, lets create the new virtualhost conf file.
+			            <pre><code>sudo nano /etc/apache2/sites-available/django.conf</code></pre>
+			            Change it to the following:<br>
+			            <pre><code>&lt;VirtualHost *:80&gt;
+        ServerName localhost
+
+        ServerAdmin youremail@youremail.edu
+
+        # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+        # error, crit, alert, emerg.
+        # It is also possible to configure the loglevel for particular
+        # modules, e.g.
+        LogLevel info
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        Alias /static/ /var/www/production/static
+        Alias /favicon.ico /var/www/production/static/icons/favicon.ico
+        
+        #allow access to static files
+        &lt;Directory /var/www/production/static&gt;
+            Options -Indexes
+            Require all granted
+        &lt;/Directory&gt;
+
+        #allow access to wsgi file
+        &lt;Directory /var/www/production&gt;
+            &lt;Files wsgi.py&gt;
+                Require all granted
+            &lt;/Files&gt;
+        &lt;/Directory&gt;
+
+        ServerSignature Off
+&lt;/VirtualHost&gt;
+WSGIScriptAlias / /var/www/production/wsgi.py
+WSGIPythonPath /var/www/production/</code></pre><br>
+
 			        </div><!-- End Task 3-->
 			        <div id="task4" class="taskitem">
 			        </div><!-- End Task 4-->
