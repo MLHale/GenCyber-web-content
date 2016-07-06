@@ -5,7 +5,7 @@ These files are intended to provide step-by-step self paced tutorials to teacher
 Each step-by-step tutorial is specified by day and hosted at the following urls:
 
 #### Day1: Development Environment and Client-side App Creation
-1. Virtual Machines Primer  
+1. [Virtual Machines Primer](./day1/virtualization-primer.md)  
 2. [Github Primer](./day1/github-primer.md)
 3. Client-side web app setup and development
   * [Sub-Unit 1: Ember Hello World and app bootstrapping](https://htmlpreview.github.io/?https://github.com/MLHale/GenCyber-web-content/blob/master/day1/day1.html#task1)  
@@ -17,10 +17,12 @@ Each step-by-step tutorial is specified by day and hosted at the following urls:
 
 #### Day 2: Server-side Application Creation
 1. [Firewalls](./day2/day2-firewalls-iptables.md)  
-2. [Django](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html)  
+2. [Setting up a Web-Server](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html)  
 
 #### Day 3: Reducing Exposure: Training the Human and Cryptography
-1. [Email Header Analysis](./day3/day3-se-headeranalysis.md)  
+1. [Email Header Analysis](./day3/day3-se-headeranalysis.md)
+2. [How to read a URL?](./day3/day3-url-analysis.md)
+3. Hands-on with Cryptography  
 
 #### Day 4: Teacher-Student group exercises
 
