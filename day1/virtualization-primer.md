@@ -11,17 +11,17 @@
 [Installing Software in the VM](#installing-software-in-the-vm)   
 [Installing Ubuntu Server Linux VM](#installing-ubuntu-server-linux-vm)   
 [Launch an existing VM](#launch-an-existing-VM)  
-[Additional Tasks](#additional-tasks)  
+[Additional Tasks (Snapshots)](#additional-tasks)  
 [Further Readings](#further-readings)  
 
 
 ### Introduction
 
-Virtualization is a technique to abstract computer hardware resources like CPU, memory and input/output devices and share them among multiple __guest__ Operating Systems (OS). The guest OSes are managed by a __host__ OS. Each guest OS is completely unaware of other guest OSes and the shared nature of the underlying physical resources. Virtualization provides domain isolation between different guest OSes as well as between a guest and host OS. The guest OS is also referred to as a __virtual machine__ or VM for short.
+Virtualization is a technique to abstract computer hardware resources like CPU, memory and input/output devices and share them among multiple __guest__ Operating Systems (OS). The guest OSes are managed by a __host__ OS. Each guest OS is completely unaware of other guest OSes and the shared nature of the underlying physical resources. Virtualization provides _domain separation_ between different guest OSes as well as between a guest and host OS. A guest OS is also referred to as a __virtual machine__ or VM for short.
 
-Today virtualization technologies are the essential to the operation of large scale data centers. Virtualization allows multiple tenants to share the same data center resources without encroaching on each other's data and programs.
+Virtualization technologies are essential to the operation of large scale data centers. Virtualization allows multiple tenants to share the same data center resources without encroaching on each other's data and programs.
 
-In this module we will, install virtualization software on a Windows host OS. Next, install a Ubuntu Linux guest OS. This setup will provide domain separation between our host OS and a sacrificial development environment. Any changes and/or "accidents" in the guest OS, stay contained within the virtual image. Thus, virtualization also allows safe experimentation with unknown software programs and malware samples.
+In this module we will install virtualization software on a Windows host OS. Next, install a Ubuntu Linux guest OS as a VM. This setup will provide domain separation between our host OS and a sacrificial development environment. Any changes and/or "accidents" in the guest OS, stay contained within the VM. Virtualization also allows safe experimentation with unknown software programs and malware samples.
 
 Our entire setup is based on Free and Open Source Software (FOSS). When using FOSS, always remember that it has copyright and license restrictions which must be respected.
 
@@ -29,12 +29,12 @@ Our entire setup is based on Free and Open Source Software (FOSS). When using FO
 
 ### Installing VirtualBox
 
-Virtual Box is a free open source virtualization software from Oracle. For a Windows host OS, Virtual Box installation executable can be downloaded from here:
+Virtual Box is a free open source virtualization software from Oracle. For a Windows host OS, VirtualBox installation executable can be downloaded from here:
 
 ```text
 https://www.virtualbox.org/wiki/Downloads
 ```
-Click on the `VirtualBox xx.xx.xxx for Windows hosts  x86/amd64` download link. Once the file is downloaded, proceed with installation by double clicking it. Continue with presented defaults and answer yes to any prompts. Installation will require an account with administrative privileges.
+Click on the `VirtualBox xx.xx.xxx for Windows hosts  x86/amd64` download link. Once the file is downloaded, proceed with installation by double clicking the executable. Continue with with defaults and answer YES to any prompts. Installation will require an account with administrative privileges.
 
 Upon successful installation, you should see this.
 
@@ -44,14 +44,14 @@ Upon successful installation, you should see this.
 
 ### Installing Ubuntu Desktop Linux VM
 
-We will use Ubuntu Linux guest OS to setup a user-friendly developer environment. It is a popular linux distribution and most OSS packages have installation procedures for it. In particular, 64-bit OS version 14.04 Trusty Thar is well supported in that regards. Facebook CTF OSS packages also support it. `https://github.com/facebook/fbctf`
+We will use a Ubuntu Desktop Linux VM to setup a user-friendly developer environment. It is a popular linux distribution and most OSS packages have installation procedures for it. In particular, 64-bit Ubuntu version 14.04, Trusty Thar, is well supported in that regards. Facebook CTF OSS packages also support it. `https://github.com/facebook/fbctf`
 
-To create a new VM, press the blue `New` button in VirtualBox. It should bring up a Create VM prompt.
+To create a new VM, press the blue `New` button in VirtualBox. It should bring up a `Create Virtual Machine` prompt.
 
 >![vminstall](../img/virtualization/1-selectos.png)
 
 Go ahead and enter a `Name:` like `Dev Machine`  
-When you list the `Type:` option, you will see that VirtualBox support many types of guest OSes. Select `Linux`.  
+When you list the `Type:` option, you will see that VirtualBox supports many types of guest OSes. Select `Linux`.  
 For `Version:` select `Ubuntu (64-bit)`  
 Your final configuration should look like this. Then click Next.
 
@@ -214,13 +214,14 @@ Navigate to the folder with the `.ova` file and click `Open`. Follow the prompts
 
 ### Additional Tasks
 
-ToDo
+#### Taking Snapshots
+Follow the tutorial steps in the VirtualBox [user manual](https://www.virtualbox.org/manual/ch01.html#snapshots) and take a snapshot of your Ubuntu Desktop VM. Snapshots can help you revert your VM to a previously saved state incase something breaks.
 
 [Top](#table-of-contents)
 
 ### Further Readings
 
-* Virtual Box [User Manual](https://www.virtualbox.org/manual/UserManual.html)
+* VirtualBox [User Manual](https://www.virtualbox.org/manual/UserManual.html). This user manual has a lot more information on VMs including network settings.
 
 
 [Top](#table-of-contents)
