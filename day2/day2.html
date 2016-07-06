@@ -26,7 +26,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
 		<script>hljs.initHighlightingOnLoad();</script>
-		<title>Gencyber Day One</title>
+		<title>Gencyber Day Two</title>
 		<style>
 			#unologo{font-size: 1.2em;text-transform:uppercase;font-family:'urwgroteskregular';color:#FFF;display:inline-block;vertical-align:middle;margin-top:10px;margin-left:3px;font-weight:bold;}
 			.logo {
@@ -179,7 +179,7 @@ sudo apt-get install apache2</code></pre><br>
 					</div><!-- End Task 1-->
 					<div id="task2" class="taskitem">
 						<h3 class="taskitem">2. Installing and configuring Django</h3>
-			            Now that we have a default install of apache ready, lets make our webserver more interesting by installing and configuring a web development framework called "Django" to work with the server. The mod-wsgi plugin we installed earlier allows Apache to 'talk' to Django and run what the web framework asks it to.<br>
+			            Now that we have a default install of apache ready, lets make our webserver more interesting by installing and configuring a web application framework called "Django" to work with the server. The mod-wsgi plugin we installed earlier allows Apache to 'talk' to Django and run what the web framework asks it to.<br>
 
 			            First install Django by typing the following in the command line:<br>
 			            <pre><code>sudo apt-get install python-pip
@@ -191,20 +191,54 @@ pip install Django==1.9.7</code></pre><br>
 						<img src="images/fork-django-project.png"/><br>
 
 						This should create a copy of the repository that you can control.<br> 
-						If you go to "https://github.com/&lt;yourusername&gt;/gencyberdjango" you should see the repo.<br>
+						<img src="images/forked-repo.png"/><br>
+						When you are done it should look something like:<br>
+						<img src="images/forked-repo2.png"/><br>
+						Notice in the red elipse that you now have your own copy of the repo. If you go to "https://github.com/&lt;yourusername&gt;/gencyberdjango" you should see it.<br>
 			            Back in your virtual machine, lets get started with this code (we will review what is in there in a moment)<br>
 			            (make sure to replace &lt;yourusername&gt; with your actual github username)
-			            <pre><code>sudo ln -s /home/student/.local/lib/python2.7/site-packages/django/bin/django-admin.py /usr/local/bin/django-admin.py
-sudo chown student:www-data -R /var/www/
+			            <pre><code>sudo chown student:www-data -R /var/www/
 cd /var/www/
-git clone https://github.com/&lt;yourusername&gt;/gencyberdjango
+git clone https://github.com/&lt;yourusername&gt;/gencyberdjango gencybersite
 cd gencybersite/</code></pre><br>
 		            	
 			            With this project, you will get a directory structure that looks like
-			            <img src="images/django-fresh-install.png"/><br>
+			            <img src="images/django-project-structure.png"/><br>
 
-			            
+			            Now that we have Django installed and a project running we should be able to test Django in development mode using a utility called "runserver" that runs a development version of django for you to develop your code with. This utility provides real-time recompilation as you edit python files and keeps your app hosted on localhost:8000. This is helpful for testing purposes. The utility also provides real-time feedback every time you save python files in your django directory. This can help you debug if you make errors along the way. Lets take a look at runserver now:<br>
+			            <pre><code>python manage.py runserver</code></pre><br>
+			            You should see something that looks like:
+			            <img src="images/django-runserver.png"/><br>
+			            Now, open up a chrome browser window and navigate to localhost:8000/api/<br>
+			            You should see that your django server is running and that there are three types of data served by your api: users, likes, and userprofiles. 
+						<img src="images/api-running-in-runserver.png"/><br>
+						Lets investigate these data structures using the django admin interface. In your browser go to localhost:8000/admin/ and login using the username/password student/studentgencyber Then, click on like and then on "someflickrphototitle". Also take a look at the userprofile and user models.<br>
+						You should see something like: <img src="images/admin-interface.png"/><br>
+						then: <img src="images/admin-interface2.png"/><br>
+						Then: <img src="images/admin-interface3.png"/><br>
 
+						Feel free to manipulate some fields and click "save"<br>
+
+						Now lets take a look at these items as our application will eventually see them: that is of course, in JSON format (javascript object notation).<br>
+						Go to localhost:8000/api/likes and you should see: <br>
+						then: <img src="images/api-likes.png"/><br>
+			        </div><!-- End Task 2-->
+			        <div id="task3" class="taskitem">
+			        </div><!-- End Task 3-->
+			        <div id="task4" class="taskitem">
+			        </div><!-- End Task 4-->
+			        <div id="task5" class="taskitem">
+			        </div><!-- End Task 5-->
+			        <div id="task6" class="taskitem">
+			        </div><!-- End Task 6-->
+			        <div id="task7" class="taskitem">
+			        </div><!-- End Task 7-->
+			        <div id="task8" class="taskitem">
+			        </div><!-- End Task 8-->
+			        <div id="task9" class="taskitem">
+			        </div><!-- End Task 9-->
+						            
+TBD------------------------
 			            Since this is a 'production' server, lets set Django up to work with apache through mod_wsgi. <br>
 
 			            <img src="images/lab2/wsgi-file.png"/><br>
