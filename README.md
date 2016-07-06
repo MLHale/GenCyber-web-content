@@ -5,7 +5,7 @@ These files are intended to provide step-by-step self paced tutorials to teacher
 Each step-by-step tutorial is specified by day and hosted at the following urls:
 
 #### Day1: Development Environment and Client-side App Creation
-1. [Virtual Machines Primer](./day1/virtualization-primer.md)  
+1. [Virtualization Primer](./day1/virtualization-primer.md)  
 2. [Github Primer](./day1/github-primer.md)
 3. Client-side web app setup and development
   * [Sub-Unit 1: Ember Hello World and app bootstrapping](https://htmlpreview.github.io/?https://github.com/MLHale/GenCyber-web-content/blob/master/day1/day1.html#task1)  
