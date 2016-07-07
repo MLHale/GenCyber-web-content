@@ -243,7 +243,7 @@ cd production</code></pre><br>
 			            To change it to django lets disable this site and create a new virtualhost setup for django:<br>
 			            First, lets create the new virtualhost conf file.
 			            <pre><code>sudo nano /etc/apache2/sites-available/django.conf</code></pre>
-			            Change it to the following:<br>
+			            Copy the following and paste it into the conf (right click the terminal, select paste):<br>
 			            <pre><code>&lt;VirtualHost *:80&gt;
         ServerName localhost
 
@@ -277,7 +277,7 @@ cd production</code></pre><br>
         ServerSignature Off
 &lt;/VirtualHost&gt;
 WSGIScriptAlias / /var/www/production/wsgi.py
-WSGIPythonPath /var/www/production/</code></pre><br>
+WSGIPythonPath /var/www/production/:/home/student/.local/lib/python2.7/site-packages/</code></pre><br>
 
 			        </div><!-- End Task 3-->
 			        <div id="task4" class="taskitem">
