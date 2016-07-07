@@ -71,7 +71,7 @@ The next configuration step creates a virtual hard drive for the VM. Select the 
 
 >![vminstall](../img/virtualization/4-harddisk.png)
 
-On the next `Hard disk file type`prompt, change the selection to **VMDK**. This hard drive format plays nice with VMware, another popular virtualization software. This hard drive format is also compatible with the Open Virtualization Format (OVF). OVF allows seamless export of VMs between different virtualization environments. Click `Next`.
+On the next `Hard disk file type` prompt, change the selection to **VMDK**. This hard drive format plays nice with VMware, another popular virtualization software. This hard drive format is also compatible with the Open Virtualization Format (OVF). OVF allows seamless export of VMs between different virtualization environments. Click `Next`.
 
 >![vminstall](../img/virtualization/5-vmdktype.png)
 
