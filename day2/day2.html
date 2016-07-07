@@ -226,6 +226,9 @@ cd gencybersite/</code></pre><br>
 			        	First, start by cloning your django repo into a new folder.
 			        	<pre><code>cd /var/www/
 git clone https://github.com/&lt;yourusername&gt;/gencyberdjango production
+sudo find /var/www/production/ -type d -exec chmod 775 {} +
+sudo find /var/www/production/ -type f -exec chmod 664 {} +
+sudo chown -R student:www-data /var/www/production/
 cd production</code></pre><br>
 						Now you have two copies of django, one for development in /var/www/gencybersite/ and one in /var/www/production/ that you will be letting apache serve. <br>
 						Lets get this 'production environment' (a term based in the domain seperation and layering first principles) configured. <br>
@@ -259,7 +262,6 @@ cd production</code></pre><br>
         CustomLog ${APACHE_LOG_DIR}/access.log combined
 
         Alias /static/ /var/www/production/static
-        Alias /favicon.ico /var/www/production/static/icons/favicon.ico
         
         #allow access to static files
         &lt;Directory /var/www/production/static&gt;
@@ -268,7 +270,7 @@ cd production</code></pre><br>
         &lt;/Directory&gt;
 
         #allow access to wsgi file
-        &lt;Directory /var/www/production&gt;
+        &lt;Directory /var/www/production/gencybersite&gt;
             &lt;Files wsgi.py&gt;
                 Require all granted
             &lt;/Files&gt;
@@ -276,10 +278,18 @@ cd production</code></pre><br>
 
         ServerSignature Off
 &lt;/VirtualHost&gt;
-WSGIScriptAlias / /var/www/production/wsgi.py
+WSGIScriptAlias / /var/www/production/gencybersite/wsgi.py
 WSGIPythonPath /var/www/production/:/home/student/.local/lib/python2.7/site-packages/</code></pre><br>
-
+						To make these files active lets give apache access to site-packages and then reload and restart our server.<br>
+						<pre><code>sudo chmod 775 /home/student/.local
+find /home/student/.local/lib -type d -exec chmod 755 {} +
+cd /var/www/
+sudo service apache2 reload
+sudo service apache2 restart</code></pre><br>
+						If all goes well, you should see the same app as before, but hosted on localhost: e.g.<br>
+						<img src="images/apache-django-configured.png"/><br>
 			        </div><!-- End Task 3-->
+
 			        <div id="task4" class="taskitem">
 			        </div><!-- End Task 4-->
 			        <div id="task5" class="taskitem">
