@@ -378,7 +378,13 @@ python manage.py runserver</code></pre><br>
 			            This is really nifty and accelerates development<br>
 			            When the app is working as you like it, you can just release it to production via a git push on the development environment and a git pull on the production server. Through this build process, the compiled ember files will be just another script in the /static folder of the django repository and you can still manage client-side code changes from your ember repository (since they are in seperate git repos)<br>
 
-			            
+			            To save our changes and push to production (illustrating our build process), lets do the following:<br>
+			            <pre><code>cd /var/www/gencybersite/
+git status
+git add .
+git commit -m "ember and django integrated"
+git push</code></pre><br>
+
 			        </div><!-- End Task 4-->
 			        <div id="task5" class="taskitem">
 			        </div><!-- End Task 5-->
