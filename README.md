@@ -28,7 +28,7 @@ Each step-by-step tutorial is specified by day and hosted at the following urls:
 
 
 #### Day 5: Capture the Flag Contest
-Jeopardy style contest among student-teacher teams.
+1. [Jeopardy style contest among student-teacher teams](https://genctf.mlhale.com).
 
 
 ### License  
