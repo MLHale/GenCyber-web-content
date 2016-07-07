@@ -3,6 +3,12 @@
 ### Cybersecurity First Principles
 * __Domain Separation__: Good fences make good neighbors. When trying to secure a home or computer, separating the areas where resources are and people work prevents accidents and loss of data or private information. We are preventing the information worlds from colliding.
 
+* __Resource Encapsulation__: A resource can be hardware such as memory, disk drives, or a display screen. It can also be system objects such as semaphores, a linked list, or shared memory. Processes (or programs) need resources to run. Resources have to be separated and used in the way they were intended.
+
+* __Process Isolation__: A process is when a program is run. By keeping processes separated, it prevents the failure of one process from causing another to fail.
+
+
+
 ### Table of Contents
 [Introduction](#introduction)  
 [Installing VirtualBox](#installing-virtualbox)  
@@ -17,24 +23,24 @@
 
 ### Introduction
 
-Virtualization is a technique to abstract computer hardware resources like CPU, memory and input/output devices and share them among multiple __guest__ Operating Systems (OS). The guest OSes are managed by a __host__ OS. Each guest OS is completely unaware of other guest OSes and the shared nature of the underlying physical resources. Virtualization provides _domain separation_ between different guest OSes as well as between a guest and host OS. A guest OS is also referred to as a __virtual machine__ or VM for short.
+Virtualization is a technique to abstract computer hardware resources. It allows sharing resources like CPU, memory and input/output devices between many __guest__ Operating Systems (OS). A host OS with virtualization software manages the guest OSes. A guest OS is unaware of other guest OSes and the underlying shared physical resources managed by the host OS. Virtualization provides _domain separation_ between guest OSes as well as the host OS. A guest OS is also referred to as a __virtual machine__ or VM for short.
 
-Virtualization technologies are essential to the operation of large scale data centers. Virtualization allows multiple tenants to share the same data center resources without encroaching on each other's data and programs.
+Virtualization technologies are essential to the operation of large scale data centers. It allows many tenants to share the same data center resources. Virtualization enables them to do so without encroaching on each other's data and programs.
 
-In this module we will install virtualization software on a Windows host OS. Next, install a Ubuntu Linux guest OS as a VM. This setup will provide domain separation between our host OS and a sacrificial development environment. Any changes and/or "accidents" in the guest OS, stay contained within the VM. Virtualization also allows safe experimentation with unknown software programs and malware samples.
+In this module we will install virtualization software on a Windows host OS. Next, install a Ubuntu Linux guest OS as a VM. This setup will provide domain separation between our host OS and the development environment. Any changes and/or "accidents" in the guest OS, stay contained within the VM. Virtualization also allows safe experimentation with unknown software programs and malware samples.
 
-Our entire setup is based on Free and Open Source Software (FOSS). When using FOSS, always remember that it has copyright and license restrictions which must be respected.
+Our entire setup uses Free and Open Source Software (FOSS). When using FOSS, respect its copyright and license restrictions.
 
 [Top](#table-of-contents)
 
 ### Installing VirtualBox
 
-Virtual Box is a free open source virtualization software from Oracle. For a Windows host OS, VirtualBox installation executable can be downloaded from here:
+Virtual Box is a free open source virtualization software from Oracle. For a Windows host OS, a installation executable can be downloaded from here:
 
 ```text
 https://www.virtualbox.org/wiki/Downloads
 ```
-Click on the `VirtualBox xx.xx.xxx for Windows hosts  x86/amd64` download link. Once the file is downloaded, proceed with installation by double clicking the executable. Continue with with defaults and answer YES to any prompts. Installation will require an account with administrative privileges.
+Click on the `VirtualBox xx.xx.xxx for Windows hosts  x86/amd64` download link. Once the file is downloaded, proceed with installation by double clicking the executable. Continue with defaults and answer YES to any prompts. Installation will require an account with administrative privileges.
 
 Upon successful installation, you should see this.
 
@@ -44,7 +50,7 @@ Upon successful installation, you should see this.
 
 ### Installing Ubuntu Desktop Linux VM
 
-We will use a Ubuntu Desktop Linux VM to setup a user-friendly developer environment. It is a popular linux distribution and most OSS packages have installation procedures for it. In particular, 64-bit Ubuntu version 14.04, Trusty Thar, is well supported in that regards. Facebook CTF OSS packages also support it. `https://github.com/facebook/fbctf`
+For our guest OS we will select a popular Linux distribution. The Ubuntu Desktop OS. It is easy to setup and supports many development environments. In particular, the 64-bit Ubuntu version 14.04, Trusty Thar, is supported by many OSS packages and development frameworks. For example, Facebook CTF OSS package found at `https://github.com/facebook/fbctf` only supports installation for this OS.
 
 To create a new VM, press the blue `New` button in VirtualBox. It should bring up a `Create Virtual Machine` prompt.
 
@@ -53,35 +59,35 @@ To create a new VM, press the blue `New` button in VirtualBox. It should bring u
 Go ahead and enter a `Name:` like `Dev Machine`  
 When you list the `Type:` option, you will see that VirtualBox supports many types of guest OSes. Select `Linux`.  
 For `Version:` select `Ubuntu (64-bit)`  
-Your final configuration should look like this. Then click Next.
+Your final configuration should look like this. Then click `Next`.
 
 >![vminstall](../img/virtualization/2-selectos.png)
 
-Now adjust the amount of RAM available to the VM. 2GB (2048 MB) is good, but if your physical machine does not have a lot of RAM then leave it at 768 MB. My machine has 8 GB RAM, so I had plenty of room to spare. Click Next.
+Now adjust the amount of RAM available to the VM. 2GB (or 2048 MB) is good, but if your physical machine does not have a lot of RAM then leave it at 768 MB. My machine has 8 GB RAM, so I had plenty of room to spare. Click `Next`.
 
 >![vminstall](../img/virtualization/3-memorysize.png)
 
-The next step creates a virtual hard drive for the VM. Select the `Create a virtual hard disk now` option. Then click Create.
+The next configuration step creates a virtual hard drive for the VM. Select the `Create a virtual hard disk now` option. Then click `Create`.
 
 >![vminstall](../img/virtualization/4-harddisk.png)
 
-On the next `Hard disk file type`prompt, change the selection to **VMDK**. This hard drive format plays nice with VMware, another popular virtualization software. It is also compatible with the Open Virtualization Format (OVF) to export VMs between different virtualization environments. Click Next.
+On the next `Hard disk file type`prompt, change the selection to **VMDK**. This hard drive format plays nice with VMware, another popular virtualization software. This hard drive format is also compatible with the Open Virtualization Format (OVF). OVF allows seamless export of VMs between different virtualization environments. Click `Next`.
 
 >![vminstall](../img/virtualization/5-vmdktype.png)
 
-To optimize storage, select the `Dynamically allocated` option on the `Storage on physical hard disk` prompt. Click Next.
+To optimize storage, select the `Dynamically allocated` option on the `Storage on physical hard disk` prompt. Click `Next`.
 
 >![vminstall](../img/virtualization/6-harddiskallocation.png)
 
-Finally, in the `File location and size` prompt specify the name of the new hard drive and select a location to save it in. On your physical machine, the hard drive appears as a single, large VMDK file. Click Create.
+Finally, in the `File location and size` prompt specify the name of the new hard drive and select a location to store it. On your physical machine, the hard drive appears as a single, large VMDK file. Click `Create`.
 
 > ![vminstall](../img/virtualization/7-filelocation.png)
 
-The Dev Machine VM is now ready to be started in VirtualBox. It is currently powered off.
+The _Dev Machine_ VM is now ready to be started in VirtualBox. It is currently powered off.
 
 > ![vminstall](../img/virtualization/8-startvm.png)
 
-Now before you hit the "green" Start button, we need a installation CD for the Ubuntu VM. Download the ISO file for Ubuntu 14.04 64-bit Desktop version from here. It is a larger download but it includes all the files needed for installation.
+Now before you hit the "green" Start button, we need a installation CD for the Ubuntu Desktop OS. Download the ISO file for Ubuntu 14.04 64-bit Desktop version from here. It is a larger download but it includes all the files needed for installation.
 
 ```text
 http://releases.ubuntu.com/trusty/ubuntu-14.04.4-desktop-amd64.iso
@@ -94,11 +100,13 @@ Now hit the Start button for the **Dev Machine** VM in VirtualBox. A `Select sta
 
 > ![vminstall](../img/virtualization/9-startup-disk.png)
 
-Browse to the location where you saved the Ubuntu ISO file. Then select the ISO file as the start-up disk. The VM now start with a boot screen displayed.
+Browse to the location where you saved the Ubuntu ISO file. Then select the ISO file as the start-up disk. Click `Start`.
 
 > ![vminstall](../img/virtualization/10-ubuntuiso.png)
 
-As you interact with the VM window, you will notice that it captures your mouse pointer. To release the mouse pointer you have to press the **host key** on your keyboard. Upon clicking in the VM window, VirtualBox shows an information dialog box describing how the host key works. In this case, the host key is the **Right Alt** key. Once you are aware of the host key, select the `Do not show this message again` and click `Capture`. To return to your host OS, press the host key to release your mouse from the VM window.
+The VM will now start with a boot screen displayed.
+
+As you interact with the VM window, you will notice that it captures your mouse pointer. To release the mouse pointer you have to press the **host key** on your keyboard. Upon clicking in the VM window, a information dialog box describes how the host key works. In this case, the host key is the **Right Alt** key. Once you are aware of the host key, select the `Do not show this message again` and click `Capture`. To return to your host OS, press the host key to release your mouse from the VM window.
 
 > ![vminstall](../img/virtualization/11-host-key.png)
 
@@ -110,7 +118,7 @@ Click `Continue` on the next prompt.
 
 > ![vminstall](../img/virtualization/13-installubuntu.png)
 
-The next prompt warns you about `Erase disk and install Ubuntu`. We are OK with this since this action will be carried out on the new virtual hard drive that we created for just this purpose. It does not impact your host OS hard drive.
+The next prompt warns you about `Erase disk and install Ubuntu`. It is OK to continue as this action will be carried out on the new virtual hard drive. It does not impact your host OS hard drive. Click `Install Now`.
 
 > ![vminstall](../img/virtualization/14-installubuntu.png)
 
@@ -120,13 +128,14 @@ Click `Continue` on the next few prompts.
 
 > ![vminstall](../img/virtualization/16-installubuntu.png)
 
-On the `Who are you?` prompt, enter account details. Since this is a sacrificial Dev Machine. Setup a generic account name. Remember these details to login to the machine later.
+On the `Who are you?` prompt, enter account details. Since this is a sacrificial Dev Machine. Setup a generic account name. Remember these credentials to login to the machine later. Click `Continue`.
 > ![vminstall](../img/virtualization/17-setupaccount.png)
 
 After a few more prompts, the installation should be completed.
 > ![vminstall](../img/virtualization/18-installubuntu.png)
 
-Restart the machine
+Click `Restart Now` to restart the VM.
+
 > ![vminstall](../img/virtualization/19-restartubuntu.png)
 
 Hit `ENTER` to complete restarting and finish installation.
@@ -135,31 +144,32 @@ Hit `ENTER` to complete restarting and finish installation.
 
 ### Customizing the VM
 
-Upon restarting after installation, you should see a login prompt. Login with your account credentials setup during installation.
+Upon restarting after installation, you should see a login prompt. Login with the account credentials setup during installation.
+
 > ![vminstall](../img/virtualization/21-login.png)
 
-For development you will be working a lot in the `Terminal` app. To start it click the Ubuntu home icon and type "Terminal". Select the Terminal app from the search results.
+For development, you will be working a lot in the `Terminal` app. To start it, click the Ubuntu home icon and type "Terminal". Select the Terminal app from the search results.
 > ![vminstall](../img/virtualization/22-terminal.png)
 
-A terminal app will appear. In the terminal type the `ls` command to list the directories in your home folder.
+A terminal app will now appear. In the terminal type the `ls` command to list the directories in your home folder on the VM. This directory structure is completely separate from your home folder on the host OS.
 > ![vminstall](../img/virtualization/23-lscmd.png)
 
-You will probably notice that the screen resolution for the VM window is not very user-friendly. However, just resizing the window does not change the screen resolution of the VM Desktop. To enable these features we need to install Guest Additions in the guest OS. Select the `Insert Guest Additions CD image...` menu option as shown below.
+You will probably notice that the screen resolution for the VM window is not very user-friendly. However, just resizing the window does not change the screen resolution of the Desktop VM. To enable screen resizing and other features we need to install Guest Additions in the VM. To do so, select the `Insert Guest Additions CD image...` menu option as shown below.
 > ![vminstall](../img/virtualization/24-guest-additions.png)
 
-Click run on the next prompt.
+Click `Run` on the next prompt.
 > ![vminstall](../img/virtualization/25-guest-additions.png)
 
 To proceed with the installation, enter your account password.
 > ![vminstall](../img/virtualization/26-guest-additions-pw.png)
 
-After a successful install you should see a terminal window like this.
+After a successful install you should see a terminal window like this. Press `ENTER` to close this terminal window.
 >![vminstall](../img/virtualization/27-guest-additions-done.png)
 
-Restart the machine by clicking on the power button in the upper right-hand corner. Then select the Restart option.
+Now, restart the machine by clicking on the power button in the upper right-hand corner. Then select the `Restart` option.
 > ![vminstall](../img/virtualization/28-guest-additions-restart.png)
 
-Upon restarting you should be able to resize the Desktop to comfortable resolution by just resizing the VM window. You may also enter Full Screen Mode, by pressing `Alt + F`. You can exit full screen mode by pressing `Alt + F` again.
+After a restart, resize the Desktop to a comfortable resolution by just resizing the VM window. You may also enter Full Screen Mode, by pressing `Alt + F`. You can exit full screen mode by pressing `Alt + F` again.
 
 Now start the terminal app as shown before and pin it to the Dock. You can accomplish this by right clicking the dock icon and selecting `Lock to Launcher` option. This shortcut will come in handy for invoking terminals for development related tasks.
 > ![vminstall](../img/virtualization/29-pin-terminal.png)
@@ -171,26 +181,26 @@ Do not allow VMs to share folders and storage volumes with other VMs or with the
 
 [Top](#table-of-contents)
 
-
 ### Installing Software in the VM
 
-Install OS updates. This step will make sure that your VM is patched with the latest security updates. Issue the following commands in a terminal.
+After a fresh OS install, it is best practice to check for the latest patches and security updates. Issue the following commands in a terminal.
 
 ```bash
 sudo apt-get update
 sudo apt-get upgrade
 ```
 
-Install version control tools
+Next, install version control tools. We will use them in the next module.
 
 ```bash
 sudo apt-get -y install git
 ```
+[Top](#table-of-contents)
 
 ### Installing Ubuntu Server Linux VM
 
-Using what you know install a Ubuntu Server VM. You may download the ISO for Ubuntu Server 14.04 64bit version from here.
-> Optional: Check C:/ISO/Server folder to see if this file is already on your computer
+Using what you learned here, now install a Ubuntu Server VM. You may download the ISO for 64-bit Ubuntu Server OS version 14.04 from here.
+> Optional: Check C:/ISO/Server folder to see if this ISO file is already on your computer
 
 ```text
 http://releases.ubuntu.com/trusty/ubuntu-14.04.4-server-amd64.iso
@@ -200,7 +210,9 @@ You do not need to install Guest Additions for a Server VM, since it only has te
 
 ### Launch an existing VM
 
-Check C:/ISO/GenCyber folder for with `.ova` extension. If it exists, from VirtualBox select `File --> Import Appliance` menu option.
+VirtualBox also allows launching VMs that others may have created. We will use this feature to load a previously configured development environment.
+
+> Check C:/ISO/GenCyber folder for files with `.ova` extension. If such files exist, then from VirtualBox select the `File --> Import Appliance` menu option to import them.
 
 > ![vminstall](../img/virtualization/30-importappliance.png)
 
@@ -208,7 +220,7 @@ This will bring up the `Import Virtual Appliance` prompt.
 
 > ![vminstall](../img/virtualization/31-importappliance.png)
 
-Navigate to the folder with the `.ova` file and click `Open`. Follow the prompts to import the VM and start it.
+Navigate to the folder with the `.ova` files and click `Open`. Follow the prompts to import the VM and start it. Repeat the process for other `.ova` files.
 
 [Top](#table-of-contents)
 
