@@ -13,10 +13,10 @@
 [Introduction](#introduction)  
 [Installing VirtualBox](#installing-virtualbox)  
 [Installing Ubuntu Desktop Linux VM](#installing-ubuntu-desktop-linux-vm)  
-[Customizing the VM](#customizing-the-VM)  
+[Customizing the VM](#customizing-the-vm)  
 [Installing Software in the VM](#installing-software-in-the-vm)   
 [Installing Ubuntu Server Linux VM](#installing-ubuntu-server-linux-vm)   
-[Launch an existing VM](#launch-an-existing-VM)  
+[Launch an existing VM](#launch-an-existing-vm)  
 [Additional Tasks (Snapshots)](#additional-tasks)  
 [Further Readings](#further-readings)  
 
@@ -176,11 +176,6 @@ Now start the terminal app as shown before and pin it to the Dock. You can accom
 
 [Top](#table-of-contents)
 
-> #### _Security tip_
-Do not allow VMs to share folders and storage volumes with other VMs or with the host OS. This prevents unintended data sharing between separated domains.
-
-[Top](#table-of-contents)
-
 ### Installing Software in the VM
 
 After a fresh OS install, it is best practice to check for the latest patches and security updates. Issue the following commands in a terminal.
@@ -235,6 +230,8 @@ Follow the tutorial steps in the VirtualBox [user manual](https://www.virtualbox
 
 * VirtualBox [User Manual](https://www.virtualbox.org/manual/UserManual.html). This user manual has a lot more information on VMs including network settings.
 
+> #### _Security tip_
+Do not allow VMs to share folders and storage volumes with other VMs or with the host OS. This prevents unintended data sharing between separated domains.
 
 [Top](#table-of-contents)
 
