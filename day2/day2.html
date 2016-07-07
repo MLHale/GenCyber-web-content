@@ -286,8 +286,12 @@ find /home/student/.local/lib -type d -exec chmod 755 {} +
 cd /var/www/
 sudo service apache2 reload
 sudo service apache2 restart</code></pre><br>
+						This virtual host is apache's way of binding certain ports to certain hosted files. In this configuration we are enabling django to run inside of apache using the WSGI interface. The WSGIScriptAlias maps to the wsgi.py file in our django install and the python path points to the directory where our project code is at. This configuration also hosts a static files directory that can be used to host any static files (like css or js or ...your ember flickr app).<br>
+						<br>
+
 						If all goes well, you should see the same app as before, but hosted on localhost: e.g.<br>
 						<img src="images/apache-django-configured.png"/><br>
+						Now we have two specific setups. One for development (/var/www/gencybersite) and one for production (/var/www/production/). Henceforth, we will make coding changes in development, push our changes to our github repo and then pull them down into our production setup when we are ready.<br>
 			        </div><!-- End Task 3-->
 
 			        <div id="task4" class="taskitem">
@@ -309,59 +313,8 @@ TBD------------------------
 			            <img src="images/lab2/wsgi-file.png"/><br>
 			            
 			            Now tell apache to talk to django instead of loading the "It works" page<br>
-			            <pre><code>sudo nano /etc/apache2/sites-available/000-default.conf</code></pre><br>
-			            Change it to the following:<br>
-			            <pre><code>&lt;VirtualHost *:80&gt;
-        # The ServerName directive sets the request scheme, hostname and port that
-        # the server uses to identify itself. This is used when creating
-        # redirection URLs. In the context of virtual hosts, the ServerName
-        # specifies what hostname must appear in the request's Host: header to
-        # match this virtual host. For the default virtual host (this file) this
-        # value is not decisive as it is used as a last resort host regardless.
-        # However, you must set it for any further virtual host explicitly.
-        ServerName iasc8080-08.ist.unomaha.edu
-
-        ServerAdmin mlhale@unomaha.edu
-
-        # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
-        # error, crit, alert, emerg.
-        # It is also possible to configure the loglevel for particular
-        # modules, e.g.
-        LogLevel info
-
-        ErrorLog ${APACHE_LOG_DIR}/error.log
-        CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-        Alias /static/ /var/www/myapp/static/
-        Alias /favicon.ico /var/www/myapp/static/icons/favicon.ico
-        
-        #allow access to static files
-        &lt;Directory /var/www/myapp/static&gt;
-            Options -Indexes
-            Require all granted
-        &lt;/Directory&gt;
-
-        #allow access to wsgi file
-        &lt;Directory /var/www/myapp&gt;
-            &lt;Files wsgi.py&gt;
-                Require all granted
-            &lt;/Files&gt;
-        &lt;/Directory&gt;
-
-        ServerSignature Off
-
-        # For most configuration files from conf-available/, which are
-        # enabled or disabled at a global level, it is possible to
-        # include a line for only one particular virtual host. For example the
-        # following line enables the CGI configuration for this host only
-        # after it has been globally disabled with "a2disconf".
-        #Include conf-available/serve-cgi-bin.conf
-&lt;/VirtualHost&gt;
-WSGIScriptAlias / /var/www/myapp/wsgi.py
-WSGIPythonPath /var/www/myapp/
-# vim: syntax=apache ts=4 sw=4 sts=4 sr noet</code></pre><br>
-			            <br>
-			            This virtual host is apache's way of binding certain ports to certain hosted files. In this configuration we are enabling django to run inside of apache using the WSGI interface. The WSGIScriptAlias maps to the wsgi.py file in our django install and the python path points to the directory where our project code is at. This configuration also hosts a static files directory in myapp that can be used to host any static files (like css or js or ...your ember app).<br>
+			           
+			            
 			            Now we just need to do a few things<br>
 			            <pre><code>mkdir /var/www/myapp/static
 			sudo service apache2 reload
