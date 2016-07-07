@@ -1,8 +1,8 @@
-# GenCyber-web-content
-These files are intended to provide step-by-step self paced tutorials to teachers seeking to learn about cybersecurity first principles as part of the UNO Gencyber camp
+# GenCyber Camp @ The University of Nebraska at Omaha
+Files in this repo are intended to provide step-by-step self paced tutorials to teachers seeking to learn about cybersecurity first principles as part of the UNO Gencyber camp.
 
-# Live preview of current versions
-Each step-by-step tutorial is specified by day and hosted at the following urls:
+# Camp Study Resources
+Each step-by-step tutorial is specified by day and hosted at the linked urls:
 
 #### Day1: Development Environment and Client-side App Creation
 1. [Virtualization Primer](./day1/virtualization-primer.md)  
@@ -16,13 +16,22 @@ Each step-by-step tutorial is specified by day and hosted at the following urls:
   * [Sub-Unit 6: Deployment to Github.io](https://htmlpreview.github.io/?https://github.com/MLHale/GenCyber-web-content/blob/master/day1/day1.html#task21)  
 
 #### Day 2: Server-side Application Creation
-1. [Firewalls](./day2/day2-firewalls-iptables.md)  
-2. [Setting up a Web-Server](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html)  
+
+1. [Server Setup: Apache, Django, and Django REST framework](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html)
+  * UNIT 1: Installing Apache and Django and configuring a dev. and production environment
+  * UNIT 2: Integrating the server-side and client-side
+  * UNIT 3: Adding authentication and sessions
+  * UNIT 4: Adding a user profile
+  * UNIT 5: Access control and permissions
+  * UNIT 6: Input filtering and API hardening
+2. [Server Hardening: Firewalls](./day2/day2-firewalls-iptables.md)  
 
 #### Day 3: Reducing Exposure: Training the Human and Cryptography
-1. [Email Header Analysis](./day3/day3-se-headeranalysis.md)
-2. [How to read a URL?](./day3/day3-url-analysis.md)
-3. Hands-on with Cryptography  
+1. Avoiding Phishing
+  * [Email Header Analysis](./day3/day3-se-headeranalysis.md)
+  * [URL Analysis](./day3/day3-url-analysis.md)
+3. Avoiding Network Snooping
+  * Hands-on with Cryptography  
 
 #### Day 4: Teacher-Student group exercises
 
