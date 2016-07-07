@@ -149,9 +149,11 @@
 						<p><a class="btn btn-primary btn-lg" href="#task1" role="button">Get started</a></p>
 					</div>
 					<div class="list-group">
-						<a href="#task1" class="list-group-item">Unit 1: Installing Apache</a>
+						<a href="#task1" class="list-group-item">UNIT 1: Installing Apache and Django and configuring a dev. and production enviornment</a>
+						<a href="#task4" class="list-group-item">UNIT 2: Integrating the server-side and client-side</a>
 					</div>
 					<div id="task1" class="taskitem">
+						<h2>UNIT1: Unit 1: Installing Apache and Django and configuring a dev. and production enviornment</h2>
 						<h3 class="taskitem">1. Installing and running Apache</h3>
 
 			            Open your ubuntu server-vm. Once its booted up, login and then press ctrl+alt+t to open a new terminal <br>
@@ -295,6 +297,88 @@ sudo service apache2 restart</code></pre><br>
 			        </div><!-- End Task 3-->
 
 			        <div id="task4" class="taskitem">
+			        	<h2>UNIT 2: Integrating the server-side and client-side</h2>
+			        	<h3 class="taskitem">4. Configuring Ember with Django</h3>
+			        	Now comes the part where you bring together everything you've done so far: integrating your api and your client-side app. <br>
+
+			            Lets start by integrating this api with the flickr app we built on day 1.<br>
+			            If you didn't entirely finish, or made a mistake, its ok - you can fork the repo at <a href="https://github.com/MLHale/gencyberember">https://github.com/MLHale/gencyberember</a><br>
+			            This repo contains code that has been checkpointed to be in the state that you would have been if you finished all of the steps in day 1. <br>
+			            Just so we are all on the same page, lets go ahead and fork this repo on github and then do the following: (make sure to replace 'yourusername' with your actual username.<br>
+
+			            <pre><code>cd /var/www/
+git clone https://github.com/yourusername/gencyberember.git /var/www/ember
+cd ember
+git reset 02a023b3 --hard
+npm install
+bower install</code></pre><br>
+			            The reset hard command will revert the code back to the starting point for this tutorial. If you want to look at where you are going, a finished copy is available at the last commit.<br>
+			            After you have the app installed, lets add it to the sublime project workspace:<br>
+
+			            <img src="images/add-folder.png"/><br>
+			            <img src="images/select-folder.png"/><br>
+
+			            When you have it added, your workspace should look like:<br>
+			            <img src="images/project-workspace.png"/><br>
+
+			            Now comes the integration step. In your terminal type the following:<br>
+			            <pre><code>cd /var/www/ember
+ember build --watch -o /var/www/gencybersite/static/ember</code></pre><br>
+			            Now you should see a familiar ember build watch running. The only difference is now it is building into a direcotry other than /dist/. Specifically it is building into a static folder called "ember/" in /var/www/gencybersite/static/<br> 
+			            <br>
+			            <img src="images/ember-build.png"/><br>
+
+			            Now we just need to tell django to host ember on our root url<br>
+			            In another terminal window (ctrl+shift+t for a new one) run runserver as follows:<br>
+			            <pre><code>cd /var/www/gencybersite/
+python manage.py runserver</code></pre><br>
+						To review, you now have runserver going for your django development environment, you have ember-cli building ember files into your django app, and you have apache running to host your production server.<br>
+
+			            In sublime, open /var/www/gencybersite/gencybersite/settings.py<br>
+			            Find "TEMPLATES" then change the "DIRS" line to:<br>
+			            <pre><code>'DIRS': ['static/ember/'],</code></pre><br>
+
+			            <img src="images/templates-dir.png"/><br>
+
+			            Now lets go to views.py in /api and add:<br>
+			            <pre><code>def home(request):
+  """
+  Send requests to / to the ember.js clientside app  """
+  
+  return render_to_response('index.html',
+                {}, RequestContext(request))</code></pre><br>
+                		<img src="images/home-template.png"/><br>
+
+
+
+			            Then in urls.py (in /var/www/gencybersite/gencybersite) after the other import statements add:<br>
+			            <pre><code>from api import views</code></pre><br>
+			            Then after the api/ pattern, add:<br>
+			            <pre><code> url(r'^', views.home),</code></pre><br>
+			            <br>
+
+			            At this point your urls.py file should look like:<br>
+			            <img src="images/urls-py.png"/><br>
+
+			            By the way we've designed this requests will first cascade through admin/ then api/. Every other possible url will be mapped to the views.home view - which is conveiently hosting our ember app. What this means is that django will offload all urls that don't match the first two patterns to ember (where, they will be handled by the ember client-side router). Nifty yeah?<br>
+
+			            To make it all work we need to do one more thing<br>
+			            The asset files aren't hosted at /assets/ as they are in the ember-cli build placement.<br>
+			            To fix this, open your /var/www/ember/app/index.html file and ctrl-h (replace) the word 'assets' with 'static/ember/assets'<br>
+
+			            It should look like:<br>
+			            <img src="images/asset-static-fix.png"/><br>
+			            AND THE BUILD PROCESSES ALIGN - AT LAST<br>
+
+			            Now we can edit our ember files, ember-cli will watch for changes and build the result into our django static-file directory.<br>
+			            On the server-side code, if we make changes to our django files, django manage.py will watch for and observe the changes and then restart the server automatically.<br>
+			            <br>
+			            If everything is setup correctly you should see:<br>
+			            <img src="images/django-ember.png"/><br>
+			            This is really nifty and accelerates development<br>
+			            When the app is working as you like it, you can just release it to production via a git push on the development environment and a git pull on the production server. Through this build process, the compiled ember files will be just another script in the /static folder of the django repository and you can still manage client-side code changes from your ember repository (since they are in seperate git repos)<br>
+
+			            
 			        </div><!-- End Task 4-->
 			        <div id="task5" class="taskitem">
 			        </div><!-- End Task 5-->
@@ -306,23 +390,6 @@ sudo service apache2 restart</code></pre><br>
 			        </div><!-- End Task 8-->
 			        <div id="task9" class="taskitem">
 			        </div><!-- End Task 9-->
-						            
-TBD------------------------
-			            Since this is a 'production' server, lets set Django up to work with apache through mod_wsgi. <br>
-
-			            <img src="images/lab2/wsgi-file.png"/><br>
-			            
-			            Now tell apache to talk to django instead of loading the "It works" page<br>
-			           
-			            
-			            Now we just need to do a few things<br>
-			            <pre><code>mkdir /var/www/myapp/static
-			sudo service apache2 reload
-			sudo service apache2 restart</code></pre><br>
-			            This will restart the server and load the configuration.<br>
-			            If all went well you should see:<br>
-			            <img src="images/lab2/django-working2.png"/><br>	
-					</div><!-- End of Task 2-->
 
 				</div><!--end scrollable content -->
 				<!-- Copyright info -->
