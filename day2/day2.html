@@ -239,7 +239,7 @@ cd production</code></pre><br>
 						Now you have two copies of django, one for development in /var/www/gencybersite/ and one in /var/www/production/ that you will be letting apache serve. <br>
 						Lets get this 'production environment' (a term based in the domain seperation and layering first principles) configured. <br>
 
-						You will need a module called mod_wsgi to allow apache to talk to the django python kernal (a run time environment for python). Lets go ahead and install it:<br>
+						You will need a module called mod_wsgi to allow apache to talk to the django python kernel (a run time environment for python). Lets go ahead and install it:<br>
 
 			            <pre><code>sudo apt-get install libapache2-mod-wsgi</code></pre>
 			            This library allows Django to tell apache what to serve at any given time. <br>
@@ -252,7 +252,7 @@ cd production</code></pre><br>
 			            To change it to django lets disable this site and create a new virtualhost setup for django:<br>
 			            First, lets create the new virtualhost conf file.
 			            <pre><code>sudo nano /etc/apache2/sites-available/django.conf</code></pre>
-			            Copy the following and paste it into the conf (right click the terminal, select paste):<br>
+			            Copy the following and paste it into the conf file (right click the terminal, select paste):<br>
 			            <pre><code>&lt;VirtualHost *:80&gt;
         ServerName localhost
 
@@ -286,7 +286,20 @@ cd production</code></pre><br>
 &lt;/VirtualHost&gt;
 WSGIScriptAlias / /var/www/production/gencybersite/wsgi.py
 WSGIPythonPath /var/www/production/:/home/student/.local/lib/python2.7/site-packages/</code></pre><br>
-						To make these files active lets give apache access to site-packages and then reload and restart our server.<br>
+						To make these files active lets give apache access to site-packages and then reload and restart our server. The first command gives permission 7 to the owner (the first 7), 7 to group (the second 7), and 5 to all others (the 5).<br>
+						The numbers can range from: 0 to 7 as follows:
+						<ul>
+							<li>0 – no permission</li>
+							<li>1 – execute</li>
+							<li>2 – write</li>
+							<li>3 – write and execute</li>
+							<li>4 – read</li>
+							<li>5 – read and execute</li>
+							<li>6 – read and write</li>
+							<li>7 – read, write, and execute</li>
+						</ul>
+						<br>
+						The second command (find) grabs every directory (given by -type d) beneath the path ( /home/student/.local/lib ) and changes its permissions to 755.<br>
 						<pre><code>sudo chmod 775 /home/student/.local
 find /home/student/.local/lib -type d -exec chmod 755 {} +
 cd /var/www/
@@ -364,7 +377,7 @@ python manage.py runserver</code></pre><br>
 			            At this point your urls.py file should look like:<br>
 			            <img src="images/urls-py.png"/><br>
 
-			            By the way we've designed this requests will first cascade through admin/ then api/. Every other possible url will be mapped to the views.home view - which is conveiently hosting our ember app. What this means is that django will offload all urls that don't match the first two patterns to ember (where, they will be handled by the ember client-side router). Nifty yeah?<br>
+			            This url configuration cascades through admin/ then api/. If it matches one of those, it will be sent to the corresponding set of views. Otherwise, every other possible url will be mapped to the views.home view - which is conveiently hosting our ember app. What this means is that django will offload all urls that don't match the first two patterns to ember (where, they will be handled by the ember client-side router). Nifty yeah?<br>
 
 			            To make it all work we need to do one more thing<br>
 			            The asset files aren't hosted at /assets/ as they are in the ember-cli build placement.<br>
@@ -391,6 +404,7 @@ git push</code></pre><br>
 
 			        </div><!-- End Task 4-->
 			        <div id="task5" class="taskitem">
+			        	<h2>UNIT 3: Adding Authentication and sessions</h2>
 			        </div><!-- End Task 5-->
 			        <div id="task6" class="taskitem">
 			        </div><!-- End Task 6-->
