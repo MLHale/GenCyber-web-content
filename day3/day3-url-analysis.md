@@ -34,7 +34,7 @@ Phishing victims often fear ridicule and do not report crimes...
 ## Introduction to URLs
 
 Most Phishing attacks start with a specially-crafted URL. A URL is an acronym for Uniform Resource Locator. It is a standard format for locating web resources on the Internet. Most Internet users refer it as the "address for a website". For example, http://www.amazon.com. News story URLs like this one: http://www.cnn.com/2016/07/06/health/juno-jupiter-nasa/index.html are often much longer. On social media sites we are used to seeing short URLs like this one: http://cnn.it/29lG6OK or links on shopping sites: https://amzn.com/0132390779. Even emails are often filled with URLs that senders want us to click on. URLs also give us access to our bank accounts, tax filing, healthcare, billing, and many government services. While we use it everyday, but very few of us are really confident in their abilities to properly read a URL, much less understand what might happen if clicked on. Let's change that.
-\
+
 [Top](#table-of-contents)
 
 ## Reading a URL
@@ -87,7 +87,7 @@ Now it should be apparent that the "right" way to read a url is to actually star
 
   > For example: https://www.icann.org has no single forward-slash character. It does have a double forward-slash characters (`//`) but that is not what we are looking for. So in this case you start reading the top-level domain from the far right to left. It is `org` and then `icann`
 
-2. If single forward-slash(`/`) exists in the URL, then find the farthest one from the right. Then start reading the top-level domain name from that point onwards from right to left.
+* If single forward-slash(`/`) exists in the URL, then find the farthest one from the right. Then start reading the top-level domain name from that point onwards from right to left.
 
   > For example: http://activate.facebook.fblogins.net/88adbao798283o8298398?login.asp   
   In this link the farthest single forward-slash(`/`) from the right is between `net` and `88adbao798283o8298398`. So the top-level domain here is `net` and then `fblogins`. Beyond these two names, the organization that owns `fblogins` domain can makeup whaterver names that want, such as `facebook`, `apple` or `google`.   
