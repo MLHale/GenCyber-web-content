@@ -1,5 +1,12 @@
 # Email Header Analysis
 
+### Cybersecurity Commonsense
+[Source: DHS Stop. Think. Connect. [Campaign](https://www.stopthinkconnect.org/tips-advice/general-tips-and-advice)]
+
+* __When in doubt, throw it out:__ Links in emails, social media posts and online advertising are often how cybercriminals try to steal your personal information. Even if you know the source, if something looks suspicious, delete it.
+
+* __Think before you act:__ Be wary of communications that implore you to act immediately, offer something that sounds too good to be true or ask for personal information. 
+
 ### Table of Contents  
 [Introduction](#introduction)  
 [Email Headers](#email-headers)  
