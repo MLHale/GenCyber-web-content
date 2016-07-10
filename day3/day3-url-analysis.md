@@ -104,16 +104,16 @@ Now it should be apparent that the "right" way to read a url is to actually star
 ```
 http://www.cnn.com/tiger-woods/story.html http://www.buy.com.money.ru
 ```
-	Check your answers with your peers. Do they match?  
-	[Answer key](./day3/misc.md).
+Check your answers with your peers. Do they match?  
+[Answer key](./day3/misc.md).
 
 * Which link will you click on? #1 or #2  
 ```
 #1: ftp://ftp.microsoft.com/software/patches/fixit.exe  
 #2: http://www.micosoft.com/software/patches/fixit.exe  
 ```  
-	Check your answers with your peers. Do they match?  
-	[Answer key](./day3/misc.md).
+Check your answers with your peers. Do they match?  
+[Answer key](./day3/misc.md).
 
 
 > ##### Misconception: `www` is a standard part of a URL and cannot be changed. [WRONG!]
@@ -304,7 +304,8 @@ ASCII Encoding for www.wellsfargo.com
 
 		This forms the href attribute of Link #5.
 
-    ASCII Table: http://www.asciitable.com/index/asciifull.gif  # This is a useful resource for ASCII conversions
+    ASCII Table: http://www.asciitable.com/index/asciifull.gif
+		# This is a useful resource for ASCII to hex, decimalconversions
 
 ```
 
@@ -324,13 +325,13 @@ http://faculty.ist.unomaha.edu/rgandhi/phishing-demo/clickjacking-reveal.html
 
 ![trickyurls](../img/phishing/clickjacking-reveal.png)
 
-Now you can see, that the page is crafted to steal your "clicks" and pass them on to an invisible page in front of it. Spammers do this to generate advertisement revenue from unsuspecting users by _stealing_ their clicks. This exploit is called `click jacking`. You may explore the page source on these pages to notice that such behavior is possible using html `iframe` technology. With an invisible `iframe` the entire page becomes a minefield for your mouse clicks!
+Now you can see, that the page is crafted to steal your _clicks_ and pass them on to an invisible page in front of it. Spammers do this to generate advertisement revenue from unsuspecting users by _stealing_ their clicks. This exploit is called **click jacking**. You may explore the page source on these pages to notice that such behavior is possible using html `iframe` technology. With an invisible `iframe` the entire page becomes a minefield for your mouse clicks!
 
 In the demo page, `Like the kitten` is strategically placed on a link that tweets great things about Dr. Gandhi. You would be "liking" me without really intending to do so!
 
 ![trickyurls](../img/phishing/clickjacking-tweet.png)
 
-When playing "free" online game, you may be clicking invisible advertisements! Don't worry the game in the next section is safe :-)
+When playing "free" online games, you may be clicking invisible advertisements! Don't worry the game in the next section is safe :-)
 
 [Top](#table-of-contents)
 
