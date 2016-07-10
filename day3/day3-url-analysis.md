@@ -23,7 +23,7 @@ Phishing victims often fear ridicule and do not report crimes...
 > ![dibert3](http://assets.amuniversal.com/b1cbb110abaf01314782005056a9545d)
 
 ## Table of Contents
-[Introduction](#introduction)  
+[Introduction](#introduction-to-urls)  
 [Reading a URL](#reading-a-url)  
 [URL Tricks](#url-tricks)  
 [AntiPhishing Phil Game](#antiphishing-phil-game)   
@@ -100,20 +100,26 @@ Now it should be apparent that the "right" way to read a url is to actually star
 
 #### Exercise:
 
-* What are the top-level domain names for these URLs:
-```
-http://www.cnn.com/tiger-woods/story.html http://www.buy.com.money.ru
-```
-Check your answers with your peers. Do they match?  
-[Answer key](./day3/misc.md).
+##### What are the top-level domain names for these URLs:
 
-* Which link will you click on? #1 or #2  
+```
+http://www.cnn.com/tiger-woods/story.html   
+
+http://www.buy.com.money.ru
+```
+
+Check your answers with your peers. Do they match?  
+[Answer key](./misc.md)
+
+##### Which link will you click on? #1 or #2  
+
 ```
 #1: ftp://ftp.microsoft.com/software/patches/fixit.exe  
 #2: http://www.micosoft.com/software/patches/fixit.exe  
+
 ```  
 Check your answers with your peers. Do they match?  
-[Answer key](./day3/misc.md).
+[Answer key](./misc.md)
 
 
 > ##### Misconception: `www` is a standard part of a URL and cannot be changed. [WRONG!]
