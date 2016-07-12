@@ -390,9 +390,9 @@ Sites like Facebook, Linkedin, Company websites, Organizational Charts and Emplo
 
 ## Geolocation
 
-GPS functions on phones allow photos, videos, messages and social media posts to be **Geotagged**. Your location information gets embedded in the metadata of the media that you capture using GPS enabled devices. When geotagged media is shared publicly, location information is inadvertently shared along with it. Such information aggregated over time starts to reveal private information such as: work and home locations, daily routines, frequented places, vacation destinations, shopping places, and much more.
+GPS-enabled smartphones allow photos, videos, messages and social media posts to be **Geotagged**. Location information is embedded in the metadata for media alongside file name, date, camera information, etc. When geotagged media is shared publicly, location information is inadvertently shared along with it. Such information aggregated over time starts to reveal private information such as: work and home locations, daily routines, frequented places, vacation destinations, shopping places, and much more.
 
-Desktop based are freely available for Geolocation OSINT. For example, this tool is aptly named geoCreepy!
+Tools are freely available for conducting Geolocation OSINT. For example, this tool is aptly named geoCreepy!  
 Downloads: http://www.geocreepy.com/  
 Source code: https://github.com/ilektrojohn/creepy  
 
@@ -408,7 +408,7 @@ It is often prudent for celebrities and politicians to turn off geotagging in th
 
 ![geotagging](../img/phishing/trump.png)
 
-Hillary Clinton was also very cautious about her privacy, unlike her emails.
+Hillary Clinton is also very cautious about her privacy, unlike her handling of classified emails.
 
  ![geotagging](../img/phishing/clinton.png)
 
@@ -427,6 +427,7 @@ Protecting privacy requires __Information Hiding__. Deleting or hiding metadata 
 * Infographic, Phishing: [How many take the bait?](http://www.getcybersafe.gc.ca/cnt/rsrcs/nfgrphcs/nfgrphcs-2012-10-11-en.aspx)
 * [Reporting Phishing](https://www.consumer.ftc.gov/articles/0003-phishing), Federal Trade Commission
 * APWG, Phishing [Public Education](http://phish-education.apwg.org/r/en/index.htm)
+* Teaching Privacy: http://teachingprivacy.org
 
 [Top](#table-of-contents)
 
