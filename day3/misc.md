@@ -1,4 +1,4 @@
-# Flag: 327a6c4304ad5938eaf0efb6cc3e53dc crack this MD5 hash
+#Answer Key
 
 ## Reading a URL
 #### Exercise:
