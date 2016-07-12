@@ -14,6 +14,8 @@
 ### Cybersecurity First Principles
 * __Layering__: Cyber security uses multiple layers of defense or protecting information. If one layer is defeated the next layer should catch it.
 
+* __Information Hiding__: Information hiding is any attempt to prevent people from being able to see information. It can be hiding the content of a letter, or it can be applied to hiding how the letter is delivered. Both ways can prevent people from being able to see the information.
+
 ## Phishing Humor
 
 Phishing is a play of words on "fishing". The bait is often a email or social media message from a spammer, the fish are the unsuspecting victims who act on them.
@@ -31,6 +33,7 @@ Phishing victims often fear ridicule and do not report crimes...
 [URL Tricks](#url-tricks)  
 [AntiPhishing Phil Game](#antiphishing-phil-game)   
 [Spear Phishing](#spear-phishing)  
+[Geolocation](#geolocation)  
 [Additional Readings](#additional-readings)
 
 ## Introduction to URLs
@@ -389,6 +392,10 @@ Sites like Facebook, Linkedin, Company websites, Organizational Charts and Emplo
 
 GPS functions on phones allow photos, videos, messages and social media posts to be **Geotagged**. Your location information gets embedded in the metadata of the media that you capture using GPS enabled devices. When geotagged media is shared publicly, location information is inadvertently shared along with it. Such information aggregated over time starts to reveal private information such as: work and home locations, daily routines, frequented places, vacation destinations, shopping places, and much more.
 
+Desktop based are freely available for Geolocation OSINT. For example, this tool is aptly named geoCreepy!
+Downloads: http://www.geocreepy.com/  
+Source code: https://github.com/ilektrojohn/creepy  
+
 To spread awareness of this issue, an educational web application has been developed.
 
 http://app.teachingprivacy.com
@@ -411,9 +418,7 @@ Here is a twitter setting (Settings --> Security and Privacy) to delete any prev
 
 ![geotagging](../img/phishing/deletelocation.png)
 
-Finally, desktop based tools are also available for Geolocation OSINT.  
-Downloads: http://www.geocreepy.com/  
-Source code: https://github.com/ilektrojohn/creepy  
+Protecting privacy requires __Information Hiding__. Deleting or hiding metadata prevents sensitive patterns to be learned over time. This is true even for encrypted `https` Internet traffic. While `https` encryption protects message contents, it still reveals the communication endpoints. Over time an accurate communication graph can be built by examining such communications. To conceal  browsing patterns over the Internet, Virtual Private Networks (VPN) are very effective.
 
 [Top](#table-of-contents)
 
