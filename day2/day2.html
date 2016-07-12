@@ -409,7 +409,7 @@ git push</code></pre><br>
 
 			        	That's a few steps - so lets start with the first part - login and registration. This requires that we create some features in our ember app - to accept a username and password - and some features on our server-side django API to accept login requests and authenticate the user. <br>
 
-			        	<h3 class="taskitem">5. Creating client-side login component</h3>
+			        	<h3 class="taskitem">5. Creating a client-side login component</h3>
 			        	Lets start in the clientside<br>
 			        	With the ember build terminal still running from before, open up your ember app directory in sublime.<br>
 			        	Lets create a new component called "auth-manager" that will handle session based authentication.<br>
@@ -419,44 +419,137 @@ ember generate component auth-component</code></pre><br>
 						You should see the following:<br>
 						<img src="images/auth-gen.png"/><br>
 						<img src="images/auth-gen2.png"/><br>
-						With this done, open /ember/templates/auth-manager.hbs in sublime and copy in the following:<br>
+						With this done, open /ember/templates/components/auth-manager.hbs in sublime and copy in the following:<br>
 						<pre><code>{{#if isLoggedIn}} {{! Display user name and logout button}}
-	Hello {{username}}
-	&lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; {{action 'logout'}}&gt;Log out&lt;/button&gt;
+	&lt;p class=&quot;auth-form&quot;&gt;
+		Hello {{username}}
+		&lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; {{action 'logout'}}&gt;Log out&lt;/button&gt;
+	&lt;/p&gt;
 {{else}} {{!Display login page}}
 	{{#if errorMsg}}
 		
-		&lt;form class=&quot;form-inline&quot;&gt;
+		&lt;form class=&quot;form-inline auth-form&quot;&gt;
 			
 			&lt;div class=&quot;form-group has-error&quot;&gt;
 				&lt;label class=&quot;control-label&quot;&gt;&lt;div class=&quot;alert alert-danger&quot; style=&quot;padding: 5px; margin-bottom: 0px;&quot; role=&quot;alert&quot;&gt;{{errorMsg}}&lt;/div&gt;&lt;/label&gt;
-				{{input class=&quot;form-control&quot; value=username action=&quot;login&quot; placeholder=&quot;Username&quot;}}
+				{{input class=&quot;form-control auth-user-field&quot; value=username action=&quot;login&quot; placeholder=&quot;Username&quot;}}
 			&lt;/div&gt;
 			&lt;div class=&quot;form-group has-error&quot;&gt;
-				{{input class=&quot;form-control&quot; value=password action=&quot;login&quot; placeholder=&quot;Password&quot; type=&quot;password&quot;}}
+				{{input class=&quot;form-control auth-user-field&quot; value=password action=&quot;login&quot; placeholder=&quot;Password&quot; type=&quot;password&quot;}}
 			&lt;/div&gt;
 			&lt;label class=&quot;checkbox&quot;&gt;
-			  {{input type=&quot;checkbox&quot; checked=remember}} Remember me
+				{{input type=&quot;checkbox&quot; checked=remember}} Remember me
 			&lt;/label&gt;
 			&lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; {{action 'login'}}&gt;Sign in&lt;/button&gt;
 
 		&lt;/form&gt;
 	{{else}}
-		&lt;form class=&quot;form-inline&quot;&gt;
+		&lt;form class=&quot;form-inline auth-form&quot;&gt;
 			&lt;div class=&quot;form-group&quot;&gt;
-				{{input class=&quot;form-control&quot; value=username action=&quot;login&quot; placeholder=&quot;Username&quot;}}
+				{{input class=&quot;form-control auth-user-field&quot; value=username action=&quot;login&quot; placeholder=&quot;Username&quot;}}
 			&lt;/div&gt;
 			&lt;div class=&quot;form-group&quot;&gt;
-				{{input class=&quot;form-control&quot; value=password action=&quot;login&quot; placeholder=&quot;Password&quot; type=&quot;password&quot;}}
+				{{input class=&quot;form-control auth-user-field&quot; value=password action=&quot;login&quot; placeholder=&quot;Password&quot; type=&quot;password&quot;}}
 			&lt;/div&gt;
 			&lt;label class=&quot;checkbox&quot;&gt;
-			  {{input type=&quot;checkbox&quot; checked=remember}} Remember me
+				{{input type=&quot;checkbox&quot; checked=remember}} Remember me
 			&lt;/label&gt;
 			&lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; {{action 'login'}}&gt;Sign in&lt;/button&gt;
 
 		&lt;/form&gt;
 	{{/if}}
-{{/if}}</code></pre>
+{{/if}}</code></pre><br>
+						There is a lot going on in this code. Lets break it down. In the outer {{#if}} block, we are checking to see if a variable called 'isLoggedIn' is set to true. If it is, we display a hello username message and the log out button. Otherwise (when it is false) we display a login form that allows a user to enter a username and password. The inner if block will optionally display an error message if the variable 'errorMsg' is set to true. As you might imagine, the default values for these variables is false. Lastly, also note that our input handlers are bound to the 'value' of 'username' and 'password' - both of which are also variables.<br>
+						<br>
+						We have only created the login component, it isn't actually being displayed. To display it we need to include it in our /ember/templates/application.hbs file. Open this file in sublime and edit line 8 to the following:<br>
+						<pre><code>{{#bs-form formLayout="inline" class="search-form" action="search"}}</code></pre><br>
+						and edit line 17 by adding <pre><code>{{auth-manager}}</code></pre>. When you are done, the nav bar code should look like: <br>
+						<img src="images/nav-bar.png"/><br>
+						To see the fruits of your efforts, reload your app in the browser and you should see something like:<br>
+						<img src="images/app-login-form.png"/><br>
+						Notice the nav bar is on two lines in the header. To fix this, lets add a few lines of css to our /ember/styles/app.css file in sublime. Specifically, add the following:<br>
+						<pre><code>.auth-form {
+	margin-top: -34px;
+}
+
+.auth-user-field {
+	width: 150px !important;
+}
+
+.search-form {
+	margin-left: -250px;
+}</code></pre><br>
+					Now it should look better: <br>
+					<img src="images/nav-bar-fixed.png"/><br>
+					Ok, so it looks great - but if we click the "sign in" button nothing happens! Well not to worry, this is just because we haven't actually created the logic to handle this form. Lets do that now. Open up the /ember/components/auth-manager.js file in sublime and lets make this form actually work. Change the component code to the following (explanation below).<br>
+					<pre><code>import Ember from 'ember';
+
+export default Ember.Component.extend({
+	isLoggedIn: false,
+	errorMsg: '',
+	remember: false,
+	userid: -1,
+	actions: {
+		login: function(){
+			//do stuff to authenticate here
+			var username = this.get('username');
+			var password = this.get('password');
+			var remember = this.get('remember');
+			var data = {
+				'username': username,
+				'password': password};
+			var controllerObj = this;
+			Ember.$.post('../api/session/', data, function(response){
+				if(response.isauthenticated){
+					//success
+					console.log('Login POST Request to ../api/session/ was successful.');
+					controllerObj.set('username', response.username);
+					controllerObj.set('userid', response.userid);
+					controllerObj.set('isLoggedIn', true);
+
+					if(remember){
+						//save username and pass to local storage
+						localStorage.setItem('remember', true);
+						localStorage.setItem('username', this.get('username'));
+						localStorage.setItem('password', this.get('password'));
+					}
+					else{
+						localStorage.removeItem('remember');
+						localStorage.removeItem('username');
+						localStorage.removeItem('password');
+					}
+				} else{
+					//errors
+					console.log('Login POST Request to ../api/session/ was unsuccessful.');
+					controllerObj.set('errorMsg', response.message);
+				}
+			});
+			
+		},
+		logout: function(){
+			var controllerObj = this;
+			Ember.$.ajax({url: '../api/session/', type: 'DELETE'}).then(
+				function(response){
+					console.log('Logout DELETE Request to ../api/session/ was successful:' + response);
+					controllerObj.set('isLoggedIn', false);
+					controllerObj.set('errorMsg', '');
+					controllerObj.set('username', '');
+					controllerObj.set('userid', -1);
+				}
+			);
+
+		},
+	},
+	init: function(){
+		this._super();
+		if(localStorage.remember) {
+			this.set('username', localStorage.username);
+			this.set('password', localStorage.password);
+		}
+	}
+});</code></pre><br>
+						Obviously there is a lot going on here. Lets break down each piece....(pick up here)<br>
+						
 			        </div><!-- End Task 5-->
 			        <div id="task6" class="taskitem">
 			        </div><!-- End Task 6-->
