@@ -353,13 +353,17 @@ When playing "free" online games, you may be clicking invisible advertisements! 
 
 Let's play a game to test your URL "Know-How". The game is called AntiPhishing Phil.
 
-Here is a link to the game site. Registration is required to play the demo game :-(  
+> Sometimes the game is slow to load between rounds. If you see a blank square box then be patient and click inside it to move through the game.
+
+http://www.ucl.ac.uk/cert/antiphishing/
+
+Here is a link to the commercial game site.
+Registration is required to play the demo game :-(  
 http://wombatsecurity.com/antiphishingphil
 
 A free training course is available at OIT. This is free to play:  
 https://oit.byuh.edu/help/anti-phishing
 
-For a local site licensed copy for Anti-phishing Phil, see shortcut on Lab Desktop.
 
 [Top](#table-of-contents)
 
@@ -379,10 +383,37 @@ You may have to pick out yourself from other people who share your name. But tha
 
 Sites like Facebook, Linkedin, Company websites, Organizational Charts and Employee directories, make it easy to craft emails from colleagues, friends and family. There are commercial tools available to collect what is called Open Source Intelligence or (OSINT). Here is a tool that does just that: https://www.paterva.com/web7/buy/maltego-clients/maltego.php
 
-
 > **Security Tip**: Even when clicking on links in emails or websites shared by close colleagues, friends and family; trust but verify.
 
-[@Matt: Add the twitter mashup with geolocation that you shared with me]
+## Geolocation
+
+GPS functions on phones allow photos, videos, messages and social media posts to be **Geotagged**. Your location information gets embedded in the metadata of the media that you capture using GPS enabled devices. When geotagged media is shared publicly, location information is inadvertently shared along with it. Such information aggregated over time starts to reveal private information such as: work and home locations, daily routines, frequented places, vacation destinations, shopping places, and much more.
+
+To spread awareness of this issue, an educational web application has been developed.
+
+http://app.teachingprivacy.com
+
+This web-application takes a twitter handle and aggregates all publicly available geotagged information on a map. For example, here are the travel patterns of Steve Wozniak, co-founder of Apple.
+
+![geotagging](../img/phishing/stevewoz.png)
+
+It is often prudent for celebrities and politicians to turn off geotagging in their posts. Here is Donald Trump's twitter account. He (or someone on his behalf) has taken appropriate steps to avoid leaking information about his whereabouts through social media.
+
+![geotagging](../img/phishing/trump.png)
+
+Hillary Clinton was also very cautious about her privacy, unlike her emails.
+
+ ![geotagging](../img/phishing/clinton.png)
+
+To prevent inadvertent sharing of geolocation data, turn of **location services** for social media applications. Also, remove geotags from photos before sharing them on social media.  Here is some more guidance: http://teachingprivacy.org/prevention/#location
+
+Here is a twitter setting (Settings --> Security and Privacy) to delete any previously tagged locations.
+
+![geotagging](../img/phishing/deletelocation.png)
+
+Finally, desktop based tools are also available for Geolocation OSINT.  
+Downloads: http://www.geocreepy.com/  
+Source code: https://github.com/ilektrojohn/creepy  
 
 [Top](#table-of-contents)
 
