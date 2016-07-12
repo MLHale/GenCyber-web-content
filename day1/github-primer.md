@@ -90,7 +90,7 @@ In this step we will make changes to files in our Local repository and then `pus
 
 Git is based on a "de-centralized" model. Which means that there is no central authoritative repository. Every repository, Local or Remote, is fully autonomous and fully functional on its own. So changes made in any repository are tracked in that repository only. Two repositories do not communicate unless there is a explicit request to synchronize changes across them. This will make more sense as we work through a scenario.
 
-Let's open the hello-world folder on our local computer and make changes to the `README.md` file in a text editor.
+Let's open the hello-world folder in the Ubuntu Desktop OS VM and make changes to the `README.md` file in a text editor.
 
 ![readme](../img/primer/clonedrepo.png)
 
@@ -98,7 +98,7 @@ Let's open the hello-world folder on our local computer and make changes to the 
 
 ![readme](../img/primer/editfile.png)
 
-Now check the status of our repository. Make sure you navigate to a folder within your repository in the terminal first. These commands will help you do both these actions.
+Now check the status of the local repository. Make sure you navigate to a folder within your repository in the terminal first. These commands will help you do both these actions.
 
 ```
 cd hello-world
@@ -119,7 +119,7 @@ Now we stage our changes for a commit using `git add --all` command. Then we che
 
 This time the modified files are staged for a commit and appear in green.
 
-Now before we commit/save these files into our repository. We want to make sure that the author details in your local computer are configured. Keep them the same as your details on Github.com. Use the following commands to set these for all your local repositories.
+Now before we commit/save these files into our repository. We want to make sure that the author details in your Ubuntu Desktop OS VM are configured. Keep them the same as your details on Github.com. Use the following commands to set these for all your local repositories.
 
 ![gitconfig](../img/primer/gitconfig.png)
 
@@ -254,7 +254,7 @@ You are now ready to explore the wonderful world of open source on Github. Enjoy
 
 On Github, only the `owner` of a remote repository can push commits to it. All other `Github users` have the limited privilege to make a pull request. The repository owner reviews pull requests and initiates a merge action. The owner may reject pull requests if not seen appropriate. A `collaborator` can push commits, but cannot delete a repository or add other collaborators. These constrains show the concept of _least privilege_ with github user roles. Users should have no more privilege than that required for their job.
 
-Developers often design Github repositories, to be self contained _modules_. These modules can are then put in or taken out of a bigger project. During build time these components are composed to create an integrated system. This strategy facilitates __Modularization__. Following this principle allows globally distributed teams to collaborate and locate faulty components.
+Developers often design Github repositories, to be self contained _modules_. These modules are then put in or taken out of a bigger project. During build time these components are composed to create an integrated system. This strategy facilitates __Modularization__. Following this principle allows globally distributed teams to collaborate and locate faulty components.
 
 Finally, Github repositories separate source code from other resources. This separation allows longterm archival and maintenance of a codebase, separate from its dependencies. _Domain Separation_ allows managing source code versions for different products and operating environments.
 
