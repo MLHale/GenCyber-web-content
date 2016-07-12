@@ -1,5 +1,12 @@
 ## Github Primer
 
+### Cybersecurity First Principles
+* __Domain Separation__: Good fences make good neighbors. When trying to secure a home or computer, separating the areas where resources are and people work prevents accidents and loss of data or private information. We are preventing the information worlds from colliding.
+
+* __Modularization__: The concept of modularity is like building blocks. Each block (or module) can be put in or taken out from a bigger project. Each module has its own separate function that is interchangeable with other modules
+
+* __Least Privilege__: One of the ways to protect information is by limiting what people can with your information and resources.
+
 Git is a popular developer tool for collaboration and version control. It is not limited to just code. You may use it for collaborative development of any written work. Github is a popular online platform to host public git repositories. There are several other services like Github, such as [BitBucket](https://bitbucket.org/). For our lessons we will stick to Github for now.  Working through the tutorials below, git's use for collaboration and version control will become clear.
 
 ### Table of Contents    
@@ -10,7 +17,8 @@ Git is a popular developer tool for collaboration and version control. It is not
 [Step 5: Pull Remote Changes](#step-5)  
 [Step 6: Fork Repository](#step-6)  
 [Step 7: Pull Request](#step-7)  
-[Step 8: Markdown](#step-8)  
+[Step 8: Markdown](#step-8)   
+[Cyber security First Principle Reflections](#cyber-security-first-principle-reflections)  
 [Additional Resources](#additional-resources)
 
 
@@ -37,7 +45,7 @@ To create a **Local** repository there are two basic options.
 ##### Clone a remote repository
 Let's go with option #1. Git tools do not come pre-installed. To check if they exist on your operating system, open up a command line interface and type `git`. If git is installed, this command will give you some help options. If the command is not recognized, then use this link to install git for your operating system flavor. https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
-For a Ubuntu OS, here are the instructions:
+For a Ubuntu Desktop OS that you created in the `Virtualization` module, here are the instructions to type in a terminal:
 
 ```bash
 sudo apt-get update
@@ -71,7 +79,9 @@ LICENSE  README.md
 
 ##### Initialize a new repository
 
-For option #2, navigate to the folder with your files. Then use the init command: `git init`. That's it! We do not need to use this option currently, so let's move to [Step 4](#step-4)
+> We do not need to use this option currently, so you may move to [Step 4](#step-4)
+
+For option #2, navigate to the folder with your files. Then use the init command: `git init`. That's it!
 
 [Top](#table-of-contents)
 
@@ -82,9 +92,18 @@ Git is based on a "de-centralized" model. Which means that there is no central a
 
 Let's open the hello-world folder on our local computer and make changes to the `README.md` file in a text editor.
 
-![readme](../img/primer/editreadme.png)
+![readme](../img/primer/clonedrepo.png)
 
-Now check the status of our repository. Make sure you navigate to a folder within your repository in the terminal. Then issue this command `git status`.
+![readme](../img/primer/openreadme.png)
+
+![readme](../img/primer/editfile.png)
+
+Now check the status of our repository. Make sure you navigate to a folder within your repository in the terminal first. These commands will help you do both these actions.
+
+```
+cd hello-world
+git status
+```
 
 ![gitstatus](../img/primer/gitstatus.png)
 
@@ -116,13 +135,13 @@ Now let's commit the changes that we staged before. Here we use the `commit` opt
 
 `git status` now reports no uncommitted changes. But it indicates that `Your branch is ahead of 'origin/master' by 1 commit`. Which means that our local repository master branch is more recent commits than the remote repository master branch.
 
-To push our local changes to the remote repository, we need the git push command. With this command we need to indicate the name of the remote repository followed by the name of the local repository branch that has updates to be pushed.
+To push our local commits to the remote repository, we need the git `push` command. With this command we need to indicate the name of the remote repository followed by the name of the local repository branch that has updates to be pushed.
 
 #### Questions
-What is the default name of the remote repository?
+What is the default name of the remote repository?  
 What is the name of the main branch in our local repository?
 
-Here is the command we will use `git push origin master`
+To push local commits to the remote repository, here is the command we will use `git push origin master`
 
 ![gitpush](../img/primer/gitpush.png)
 
@@ -231,11 +250,27 @@ You are now ready to explore the wonderful world of open source on Github. Enjoy
 
 [Top](#table-of-contents)
 
+### Cyber security First Principle Reflections
+
+On Github, only the `owner` of a remote repository can push commits to it. All other `Github users` have the limited privilege to make a pull request. The repository owner reviews pull requests and initiates a merge action. The owner may reject pull requests if not seen appropriate. A `collaborator` can push commits, but cannot delete a repository or add other collaborators. These constrains show the concept of _least privilege_ with github user roles. Users should have no more privilege than that required for their job.
+
+Developers often design Github repositories, to be self contained _modules_. These modules can are then put in or taken out of a bigger project. During build time these components are composed to create an integrated system. This strategy facilitates __Modularization__. Following this principle allows globally distributed teams to collaborate and locate faulty components.
+
+Finally, Github repositories separate source code from other resources. This separation allows longterm archival and maintenance of a codebase, separate from its dependencies. _Domain Separation_ allows managing source code versions for different products and operating environments.
+
+[Top](#table-of-contents)
+
 ## Additional Resources
 
 * Creating a local repository first and then adding a remote repository, [Github](https://try.github.io/)
 * [Github cheatsheet](https://services.github.com/kit/downloads/github-git-cheat-sheet.pdf)
 * Collection of [Github tutorials](https://help.github.com/articles/good-resources-for-learning-git-and-github/)
+
+[Top](#table-of-contents)
+
+## Special Thanks
+
+* A special thanks to Matt Hale, Aaron Vigal and Cade Wollcot for reviews of this module and thoughtful discussions.
 
 [Top](#table-of-contents)
 

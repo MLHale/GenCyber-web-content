@@ -8,7 +8,6 @@
 * __Process Isolation__: A process is when a program is run. By keeping processes separated, it prevents the failure of one process from causing another to fail.
 
 
-
 ### Table of Contents
 [Introduction](#introduction)  
 [Installing VirtualBox](#installing-virtualbox)  
@@ -25,9 +24,9 @@
 
 Virtualization is a technique to abstract computer hardware resources. It allows sharing resources like CPU, memory and input/output devices between many __guest__ Operating Systems (OS). A host OS with virtualization software manages the guest OSes. A guest OS is unaware of other guest OSes and the underlying shared physical resources managed by the host OS. Virtualization provides _domain separation_ between guest OSes as well as the host OS. A guest OS is also referred to as a __virtual machine__ or VM for short.
 
-Virtualization technologies are essential to the operation of large scale data centers. It allows many tenants to share the same data center resources. Virtualization enables them to do so without encroaching on each other's data and programs.
+Virtualization technologies are essential to the operation of large scale data centers. It allows many tenants to share the same data center resources. Virtualization enables them to do so without encroaching on each other's data and programs. This is an example of __resource encapsulation__.
 
-In this module we will install virtualization software on a Windows host OS. Next, install a Ubuntu Linux guest OS as a VM. This setup will provide domain separation between our host OS and the development environment. Any changes and/or "accidents" in the guest OS, stay contained within the VM. Virtualization also allows safe experimentation with unknown software programs and malware samples.
+In this module we will install virtualization software on a Windows host OS. Next, install a Ubuntu Linux guest OS as a VM. This setup will provide __domain separation__ between our host OS and the development environment. Any changes and/or "accidents" in the guest OS, stay contained within the VM. Virtualization also allows safe experimentation with unknown software programs and malware samples. This is an example of __process isolation__. The failure of processes in a VM due to malware infection, does not impact the processes in the host machine. The VM may freeze, but it does not tie up the host machine resources.
 
 Our entire setup uses Free and Open Source Software (FOSS). When using FOSS, respect its copyright and license restrictions.
 
@@ -232,6 +231,12 @@ Follow the tutorial steps in the VirtualBox [user manual](https://www.virtualbox
 
 > #### _Security tip_
 Do not allow VMs to share folders and storage volumes with other VMs or with the host OS. This prevents unintended data sharing between separated domains.
+
+[Top](#table-of-contents)
+
+## Special Thanks
+
+* A special thanks to Matt Hale, Aaron Vigal and Cade Wollcot for reviews of this module and thoughtful discussions.
 
 [Top](#table-of-contents)
 

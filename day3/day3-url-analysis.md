@@ -11,6 +11,9 @@
 
 * __Safer for me, more secure for all:__ What you do online has the potential to affect everyone – at home, at work and around the world. Practicing good online habits benefits the global digital community.
 
+### Cybersecurity First Principles
+* __Layering__: Cyber security uses multiple layers of defense or protecting information. If one layer is defeated the next layer should catch it.
+
 ## Phishing Humor
 
 Phishing is a play of words on "fishing". The bait is often a email or social media message from a spammer, the fish are the unsuspecting victims who act on them.
@@ -34,15 +37,19 @@ Phishing victims often fear ridicule and do not report crimes...
 
 Most Phishing attacks start with a specially-crafted URL. When clicked on, phishing URLs take you to fake websites, download malware or prompt for credentials.
 
-A URL is an acronym for Uniform Resource Locator. It is a standard format for locating web resources on the Internet. Most Internet users refer it as the "address for a website". For example, http://www.amazon.com. News story URLs like this one: http://www.cnn.com/2016/07/06/health/juno-jupiter-nasa/index.html are often much longer. On social media sites we are used to seeing short URLs like this one: http://cnn.it/29lG6OK or links on shopping sites: https://amzn.com/0132390779. Even emails are often filled with URLs that senders want us to click on. URLs also give us access to our bank accounts, tax filing, healthcare, billing, and many government services. While all Internet users use it everyday, very few are confident in their abilities to read a URL, much less understand what might happen if clicked on. Let's change that.
+A URL is an acronym for Uniform Resource Locator. It is a standard format for locating web resources on the Internet. Most Internet users refer it as the "address for a website". For example, http://www.amazon.com. News story URLs like this one: http://www.cnn.com/2016/07/06/health/juno-jupiter-nasa/index.html are often much longer. On social media sites we are used to seeing short URLs like this one: http://cnn.it/29lG6OK or links on shopping sites: https://amzn.com/0132390779. Even emails are often filled with URLs that senders want us to click on. URLs also give us access to our bank accounts, tax filing, healthcare, billing, and many government services. While all Internet users use it everyday, very few are confident in their abilities to read a URL, much less understand what might happen if clicked on. Let's change that. A vigilant, trained and aware human user is a critical layer of defense against threats both internal and external. Even if malicious URLs and Emails get past spam filters and anti-virus software, a human user can catch it. Such a defensive strategy is common in secure system designs. It is a *cyber security first principle* called `Layering.`
+
+> __Layering__: Cyber security uses multiple layers of defense or protecting information. If one layer is defeated the next layer should catch it.
+
 
 [Top](#table-of-contents)
 
 ## Reading a URL
 
-There are some serious misconceptions about reading a URL. Spammers often take advantage of these when crafting phishing URLs.
+Computer users often have misconceptions about understanding a URL. Spammers take advantage of these misconceptions when crafting phishing URLs.
 
-> ##### Misconception: Read a URL from left to right, just like English [WRONG!]
+##### Misconception 1   
+Read a URL from left to right, just like English [WRONG!]
 
 Consider this email snippet:
 
@@ -55,7 +62,7 @@ To re-activate your account please on the click below.
 
 ```
 
-So is this a facebook URL?  How do we tell if this link is legitimate or not without clicking on it?  
+So is this a Facebook URL?  How do we tell if this link is legitimate or not without clicking on it?  
 
 If we just start reading the URL from left to right, like English, then this URL appears legitimate because we encounter the word `facebook` in the URL. But that is not the correct way of reading a URL.
 
@@ -122,7 +129,8 @@ Check your answers with your peers. Do they match?
 [Answer key](./misc.md)
 
 
-> ##### Misconception: `www` is a standard part of a URL and cannot be changed. [WRONG!]
+##### Misconception 2
+`www` is a standard part of a URL and cannot be changed. [WRONG!]
 
 Beyond the top-level domains, a organization or individual that has registered the domain has much control over the names of the computers in their networks. The name `www` is commonly give to computers that serve pages to the _World Wide Web_. But it is not necessary to name a web-server as `www`. For example, it is OK to have names such as `http://www2.nationalgeographic.com` or even `http://web.nationalgeographic.com`. So there is nothing special about the `www` part of a URL.
 
@@ -383,6 +391,12 @@ Sites like Facebook, Linkedin, Company websites, Organizational Charts and Emplo
 * Infographic, Phishing: [How many take the bait?](http://www.getcybersafe.gc.ca/cnt/rsrcs/nfgrphcs/nfgrphcs-2012-10-11-en.aspx)
 * [Reporting Phishing](https://www.consumer.ftc.gov/articles/0003-phishing), Federal Trade Commission
 * APWG, Phishing [Public Education](http://phish-education.apwg.org/r/en/index.htm)
+
+[Top](#table-of-contents)
+
+## Special Thanks
+
+* A special thanks to Matt Hale, Aaron Vigal and Cade Wollcot for reviews of this module and thoughtful discussions.
 
 [Top](#table-of-contents)
 

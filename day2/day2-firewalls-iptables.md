@@ -2,6 +2,9 @@
 
 Firewalls are often a first line of defense for an enterprise or home network. In this unit we will understand the fundamentals of firewalls, write firewall rules that configure its behavior and then test if the firewall performs as expected.
 
+### Cybersecurity First Principles
+* __Minimization__: Minimization refers to having the least functionality of a program or device. The goal of minimization is to simplify and decrease the number of ways the software can be exploited. This can include **turning of ports that are not needed**, reduce the amount of code running and turn of unneeded features.
+
 ### Table of Contents  
 [Overview](#overview)  
 [Firewalls as a Collection of Valves](#firewalls-as-a-collection-of-valves)  
@@ -16,7 +19,7 @@ The name firewall is inspired from its physical manifestation in construction wh
 
 ![Firewall in a substation](https://upload.wikimedia.org/wikipedia/commons/3/3c/Firewall_Electrical_Substation.jpg)
 
-While these firewalls are "cool", we are interesting in a different kind of firewall. The ones that protect internal networks from external networks. These kinds of firewalls allow us to control the flow of information across networks.
+While these firewalls are "cool", we are interesting in a different kind of firewall. The ones that protect internal networks from external networks. These kinds of firewalls allow us to control the flow of information across networks. Firewalls, __minimize__ the number of ways the internal networks and computers can be exploited. They allow having __least functionality__ by turning off ports that are not needed. Firewalls can also drop network traffic that does not conform to expected patterns.
 
 ![network firewalls](../img/firewall/networkfirewall.png)
 
@@ -300,6 +303,13 @@ That's it for Firewalls in this Unit. Happy Surfing.
 * [Microsoft The OSI Model's Seven Layers Defined and Functions Explained] (https://support.microsoft.com/en-us/kb/103884)  
 * [Ubuntu iptables Wiki](https://help.ubuntu.com/community/IptablesHowTo)  
 * [CentOS iptables Wiki](https://wiki.centos.org/HowTos/Network/IPTables)
+
+[Top](#table-of-contents)
+
+
+## Special Thanks
+
+* A special thanks to Matt Hale, Aaron Vigal and Cade Wollcot for reviews of this module and thoughtful discussions.
 
 [Top](#table-of-contents)
 

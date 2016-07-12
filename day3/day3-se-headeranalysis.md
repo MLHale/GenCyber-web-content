@@ -5,7 +5,10 @@
 
 * __When in doubt, throw it out:__ Links in emails, social media posts and online advertising are often how cybercriminals try to steal your personal information. Even if you know the source, if something looks suspicious, delete it.
 
-* __Think before you act:__ Be wary of communications that implore you to act immediately, offer something that sounds too good to be true or ask for personal information. 
+* __Think before you act:__ Be wary of communications that implore you to act immediately, offer something that sounds too good to be true or ask for personal information.
+
+### Cybersecurity First Principles
+* __Layering__: Cyber security uses multiple layers of defense or protecting information. If one layer is defeated the next layer should catch it.
 
 ### Table of Contents  
 [Introduction](#introduction)  
@@ -20,6 +23,10 @@
 ## Introduction
 
 Email is an indispensable communication tool. We use it everyday. Unfortunately many attacks also originate in emails. Wouldn't it be great if everyone had some mad email ninja skills! Don't worry, you will feel pretty good about your email analysis skills at the end of this session.
+
+A vigilant, trained and aware human user is a critical layer of defense against threats both internal and external. Even if malicious URLs and Emails get past spam filters and anti-virus software, a human user can catch it. Such a defensive strategy is common in secure system designs. It is a *cyber security first principle* called `Layering.`
+
+> __Layering__: Cyber security uses multiple layers of defense or protecting information. If one layer is defeated the next layer should catch it.
 
 When reading emails, the first item that grabs our attention is the sender's name, email and subject. But, it may come as a surprise that spoofing these in a email is a pretty easy thing! It is also effective at fooling unsuspecting email users. Take a look at some of the statistics in the [Verizon Data Breach Reports](http://www.verizonenterprise.com/verizon-insights-lab/dbir/).
 
@@ -305,6 +312,12 @@ Stay Vigilant!
 
 [Top](#table-of-contents)
 
+
+## Special Thanks
+
+* A special thanks to Matt Hale, Aaron Vigal and Cade Wollcot for reviews of this module and thoughtful discussions.
+
+[Top](#table-of-contents)
 
 
 #### License:
