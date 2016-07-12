@@ -411,7 +411,52 @@ git push</code></pre><br>
 
 			        	<h3 class="taskitem">5. Creating client-side login component</h3>
 			        	Lets start in the clientside<br>
-			        	Open up your ember app
+			        	With the ember build terminal still running from before, open up your ember app directory in sublime.<br>
+			        	Lets create a new component called "auth-manager" that will handle session based authentication.<br>
+			        	In a new terminal run the following:<br>
+			        	<pre><code>cd /var/www/ember/
+ember generate component auth-component</code></pre><br>
+						You should see the following:<br>
+						<img src="images/auth-gen.png"/><br>
+						<img src="images/auth-gen2.png"/><br>
+						With this done, open /ember/templates/auth-manager.hbs in sublime and copy in the following:<br>
+						<pre><code>{{#if isLoggedIn}} {{! Display user name and logout button}}
+	Hello {{username}}
+	&lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; {{action 'logout'}}&gt;Log out&lt;/button&gt;
+{{else}} {{!Display login page}}
+	{{#if errorMsg}}
+		
+		&lt;form class=&quot;form-inline&quot;&gt;
+			
+			&lt;div class=&quot;form-group has-error&quot;&gt;
+				&lt;label class=&quot;control-label&quot;&gt;&lt;div class=&quot;alert alert-danger&quot; style=&quot;padding: 5px; margin-bottom: 0px;&quot; role=&quot;alert&quot;&gt;{{errorMsg}}&lt;/div&gt;&lt;/label&gt;
+				{{input class=&quot;form-control&quot; value=username action=&quot;login&quot; placeholder=&quot;Username&quot;}}
+			&lt;/div&gt;
+			&lt;div class=&quot;form-group has-error&quot;&gt;
+				{{input class=&quot;form-control&quot; value=password action=&quot;login&quot; placeholder=&quot;Password&quot; type=&quot;password&quot;}}
+			&lt;/div&gt;
+			&lt;label class=&quot;checkbox&quot;&gt;
+			  {{input type=&quot;checkbox&quot; checked=remember}} Remember me
+			&lt;/label&gt;
+			&lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; {{action 'login'}}&gt;Sign in&lt;/button&gt;
+
+		&lt;/form&gt;
+	{{else}}
+		&lt;form class=&quot;form-inline&quot;&gt;
+			&lt;div class=&quot;form-group&quot;&gt;
+				{{input class=&quot;form-control&quot; value=username action=&quot;login&quot; placeholder=&quot;Username&quot;}}
+			&lt;/div&gt;
+			&lt;div class=&quot;form-group&quot;&gt;
+				{{input class=&quot;form-control&quot; value=password action=&quot;login&quot; placeholder=&quot;Password&quot; type=&quot;password&quot;}}
+			&lt;/div&gt;
+			&lt;label class=&quot;checkbox&quot;&gt;
+			  {{input type=&quot;checkbox&quot; checked=remember}} Remember me
+			&lt;/label&gt;
+			&lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; {{action 'login'}}&gt;Sign in&lt;/button&gt;
+
+		&lt;/form&gt;
+	{{/if}}
+{{/if}}</code></pre>
 			        </div><!-- End Task 5-->
 			        <div id="task6" class="taskitem">
 			        </div><!-- End Task 6-->
