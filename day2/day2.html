@@ -575,6 +575,47 @@ export default Ember.Component.extend({
 
 			        </div><!-- End Task 5-->
 			        <div id="task6" class="taskitem">
+			        	<h3 class="taskitem">6. Creating a the server-side authentication component</h3>
+			        	Now that we have the client-side code needed to authenticate - we now need to make it actually work by creating the actual backend server authentication component. This component will handle the requests that the client will send (on /api/session/), check the user's credentials, and then send the appropriate response back in the format discussed above in the previous step.<br>
+
+			        	...introduce code here...incrementally.
+			        	here it is
+			        	<pre><code>class Session(APIView):
+	permission_classes = (AllowAny,)
+	def form_response(self, isauthenticated, userid, username, error=""):
+		data = {
+			'isauthenticated': isauthenticated,
+			'userid': userid,
+			'username': username
+		}
+		if error:
+			data['message'] = error
+
+		return Response(data)
+
+	def get(self, request, *args, **kwargs):
+		# Get the current user
+		if request.user.is_authenticated():
+			return self.form_response(True, request.user.id, request.user.username)
+		return self.form_response(False, None, None)
+
+	def post(self, request, *args, **kwargs):
+		# Login
+		username = request.POST.get('username')
+		password = request.POST.get('password')
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				return self.form_response(True, user.id, user.username)
+			return self.form_response(False, None, None, "Account is suspended")
+		return self.form_response(False, None, None, "Invalid username or password")
+
+	def delete(self, request, *args, **kwargs):
+		# Logout
+		logout(request)
+		return Response(status=status.HTTP_204_NO_CONTENT)</code></pre><br>
+						...discuss APIView and each method...
 			        </div><!-- End Task 6-->
 			        <div id="task7" class="taskitem">
 			        </div><!-- End Task 7-->
