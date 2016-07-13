@@ -26,7 +26,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
 		<script>hljs.initHighlightingOnLoad();</script>
-		<title>Gencyber Day One</title>
+		<title>Gencyber Day Two</title>
 		<style>
 			#unologo{font-size: 1.2em;text-transform:uppercase;font-family:'urwgroteskregular';color:#FFF;display:inline-block;vertical-align:middle;margin-top:10px;margin-left:3px;font-weight:bold;}
 			.logo {
@@ -149,22 +149,23 @@
 						<p><a class="btn btn-primary btn-lg" href="#task1" role="button">Get started</a></p>
 					</div>
 					<div class="list-group">
-						<a href="#task1" class="list-group-item">Unit 1: Installing Apache</a>
+						<a href="#task1" class="list-group-item">UNIT 1: Installing Apache and Django and configuring a dev. and production enviornment</a>
+						<a href="#task4" class="list-group-item">UNIT 2: Integrating the server-side and client-side</a>
+						<a href="#task5" class="list-group-item">UNIT 3: Adding Authentication and sessions</a>
+						<a href="#task5" class="list-group-item">UNIT 4: Adding a user profile</a>
+						<a href="#task5" class="list-group-item">UNIT 5: Access control and Permissions</a>
+						<a href="#task5" class="list-group-item">UNIT 6: Input filtering and API hardening</a>
 					</div>
 					<div id="task1" class="taskitem">
+						<h2>UNIT1: Unit 1: Installing Apache and Django and configuring a dev. and production enviornment</h2>
 						<h3 class="taskitem">1. Installing and running Apache</h3>
 
 			            Open your ubuntu server-vm. Once its booted up, login and then press ctrl+alt+t to open a new terminal <br>
-			           	To install apache type the followin in the terminal:<br>
+			           	To install apache type the following in the terminal:<br>
 			            <pre><code>sudo apt-get update
 sudo apt-get install apache2</code></pre><br>
 			            <br>
 			            You should see: <img src="images/apache-install.png"/><br>
-
-			            You will also need a module called mod_wsgi to allow apache to talk to the django python kernal (a run time environment for python). Lets go ahead and install it:<br>
-
-			            <pre><code>sudo apt-get install libapache2-mod-wsgi</code></pre>
-			            <br>
 
 			            Lets run apache and confirm that "It Works!"<br>
 			            To do so, restart apache from the command line via:<br>
@@ -178,8 +179,9 @@ sudo apt-get install apache2</code></pre><br>
 
 					</div><!-- End Task 1-->
 					<div id="task2" class="taskitem">
-						<h3 class="taskitem">2. Installing and configuring Django</h3>
-			            Now that we have a default install of apache ready, lets make our webserver more interesting by installing and configuring a web development framework called "Django" to work with the server. The mod-wsgi plugin we installed earlier allows Apache to 'talk' to Django and run what the web framework asks it to.<br>
+						<h3 class="taskitem">2. Setup your development environment: Installing Django and Forking the starter serverside code</h3>
+			            
+			            Now that we have a default install of apache ready, lets make our webserver more interesting by installing and configuring a web application framework called "Django" to work with the server. We will start with setting up a development environment. Step 3 will get django setup for production<br>
 
 			            First install Django by typing the following in the command line:<br>
 			            <pre><code>sudo apt-get install python-pip
@@ -191,38 +193,70 @@ pip install Django==1.9.7</code></pre><br>
 						<img src="images/fork-django-project.png"/><br>
 
 						This should create a copy of the repository that you can control.<br> 
-						If you go to "https://github.com/&lt;yourusername&gt;/gencyberdjango" you should see the repo.<br>
+						<img src="images/forked-repo.png"/><br>
+						When you are done it should look something like:<br>
+						<img src="images/forked-repo2.png"/><br>
+						Notice in the red elipse that you now have your own copy of the repo. If you go to "https://github.com/&lt;yourusername&gt;/gencyberdjango" you should see it.<br>
 			            Back in your virtual machine, lets get started with this code (we will review what is in there in a moment)<br>
 			            (make sure to replace &lt;yourusername&gt; with your actual github username)
-			            <pre><code>sudo ln -s /home/student/.local/lib/python2.7/site-packages/django/bin/django-admin.py /usr/local/bin/django-admin.py
-sudo chown student:www-data -R /var/www/
+			            <pre><code>sudo chown student:www-data -R /var/www/
 cd /var/www/
-git clone https://github.com/&lt;yourusername&gt;/gencyberdjango
+git clone https://github.com/&lt;yourusername&gt;/gencyberdjango gencybersite
 cd gencybersite/</code></pre><br>
 		            	
 			            With this project, you will get a directory structure that looks like
-			            <img src="images/django-fresh-install.png"/><br>
+			            <img src="images/django-project-structure.png"/><br>
 
-			            
+			            Now that we have Django installed and a project running we should be able to test Django in development mode using a utility called "runserver" that runs a development version of django for you to develop your code with. This utility provides real-time recompilation as you edit python files and keeps your app hosted on localhost:8000. This is helpful for testing purposes. The utility also provides real-time feedback every time you save python files in your django directory. This can help you debug if you make errors along the way. Lets take a look at runserver now:<br>
+			            <pre><code>python manage.py runserver</code></pre><br>
+			            You should see something that looks like:
+			            <img src="images/django-runserver.png"/><br>
+			            Now, open up a chrome browser window and navigate to localhost:8000/api/<br>
+			            You should see that your django server is running and that there are three types of data served by your api: users, likes, and userprofiles. 
+						<img src="images/api-running-in-runserver.png"/><br>
+						Lets investigate these data structures using the django admin interface. In your browser go to localhost:8000/admin/ and login using the username/password student/studentgencyber Then, click on like and then on "someflickrphototitle". Also take a look at the userprofile and user models.<br>
+						You should see something like: <img src="images/admin-interface.png"/><br>
+						then: <img src="images/admin-interface2.png"/><br>
+						Then: <img src="images/admin-interface3.png"/><br>
 
-			            Since this is a 'production' server, lets set Django up to work with apache through mod_wsgi. <br>
+						Feel free to manipulate some fields and click "save"<br>
 
-			            <img src="images/lab2/wsgi-file.png"/><br>
-			            
-			            Now tell apache to talk to django instead of loading the "It works" page<br>
-			            <pre><code>sudo nano /etc/apache2/sites-available/000-default.conf</code></pre><br>
-			            Change it to the following:<br>
+						Now lets take a look at these items as our application will eventually see them: that is of course, in JSON format (javascript object notation).<br>
+						Go to localhost:8000/api/likes and you should see: <br>
+						then: <img src="images/api-likes.png"/><br>
+			        </div><!-- End Task 2-->
+			        <div id="task3" class="taskitem">
+			        	<h3 class="taskitem">3. Configuring Django for production</h3>
+			        	In the first step we installed apache. In the second, we install django. Notice they are running on different ports (port 80 for apache, i.e. just localhost, and port 8000 for django, i.e. localhost:8000). What we want is to setup apache to actually host django - so that when we make changes to our development enviornment we can 'push' them to production. Usually your production server would be an entirely different system. For the rest of this tutorial, we will just use a seperate folder. Lets get this setup. <br>
+
+			        	First, start by cloning your django repo into a new folder.
+			        	<pre><code>cd /var/www/
+git clone https://github.com/&lt;yourusername&gt;/gencyberdjango production
+sudo find /var/www/production/ -type d -exec chmod 775 {} +
+sudo find /var/www/production/ -type f -exec chmod 664 {} +
+sudo chown -R student:www-data /var/www/production/
+cd production</code></pre><br>
+						Now you have two copies of django, one for development in /var/www/gencybersite/ and one in /var/www/production/ that you will be letting apache serve. <br>
+						Lets get this 'production environment' (a term based in the domain seperation and layering first principles) configured. <br>
+
+						You will need a module called mod_wsgi to allow apache to talk to the django python kernel (a run time environment for python). Lets go ahead and install it:<br>
+
+			            <pre><code>sudo apt-get install libapache2-mod-wsgi</code></pre>
+			            This library allows Django to tell apache what to serve at any given time. <br>
+			            To make it work, we need to make some changes to our apache configuration file in /etc/apache2/sites-available/ to tell it to host django instead of the default "it works" page that we started with.
+			            <br>
+			            Lets take a look at our current running apache config: open a new terminal window (ctrl+shift+t in terminal) and type<br>
+			            <pre><code>nano /etc/apache2/sites-available/000-default.conf</code></pre><br>
+			            Notice that it is hosting the files in /var/www/html/ that we looked at in step 1.<br>
+						<img src="images/apache-default-conf.png"/><br>
+			            To change it to django lets disable this site and create a new virtualhost setup for django:<br>
+			            First, lets create the new virtualhost conf file.
+			            <pre><code>sudo nano /etc/apache2/sites-available/django.conf</code></pre>
+			            Copy the following and paste it into the conf file (right click the terminal, select paste):<br>
 			            <pre><code>&lt;VirtualHost *:80&gt;
-        # The ServerName directive sets the request scheme, hostname and port that
-        # the server uses to identify itself. This is used when creating
-        # redirection URLs. In the context of virtual hosts, the ServerName
-        # specifies what hostname must appear in the request's Host: header to
-        # match this virtual host. For the default virtual host (this file) this
-        # value is not decisive as it is used as a last resort host regardless.
-        # However, you must set it for any further virtual host explicitly.
-        ServerName iasc8080-08.ist.unomaha.edu
+        ServerName localhost
 
-        ServerAdmin mlhale@unomaha.edu
+        ServerAdmin youremail@youremail.edu
 
         # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
         # error, crit, alert, emerg.
@@ -233,44 +267,463 @@ cd gencybersite/</code></pre><br>
         ErrorLog ${APACHE_LOG_DIR}/error.log
         CustomLog ${APACHE_LOG_DIR}/access.log combined
 
-        Alias /static/ /var/www/myapp/static/
-        Alias /favicon.ico /var/www/myapp/static/icons/favicon.ico
+        Alias /static/ /var/www/production/static
         
         #allow access to static files
-        &lt;Directory /var/www/myapp/static&gt;
+        &lt;Directory /var/www/production/static&gt;
             Options -Indexes
             Require all granted
         &lt;/Directory&gt;
 
         #allow access to wsgi file
-        &lt;Directory /var/www/myapp&gt;
+        &lt;Directory /var/www/production/gencybersite&gt;
             &lt;Files wsgi.py&gt;
                 Require all granted
             &lt;/Files&gt;
         &lt;/Directory&gt;
 
         ServerSignature Off
-
-        # For most configuration files from conf-available/, which are
-        # enabled or disabled at a global level, it is possible to
-        # include a line for only one particular virtual host. For example the
-        # following line enables the CGI configuration for this host only
-        # after it has been globally disabled with "a2disconf".
-        #Include conf-available/serve-cgi-bin.conf
 &lt;/VirtualHost&gt;
-WSGIScriptAlias / /var/www/myapp/wsgi.py
-WSGIPythonPath /var/www/myapp/
-# vim: syntax=apache ts=4 sw=4 sts=4 sr noet</code></pre><br>
+WSGIScriptAlias / /var/www/production/gencybersite/wsgi.py
+WSGIPythonPath /var/www/production/:/home/student/.local/lib/python2.7/site-packages/</code></pre><br>
+						To make these files active lets give apache access to site-packages and then reload and restart our server. The first command gives permission 7 to the owner (the first 7), 7 to group (the second 7), and 5 to all others (the 5).<br>
+						The numbers can range from: 0 to 7 as follows:
+						<ul>
+							<li>0 – no permission</li>
+							<li>1 – execute</li>
+							<li>2 – write</li>
+							<li>3 – write and execute</li>
+							<li>4 – read</li>
+							<li>5 – read and execute</li>
+							<li>6 – read and write</li>
+							<li>7 – read, write, and execute</li>
+						</ul>
+						<br>
+						The second command (find) grabs every directory (given by -type d) beneath the path ( /home/student/.local/lib ) and changes its permissions to 755.<br>
+						<pre><code>sudo chmod 775 /home/student/.local
+find /home/student/.local/lib -type d -exec chmod 755 {} +
+cd /var/www/
+sudo service apache2 reload
+sudo service apache2 restart</code></pre><br>
+						This virtual host is apache's way of binding certain ports to certain hosted files. In this configuration we are enabling django to run inside of apache using the WSGI interface. The WSGIScriptAlias maps to the wsgi.py file in our django install and the python path points to the directory where our project code is at. This configuration also hosts a static files directory that can be used to host any static files (like css or js or ...your ember flickr app).<br>
+						<br>
+
+						If all goes well, you should see the same app as before, but hosted on localhost: e.g.<br>
+						<img src="images/apache-django-configured.png"/><br>
+						Now we have two specific setups. One for development (/var/www/gencybersite) and one for production (/var/www/production/). Henceforth, we will make coding changes in development, push our changes to our github repo and then pull them down into our production setup when we are ready.<br>
+			        </div><!-- End Task 3-->
+
+			        <div id="task4" class="taskitem">
+			        	<h2>UNIT 2: Integrating the server-side and client-side</h2>
+			        	<h3 class="taskitem">4. Configuring Ember with Django</h3>
+			        	Now comes the part where you bring together everything you've done so far: integrating your api and your client-side app. <br>
+
+			            Lets start by integrating this api with the flickr app we built on day 1.<br>
+			            If you didn't entirely finish, or made a mistake, its ok - you can fork the repo at <a href="https://github.com/MLHale/gencyberember">https://github.com/MLHale/gencyberember</a><br>
+			            This repo contains code that has been checkpointed to be in the state that you would have been if you finished all of the steps in day 1. <br>
+			            Just so we are all on the same page, lets go ahead and fork this repo on github and then do the following: (make sure to replace 'yourusername' with your actual username.<br>
+
+			            <pre><code>cd /var/www/
+git clone https://github.com/yourusername/gencyberember.git /var/www/ember
+cd ember
+git reset 02a023b3 --hard
+npm install
+bower install</code></pre><br>
+			            The reset hard command will revert the code back to the starting point for this tutorial. If you want to look at where you are going, a finished copy is available at the last commit.<br>
+			            After you have the app installed, lets add it to the sublime project workspace:<br>
+
+			            <img src="images/add-folder.png"/><br>
+			            <img src="images/select-folder.png"/><br>
+
+			            When you have it added, your workspace should look like:<br>
+			            <img src="images/project-workspace.png"/><br>
+
+			            Now comes the integration step. In your terminal type the following:<br>
+			            <pre><code>cd /var/www/ember
+ember build --watch -o /var/www/gencybersite/static/ember</code></pre><br>
+			            Now you should see a familiar ember build watch running. The only difference is now it is building into a direcotry other than /dist/. Specifically it is building into a static folder called "ember/" in /var/www/gencybersite/static/<br> 
 			            <br>
-			            This virtual host is apache's way of binding certain ports to certain hosted files. In this configuration we are enabling django to run inside of apache using the WSGI interface. The WSGIScriptAlias maps to the wsgi.py file in our django install and the python path points to the directory where our project code is at. This configuration also hosts a static files directory in myapp that can be used to host any static files (like css or js or ...your ember app).<br>
-			            Now we just need to do a few things<br>
-			            <pre><code>mkdir /var/www/myapp/static
-			sudo service apache2 reload
-			sudo service apache2 restart</code></pre><br>
-			            This will restart the server and load the configuration.<br>
-			            If all went well you should see:<br>
-			            <img src="images/lab2/django-working2.png"/><br>	
-					</div><!-- End of Task 2-->
+			            <img src="images/ember-build.png"/><br>
+
+			            Now we just need to tell django to host ember on our root url<br>
+			            In another terminal window (ctrl+shift+t for a new one) run runserver as follows:<br>
+			            <pre><code>cd /var/www/gencybersite/
+python manage.py runserver</code></pre><br>
+						To review, you now have runserver going for your django development environment, you have ember-cli building ember files into your django app, and you have apache running to host your production server.<br>
+
+			            In sublime, open /var/www/gencybersite/gencybersite/settings.py<br>
+			            Find "TEMPLATES" then change the "DIRS" line to:<br>
+			            <pre><code>'DIRS': ['static/ember/'],</code></pre><br>
+
+			            <img src="images/templates-dir.png"/><br>
+
+			            Now lets go to views.py in /api and add:<br>
+			            <pre><code>def home(request):
+  """
+  Send requests to / to the ember.js clientside app  """
+  
+  return render_to_response('index.html',
+                {}, RequestContext(request))</code></pre><br>
+                		<img src="images/home-template.png"/><br>
+
+
+
+			            Then in urls.py (in /var/www/gencybersite/gencybersite) after the other import statements add:<br>
+			            <pre><code>from api import views</code></pre><br>
+			            Then after the api/ pattern, add:<br>
+			            <pre><code> url(r'^', views.home),</code></pre><br>
+			            <br>
+
+			            At this point your urls.py file should look like:<br>
+			            <img src="images/urls-py.png"/><br>
+
+			            This url configuration cascades through admin/ then api/. If it matches one of those, it will be sent to the corresponding set of views. Otherwise, every other possible url will be mapped to the views.home view - which is conveiently hosting our ember app. What this means is that django will offload all urls that don't match the first two patterns to ember (where, they will be handled by the ember client-side router). Nifty yeah?<br>
+
+			            To make it all work we need to do one more thing<br>
+			            The asset files aren't hosted at /assets/ as they are in the ember-cli build placement.<br>
+			            To fix this, open your /var/www/ember/app/index.html file and ctrl-h (replace) the word 'assets' with 'static/ember/assets'<br>
+
+			            It should look like:<br>
+			            <img src="images/asset-static-fix.png"/><br>
+			            AND THE BUILD PROCESSES ALIGN - AT LAST<br>
+
+			            Now we can edit our ember files, ember-cli will watch for changes and build the result into our django static-file directory.<br>
+			            On the server-side code, if we make changes to our django files, django manage.py will watch for and observe the changes and then restart the server automatically.<br>
+			            <br>
+			            If everything is setup correctly you should see:<br>
+			            <img src="images/django-ember.png"/><br>
+			            This is really nifty and accelerates development<br>
+			            When the app is working as you like it, you can just release it to production via a git push on the development environment and a git pull on the production server. Through this build process, the compiled ember files will be just another script in the /static folder of the django repository and you can still manage client-side code changes from your ember repository (since they are in seperate git repos)<br>
+
+			            To save our changes and push to production (illustrating our build process), lets do the following:<br>
+			            <pre><code>cd /var/www/gencybersite/
+git status
+git add .
+git commit -m "ember and django integrated"
+git push</code></pre><br>
+
+			        </div><!-- End Task 4-->
+			        <div id="task5" class="taskitem">
+			        	<h2>UNIT 3: Adding Authentication and sessions</h2>
+			        	Now that we have the basic integrated app put together, lets create a login feature - to allow users to register with our site and create a user profile with a feed of photos they like. <br>
+
+			        	That's a few steps - so lets start with the first part - login and registration. This requires that we create some features in our ember app - to accept a username and password - and some features on our server-side django API to accept login requests and authenticate the user. <br>
+
+			        	<h3 class="taskitem">5. Creating a client-side login component</h3>
+			        	Lets start in the clientside<br>
+			        	With the ember build terminal still running from before, open up your ember app directory in sublime.<br>
+			        	Lets create a new component called "auth-manager" that will handle session based authentication.<br>
+			        	In a new terminal run the following:<br>
+			        	<pre><code>cd /var/www/ember/
+ember generate component auth-component</code></pre><br>
+						You should see the following:<br>
+						<img src="images/auth-gen.png"/><br>
+						<img src="images/auth-gen2.png"/><br>
+						With this done, open /ember/templates/components/auth-manager.hbs in sublime and copy in the following:<br>
+						<pre><code>{{#if isLoggedIn}} {{! Display user name and logout button}}
+	&lt;p class=&quot;auth-form&quot;&gt;
+		Hello {{username}}
+		&lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; {{action 'logout'}}&gt;Log out&lt;/button&gt;
+	&lt;/p&gt;
+{{else}} {{!Display login page}}
+	{{#if errorMsg}}
+		
+		&lt;form class=&quot;form-inline auth-form&quot;&gt;
+			
+			&lt;div class=&quot;form-group has-error&quot;&gt;
+				&lt;label class=&quot;control-label&quot;&gt;&lt;div class=&quot;alert alert-danger&quot; style=&quot;padding: 5px; margin-bottom: 0px;&quot; role=&quot;alert&quot;&gt;{{errorMsg}}&lt;/div&gt;&lt;/label&gt;
+				{{input class=&quot;form-control auth-user-field&quot; value=username action=&quot;login&quot; placeholder=&quot;Username&quot;}}
+			&lt;/div&gt;
+			&lt;div class=&quot;form-group has-error&quot;&gt;
+				{{input class=&quot;form-control auth-user-field&quot; value=password action=&quot;login&quot; placeholder=&quot;Password&quot; type=&quot;password&quot;}}
+			&lt;/div&gt;
+			&lt;label class=&quot;checkbox&quot;&gt;
+				{{input type=&quot;checkbox&quot; checked=remember}} Remember me
+			&lt;/label&gt;
+			&lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; {{action 'login'}}&gt;Sign in&lt;/button&gt;
+
+		&lt;/form&gt;
+	{{else}}
+		&lt;form class=&quot;form-inline auth-form&quot;&gt;
+			&lt;div class=&quot;form-group&quot;&gt;
+				{{input class=&quot;form-control auth-user-field&quot; value=username action=&quot;login&quot; placeholder=&quot;Username&quot;}}
+			&lt;/div&gt;
+			&lt;div class=&quot;form-group&quot;&gt;
+				{{input class=&quot;form-control auth-user-field&quot; value=password action=&quot;login&quot; placeholder=&quot;Password&quot; type=&quot;password&quot;}}
+			&lt;/div&gt;
+			&lt;label class=&quot;checkbox&quot;&gt;
+				{{input type=&quot;checkbox&quot; checked=remember}} Remember me
+			&lt;/label&gt;
+			&lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; {{action 'login'}}&gt;Sign in&lt;/button&gt;
+
+		&lt;/form&gt;
+	{{/if}}
+{{/if}}</code></pre><br>
+						There is a lot going on in this code. Lets break it down. In the outer {{#if}} block, we are checking to see if a variable called 'isLoggedIn' is set to true. If it is, we display a hello username message and the log out button. Otherwise (when it is false) we display a login form that allows a user to enter a username and password. The inner if block will optionally display an error message if the variable 'errorMsg' is set to true. As you might imagine, the default values for these variables is false. Lastly, also note that our input handlers are bound to the 'value' of 'username' and 'password' - both of which are also variables.<br>
+						<br>
+						We have only created the login component, it isn't actually being displayed. To display it we need to include it in our /ember/templates/application.hbs file. Open this file in sublime and edit line 8 to the following:<br>
+						<pre><code>{{#bs-form formLayout="inline" class="search-form" action="search"}}</code></pre><br>
+						and edit line 17 by adding <pre><code>{{auth-manager}}</code></pre>. When you are done, the nav bar code should look like: <br>
+						<img src="images/nav-bar.png"/><br>
+						To see the fruits of your efforts, reload your app in the browser and you should see something like:<br>
+						<img src="images/app-login-form.png"/><br>
+						Notice the nav bar is on two lines in the header. To fix this, lets add a few lines of css to our /ember/styles/app.css file in sublime. Specifically, add the following:<br>
+						<pre><code>.auth-form {
+	margin-top: -34px;
+}
+
+.auth-user-field {
+	width: 150px !important;
+}
+
+.search-form {
+	margin-left: -250px;
+}</code></pre><br>
+					Now it should look better: <br>
+					<img src="images/nav-bar-fixed.png"/><br>
+					Ok, so it looks great - but if we click the "sign in" button nothing happens! Well not to worry, this is just because we haven't actually created the logic to handle this form. Lets do that now. Open up the /ember/components/auth-manager.js file in sublime and lets make this form actually work. Change the component code to the following (explanation below).<br>
+					<pre><code>import Ember from 'ember';
+
+export default Ember.Component.extend({
+	isLoggedIn: false,
+	username: '',
+	password: '',
+	errorMsg: '',
+	remember: false,
+	userid: -1,
+	actions: {
+		login: function(){
+			//do stuff to authenticate here
+			var username = this.get('username');
+			var password = this.get('password');
+			var remember = this.get('remember');
+			var data = {
+				'username': username,
+				'password': password};
+			var controllerObj = this;
+			Ember.$.post('../api/session/', data, function(response){
+				if(response.isauthenticated){
+					//success
+					console.log('Login POST Request to ../api/session/ was successful.');
+					controllerObj.set('username', response.username);
+					controllerObj.set('userid', response.userid);
+					controllerObj.set('isLoggedIn', true);
+
+					if(remember){
+						//save username and pass to local storage
+						localStorage.setItem('remember', true);
+						localStorage.setItem('username', controllerObj.get('username'));
+						localStorage.setItem('password', controllerObj.get('password'));
+					}
+					else{
+						localStorage.removeItem('remember');
+						localStorage.removeItem('username');
+						localStorage.removeItem('password');
+					}
+					controllerObj.set('password', '');
+				} else{
+					//errors
+					console.log('Login POST Request to ../api/session/ was unsuccessful.');
+					controllerObj.set('errorMsg', response.message);
+				}
+			});
+			
+		},
+		logout: function(){
+			var controllerObj = this;
+			Ember.$.ajax({url: '../api/session/', type: 'DELETE'}).then(
+				function(response){
+					console.log('Logout DELETE Request to ../api/session/ was successful:' + response);
+					controllerObj.set('isLoggedIn', false);
+					controllerObj.set('errorMsg', '');
+					controllerObj.set('username', '');
+					controllerObj.set('userid', -1);
+
+					if(localStorage.remember) {
+						controllerObj.set('remember', localStorage.remember);
+						controllerObj.set('username', localStorage.username);
+						controllerObj.set('password', localStorage.password);
+					}
+				}
+			);
+
+		},
+	},
+	init: function(){
+		this._super();
+		var controllerObj = this;
+		Ember.$.get('../api/session/', function(response){
+			if(response.isauthenticated){
+				//success
+				console.log('The user: \''+response.username+'\' is currently logged in.');
+				controllerObj.set('username', response.username);
+				controllerObj.set('userid', response.userid);
+				controllerObj.set('isLoggedIn', true);
+			} else{
+				//errors
+				console.log('The user is not currently logged in.');
+			}
+		});
+		if(localStorage.remember) {
+			this.set('remember', localStorage.remember);
+			this.set('username', localStorage.username);
+			this.set('password', localStorage.password);
+		}
+	}
+});</code></pre><br>
+						Obviously there is a lot going on here. Lets break down each piece. The first few lines declare the variables that we made use of in our template code. These variables include, isLoggedIn (a boolean), username, password, and errorMsg (strings), the remember me (boolean), and lastly a userid (number) initialized to -1. This last variable will be sent back from the server once we create the session-based authentication mechanism in the next portion of this tutorial. <br>
+						<br>
+						After the variable section, there are a set of actions that we've defined and then finally an init() function. Lets look at the actions first. Note that we have defined two action functions - one called login() and one called logout(). These are the same functions that our template code called above when a user clicks the login or logout buttons (respectively). Looking at the first, login, we see that the function gets the current values of username, password, and remember from the rendered view (i.e. the form shown as part of the template on the page). The next step crafts a 'data' object with the username and password in it to prepare it for an ajax call to our /api/session/ on our REST API (to be created). This ajax request (given in the Ember.$.post block) makes the request and then has a callback function with a variable called response. We will create this later - but for now assume that it contains a dictionary of variables that includes the username (i.e. response.username), the user's id (i.e. response.userid), and a variable called 'isauthenticated' (i.e. response.isautheticated) that tells the client if the login attempt succeeded and the user is actually logged in. Based on the state of this variable, the client knows that the request succeeded or that it failed. We have two handlers for both cases. In the event that it succeeds (i.e if (response.authenticated) is true), then the controller sets the userid, isLoggedIn and either stores the username/password in localstorage or ensures that none of the user data is stored locally. If the request fails (the else block), then the console prints a message and sets the 'errorMsg' variable in the controller to whatever the server sent in the response (i.e response.message). Thats it for login.<br>
+						<br>
+						The logout action function is simpler. In this function, the client simply makes a DELETE request to /api/session/ and then resets all of the controller variables appropriately when the response returns.<br>
+						<br>
+						The last function (not an action), called init, is a special function that executes when the controller initially loads (i.e. when the user first visits the page). This function is used to check if the user is already authenticated, and if she is, sets the controller up approriately. It is also used to automatically inser the data from localstorage, if remember me was previously set by the user to true.	<br>
+
+			        </div><!-- End Task 5-->
+			        <div id="task6" class="taskitem">
+			        	<h3 class="taskitem">6. Creating a the server-side authentication component</h3>
+			        	Now that we have the client-side code needed to authenticate - we now need to make it actually work by creating the actual backend server authentication component. This component will handle the requests that the client will send (on /api/session/), check the user's credentials, and then send the appropriate response back in the format discussed above in the previous step.<br>
+
+			        	To do that we need to do several things. First lets create a new APIView in /gencybersite/api/views.py. Open this file in sublime and lets add a "Session" class view as follows between the import statements and your 'home' method.<br>
+			        	<pre><code>class Session(APIView):
+	permission_classes = (AllowAny,)
+	def form_response(self, isauthenticated, userid, username, error=""):
+		data = {
+			'isauthenticated': isauthenticated,
+			'userid': userid,
+			'username': username
+		}
+		if error:
+			data['message'] = error
+
+		return Response(data)
+
+	def get(self, request, *args, **kwargs):
+		# Get the current user
+		if request.user.is_authenticated():
+			return self.form_response(True, request.user.id, request.user.username)
+		return self.form_response(False, None, None)
+
+	def post(self, request, *args, **kwargs):
+		# Login
+		username = request.POST.get('username')
+		password = request.POST.get('password')
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				return self.form_response(True, user.id, user.username)
+			return self.form_response(False, None, None, "Account is suspended")
+		return self.form_response(False, None, None, "Invalid username or password")
+
+	def delete(self, request, *args, **kwargs):
+		# Logout
+		logout(request)
+		return Response(status=status.HTTP_204_NO_CONTENT)</code></pre><br>
+						Again, there is a lot going on here, so lets break down each piece. First we are declaring a class of type "APIView". This enables our class to inherit from the django-rest class-based view bas class. Next, we set the permission_classes for this view to "AllowAny" so that anyone accessing our site can reach the authentication endpoint. If we required authentication or other permissions here, no one would ever be able to authenticate, because this is our authentication mechanism! <br>
+
+						Next there are four methods in our class. The first one, called 'form_response' is a helper function that takes 4 inputs (and self) and returns a Response json object. Notice, that this object follows the same format that we created in the client-side app - namely, three variables isauthenticated, userid, and username. It also optionally includes an error message.<br>
+
+						The next three functions, get, post, and delete, are the 'meat and potatoes' of the class. Each one of these implement their respective request type (i.e. GET, POST, and DELETE). Think of these as 'request handlers.' Lets start with post, since it maps to the login action. Before when we created our client-side auth component, we were making a POST ajax request to /api/session/ that contained the username and password the user was trying to authenticate with. The post method accepts these parameters as part of the 'request.POST' parameter. The first part of the method grabs the user name and password from this POST object (i.e. POST.get('username')) and then passes these two parameters to django's 'authenticate' method to get the user object if one exists. This method is provided by the 'contrib.auth' package that comes standard with django - see imports above in views.py. The next part of post checks to see if the user object returned exists (i.e. if user is not None) and then checks to make sure the user's account hasn't been suspended (i.e. user.is_active). If both of these conditions hold, then post logs the user in using the 'login' method and then sends a response back to the user formatted using form_response. The structure of this response is something like:<br>
+						<pre><code>{
+	'isauthenticated': True,
+	'userid': 123,
+	username': Bob
+		}</code></pre><br>
+						In the event that user account is suspended or non existent, we send responses with error messages, i.e. "Account is suspended" or 'Invalid username or password'.<br>
+						<br>
+						The next method, 'get', is what is used by our client-side auth component's init' method to check to see if the user is already logged in. Get simply checks to see if the request.user is authenticated. If she is then the user's id, username, and the isauthenicated = true flag is send back to the client.<br>
+						<br>
+						The last method, delete, is the simplest of the three. It simply logs the user out if they are logged in (using the 'logout' django function) and then sends an empty 'success' message back to the user in the form of a '204 no content' message.<br>
+						<br>
+						Ok...so we created our view, but when we check localhost:8000/api/session/ in the browser we still get nothing. To make our new view work, we need to tell django to wire the view up to the request handler. To do that, open /gencybersite/api/urls.py and lets add the following line.<br>
+						<pre><code>url(r'^session/', views.Session.as_view()),</code></pre><br>
+						When done, our urls.py file should look like:<br>
+						<pre><code>from django.conf.urls import *
+
+#Django Rest Framework
+from rest_framework import routers
+from api import views
+
+#REST API routes
+router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet)
+router.register(r'likes', views.LikeViewSet)
+router.register(r'userprofiles', views.UserprofileViewSet)
+
+urlpatterns = [
+	url(r'^session/', views.Session.as_view()),
+    url(r'^', include(router.urls)),
+
+    #Django Rest Auth
+    url(r'^auth/', include('rest_framework.urls')),
+]</code></pre><br>
+						This line tells django that we should accept requests to /session/, actually /api/session/ - since the /api/ part comes from the urls.py in the main django app. The second part (views.Session.as_view())) tells djang to send all requests for that url to the Session view - that we just created in views.py.<br>
+						<br>
+						Now lets test our new view. Go to your browser and enter localhost:8000/api/session/<br>
+						If you are logged out, you should see something like:<br>
+						<img src="images/session-auth-endpoint.png"/><br>
+						Using the normal django rest login (at the top right of the page - go ahead and login using the username student/gencyberstudent). After you are done you should see:<br>
+						<img src="images/session-auth-logged-in.png"/><br>
+						Great, so lets test the endpoint using our client-side interface that we created earlier. Open your browser again and go to your home page, i.e. localhost:8000<br>
+						You should see:<br>
+						<img src="images/client-side-already-logged-in.png"/><br>
+						<br>
+						You might say to yourself, 'wow self - how does it already know im logged in as student??'<br>
+						Well the answer is that the init method in our client-side controller is making a request to /api/session/ and seeing that we are already authenticated to the server-side api. It gets the username from the response it gets. To see this in action, right click anywhere on the page and click 'inspect element'.
+						<img src="images/inspect-element.png"/><br>
+						<br>
+						Then click 'console.' Notice that we see a message that says:<br>
+						<img src="images/console-init.png"/><br>
+						This message is, if you will remember, produced by our client-side auth component's init method after it sees that we are logged in. Lets actually inspect the network request that occurs to do this and then look at the ember auth component to see it in action.<br>
+						First click "network", then refresh the page. Now scroll down until you see 'session/', click this word and you should see:<br>
+						<img src="images/network-session-get.png"/><br>
+						To see what ember does with this data, click the ember tab, go to view tree, check the 'components box', and finally click the 'auth-manager' component. You should see something like:<br>
+						<img src="images/auth-manager-inspect.png"/><br>
+						Notice, that the controller has set userid to 1 (the userid of the student user), it has set the username to 'student', and there are no error messages.<br>
+						<br>
+						Cool huh?<br>
+						<br>
+						Ok lets test the other two functions in our client-side, namely login and logout. <br>
+						The second part, logout, is easy. With the ember inspector still open, click the logout button in the upper right. We should see the variables change and the interface update. Unfortunately, something is wrong, because if we click the button nothing happens. If you look at the console - you can see that we are getting a 403 error. <br>
+						<img src="images/csrf-error.png"/><br>
+						If you click the url, it will take you to the network tab where we can read the actual error. Click it now, then click the red session word, then click 'preview' to see:<br>
+						<img src="images/csrf-network.png"/><br>
+						This says that CSRF (which stands for cross site request forgery) failed to validate the CSRF token. This is expected - because we are using a REST API that doesn't need CSRF protections. 
+						Lets fix this by getting rid of CSRF protections on all of our RESTful request handlers. Start by creating a new file in /gencybersite/api/ (right click api, select new file). In the file paste in the following:<br>
+						<pre><code>from rest_framework.authentication import SessionAuthentication
+
+class CsrfExemptSessionAuthentication (SessionAuthentication):
+	def enforce_csrf(self, request):
+		return</code></pre><br>
+						Save the file (ctrl + s) as 'rest_framework_config.py'
+						<img src="images/csrf-fix.png"/><br>
+						This is a little piece of middleware that we need to wire up in our settings.py file. Open /gencybersite/gencybersite/settings.py and go to the bottom of the file in sublime. Add in the following:<br>
+						<pre><code>REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'api.rest_framework_config.CsrfExemptSessionAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
+    ]
+}</code></pre><br>
+						The command DEFAULT_AUTHENTICATION_CLASSES tells django to use the new CSRF middleware we just created instead of the basic session authentication middleware. Now, if we save this file, refresh our app in the browser (i.e. localhost:8000), open the ember tab, click authManager, and then click the logout button in the upper right - we should see the interface update and our variables update correctly. Lets try it.<br>
+						<img src="images/logout-success.png"/><br>
+						Cool, now we see that everything has been reset as expected, and our username/password form is waiting at the top. If you take a quick look at your django runserver debug log (still open in one of your terminals) you will see something like:<br>
+						<img src="images/runserver-log.png"/><br>
+						The item to look for is the last one (the DELETE request). Clearly our logout function and the backend auth api endpoint are working. <br>
+						Lastly, lets test the login auth component on the client-side. Enter student/gencyberstudent into the form for username and password and then check the remember me box and the click signin. The interface should change and if you click the console you should see the message:<Br>
+						<img src="images/post-success.png"/><br>
+						Lets also check to ensure that the remember me function worked. Click 'Resources' then click 'Local Storage' then click 'http://localhost:8000'. You should see the stored data, e.g.:<br>
+						<img src="images/remember-me-works.png"/><br>
+						Ok! One last thing to check. Click logout, you should see the username and password reset (from localstorage). With the resources tab still open, uncheck remember me and then click signin again. You should see all three localstorage variables disappear! <br>
+
+						<h4>Hooray! Authentication is done and it works!</h4>
+			        </div><!-- End Task 6-->
+			        <div id="task7" class="taskitem">
+			        </div><!-- End Task 7-->
+			        <div id="task8" class="taskitem">
+			        </div><!-- End Task 8-->
+			        <div id="task9" class="taskitem">
+			        </div><!-- End Task 9-->
 
 				</div><!--end scrollable content -->
 				<!-- Copyright info -->
