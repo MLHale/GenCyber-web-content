@@ -39,6 +39,20 @@ Each step-by-step tutorial is specified by day and hosted at the linked urls:
 #### Day 5: Capture the Flag Contest
 1. [Jeopardy style contest among student-teacher teams](https://genctf.mlhale.com).
 
+#### Self Exploration Kits
+
+For teachers interested in self exploration of Maker/Hacker kits, several options are available. These are optional, advanced projects for camp participants.
+
+1. WiFi Pineapple
+2. Ubertooth
+3. Alfa cards
+4. YARD stick one
+5. Circuit Playgrounds
+6. Arduino WiFi Maker kits
+7. Arduino Starter Kits
+8. Little Bits Starter Kit
+9. Little Bits Cloud Kit
+
 
 ### License  
 Gencyber web content.  

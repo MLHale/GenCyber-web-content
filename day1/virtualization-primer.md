@@ -228,6 +228,7 @@ Follow the tutorial steps in the VirtualBox [user manual](https://www.virtualbox
 ### Further Readings
 
 * VirtualBox [User Manual](https://www.virtualbox.org/manual/UserManual.html). This user manual has a lot more information on VMs including network settings.
+* [Shell prompt basics for a Linux Based OS](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/4/html/Step_by_Step_Guide/ch-basics.html), Redhat.
 
 > #### _Security tip_
 Do not allow VMs to share folders and storage volumes with other VMs or with the host OS. This prevents unintended data sharing between separated domains.
