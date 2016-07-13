@@ -486,6 +486,8 @@ ember generate component auth-component</code></pre><br>
 
 export default Ember.Component.extend({
 	isLoggedIn: false,
+	username: '',
+	password: '',
 	errorMsg: '',
 	remember: false,
 	userid: -1,
@@ -514,6 +516,7 @@ export default Ember.Component.extend({
 						localStorage.setItem('password', this.get('password'));
 					}
 					else{
+						controllerObj.set('password', response.userid);
 						localStorage.removeItem('remember');
 						localStorage.removeItem('username');
 						localStorage.removeItem('password');
@@ -542,14 +545,34 @@ export default Ember.Component.extend({
 	},
 	init: function(){
 		this._super();
+		var controllerObj = this;
+		Ember.$.get('../api/session/', function(response){
+			if(response.isauthenticated){
+				//success
+				console.log('The user: \''+response.username+'\' is currently logged in.');
+				controllerObj.set('username', response.username);
+				controllerObj.set('userid', response.userid);
+				controllerObj.set('isLoggedIn', true);
+			} else{
+				//errors
+				console.log('The user is not currently logged in.');
+			}
+		});
 		if(localStorage.remember) {
+			this.set('remember', localStorage.remember);
 			this.set('username', localStorage.username);
 			this.set('password', localStorage.password);
 		}
 	}
 });</code></pre><br>
-						Obviously there is a lot going on here. Lets break down each piece....(pick up here)<br>
-						
+						Obviously there is a lot going on here. Lets break down each piece. The first few lines declare the variables that we made use of in our template code. These variables include, isLoggedIn (a boolean), username, password, and errorMsg (strings), the remember me (boolean), and lastly a userid (number) initialized to -1. This last variable will be sent back from the server once we create the session-based authentication mechanism in the next portion of this tutorial. <br>
+						<br>
+						After the variable section, there are a set of actions that we've defined and then finally an init() function. Lets look at the actions first. Note that we have defined two action functions - one called login() and one called logout(). These are the same functions that our template code called above when a user clicks the login or logout buttons (respectively). Looking at the first, login, we see that the function gets the current values of username, password, and remember from the rendered view (i.e. the form shown as part of the template on the page). The next step crafts a 'data' object with the username and password in it to prepare it for an ajax call to our /api/session/ on our REST API (to be created). This ajax request (given in the Ember.$.post block) makes the request and then has a callback function with a variable called response. We will create this later - but for now assume that it contains a dictionary of variables that includes the username (i.e. response.username), the user's id (i.e. response.userid), and a variable called 'isauthenticated' (i.e. response.isautheticated) that tells the client if the login attempt succeeded and the user is actually logged in. Based on the state of this variable, the client knows that the request succeeded or that it failed. We have two handlers for both cases. In the event that it succeeds (i.e if (response.authenticated) is true), then the controller sets the userid, isLoggedIn and either stores the username/password in localstorage or ensures that none of the user data is stored locally. If the request fails (the else block), then the console prints a message and sets the 'errorMsg' variable in the controller to whatever the server sent in the response (i.e response.message). Thats it for login.<br>
+						<br>
+						The logout action function is simpler. In this function, the client simply makes a DELETE request to /api/session/ and then resets all of the controller variables appropriately when the response returns.<br>
+						<br>
+						The last function (not an action), called init, is a special function that executes when the controller initially loads (i.e. when the user first visits the page). This function is used to check if the user is already authenticated, and if she is, sets the controller up approriately. It is also used to automatically inser the data from localstorage, if remember me was previously set by the user to true.	<br>
+
 			        </div><!-- End Task 5-->
 			        <div id="task6" class="taskitem">
 			        </div><!-- End Task 6-->
