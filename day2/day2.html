@@ -578,8 +578,7 @@ export default Ember.Component.extend({
 			        	<h3 class="taskitem">6. Creating a the server-side authentication component</h3>
 			        	Now that we have the client-side code needed to authenticate - we now need to make it actually work by creating the actual backend server authentication component. This component will handle the requests that the client will send (on /api/session/), check the user's credentials, and then send the appropriate response back in the format discussed above in the previous step.<br>
 
-			        	...introduce code here...incrementally.
-			        	here it is
+			        	To do that we need to do several things. First lets create a new APIView in /gencybersite/api/views.py. Open this file in sublime and lets add a "Session" class view as follows between the import statements and your 'home' method.<br>
 			        	<pre><code>class Session(APIView):
 	permission_classes = (AllowAny,)
 	def form_response(self, isauthenticated, userid, username, error=""):
@@ -615,7 +614,84 @@ export default Ember.Component.extend({
 		# Logout
 		logout(request)
 		return Response(status=status.HTTP_204_NO_CONTENT)</code></pre><br>
-						...discuss APIView and each method...
+						Again, there is a lot going on here, so lets break down each piece. First we are declaring a class of type "APIView". This enables our class to inherit from the django-rest class-based view bas class. Next, we set the permission_classes for this view to "AllowAny" so that anyone accessing our site can reach the authentication endpoint. If we required authentication or other permissions here, no one would ever be able to authenticate, because this is our authentication mechanism! <br>
+
+						Next there are four methods in our class. The first one, called 'form_response' is a helper function that takes 4 inputs (and self) and returns a Response json object. Notice, that this object follows the same format that we created in the client-side app - namely, three variables isauthenticated, userid, and username. It also optionally includes an error message.<br>
+
+						The next three functions, get, post, and delete, are the 'meat and potatoes' of the class. Each one of these implement their respective request type (i.e. GET, POST, and DELETE). Think of these as 'request handlers.' Lets start with post, since it maps to the login action. Before when we created our client-side auth component, we were making a POST ajax request to /api/session/ that contained the username and password the user was trying to authenticate with. The post method accepts these parameters as part of the 'request.POST' parameter. The first part of the method grabs the user name and password from this POST object (i.e. POST.get('username')) and then passes these two parameters to django's 'authenticate' method to get the user object if one exists. This method is provided by the 'contrib.auth' package that comes standard with django - see imports above in views.py. The next part of post checks to see if the user object returned exists (i.e. if user is not None) and then checks to make sure the user's account hasn't been suspended (i.e. user.is_active). If both of these conditions hold, then post logs the user in using the 'login' method and then sends a response back to the user formatted using form_response. The structure of this response is something like:<br>
+						<pre><code>{
+	'isauthenticated': True,
+	'userid': 123,
+	username': Bob
+		}</code></pre><br>
+						In the event that user account is suspended or non existent, we send responses with error messages, i.e. "Account is suspended" or 'Invalid username or password'.<br>
+						<br>
+						The next method, 'get', is what is used by our client-side auth component's init' method to check to see if the user is already logged in. Get simply checks to see if the request.user is authenticated. If she is then the user's id, username, and the isauthenicated = true flag is send back to the client.<br>
+						<br>
+						The last method, delete, is the simplest of the three. It simply logs the user out if they are logged in (using the 'logout' django function) and then sends an empty 'success' message back to the user in the form of a '204 no content' message.<br>
+						<br>
+						Ok...so we created our view, but when we check localhost:8000/api/session/ in the browser we still get nothing. To make our new view work, we need to tell django to wire the view up to the request handler. To do that, open /gencybersite/api/urls.py and lets add the following line.<br>
+						<pre><code>url(r'^session/', views.Session.as_view()),</code></pre><br>
+						When done, our urls.py file should look like:<br>
+						<pre><code>from django.conf.urls import *
+
+#Django Rest Framework
+from rest_framework import routers
+from api import views
+
+#REST API routes
+router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet)
+router.register(r'likes', views.LikeViewSet)
+router.register(r'userprofiles', views.UserprofileViewSet)
+
+urlpatterns = [
+	url(r'^session/', views.Session.as_view()),
+    url(r'^', include(router.urls)),
+
+    #Django Rest Auth
+    url(r'^auth/', include('rest_framework.urls')),
+]</code></pre><br>
+						This line tells django that we should accept requests to /session/, actually /api/session/ - since the /api/ part comes from the urls.py in the main django app. The second part (views.Session.as_view())) tells djang to send all requests for that url to the Session view - that we just created in views.py.<br>
+						<br>
+						Now lets test our new view. Go to your browser and enter localhost:8000/api/session/<br>
+						If you are logged out, you should see something like:<br>
+						<img src="images/session-auth-endpoint.png"/><br>
+						Using the normal django rest login (at the top right of the page - go ahead and login using the username student/gencyberstudent). After you are done you should see:<br>
+						<img src="images/session-auth-logged-in.png"/><br>
+						Great, so lets test the endpoint using our client-side interface that we created earlier. Open your browser again and go to your home page, i.e. localhost:8000<br>
+						You should see:<br>
+						<img src="images/client-side-already-logged-in.png"/><br>
+						<br>
+						You might say to yourself, 'wow self - how does it already know im logged in as student??'<br>
+						Well the answer is that the init method in our client-side controller is making a request to /api/session/ and seeing that we are already authenticated to the server-side api. It gets the username from the response it gets. To see this in action, right click anywhere on the page and click 'inspect element'.
+						<img src="images/inspect-element.png"/><br>
+						<br>
+						Then click 'console.' Notice that we see a message that says:<br>
+						<img src="images/console-init.png"/><br>
+						This message is, if you will remember, produced by our client-side auth component's init method after it sees that we are logged in. Lets actually inspect the network request that occurs to do this and then look at the ember auth component to see it in action.<br>
+						First click "network", then refresh the page. Now scroll down until you see 'session/', click this word and you should see:<br>
+						<img src="images/network-session-get.png"/><br>
+						To see what ember does with this data, click the ember tab, go to view tree, check the 'components box', and finally click the 'auth-manager' component. You should see something like:<br>
+						<img src="images/auth-manager-inspect.png"/><br>
+						Notice, that the controller has set userid to 1 (the userid of the student user), it has set the username to 'student', and there are no error messages.<br>
+						<br>
+						Cool huh?<br>
+						<br>
+						Ok lets test the other two functions in our client-side, namely login and logout. <br>
+						The second part, logout, is easy. With the ember inspector still open, click the logout button in the upper right. We should see the variables change and the interface update. Unfortunately, something is wrong, because if we click the button nothing happens. If you look at the console - you can see that we are getting a 403 error. <br>
+						<img src="images/csrf-error.png"/><br>
+						If you click the url, it will take you to the network tab where we can read the actual error. Click it now, then click the red session word, then click 'preview' to see:<br>
+						<img src="images/csrf-network.png"/><br>
+						Lets fix it. Create a new file in /gencybersite/api/ (right click api, select new file). In the file paste in the following:<br>
+						<pre><code>from rest_framework.authentication import SessionAuthentication
+
+class CsrfExemptSessionAuthentication (SessionAuthentication):
+	def enforce_csrf(self, request):
+		return</code></pre><br>
+						Save the file (ctrl + s) as 'rest_framework_config.py'
+						<img src="images/csrf-fix.png"/><br>
+						Now
 			        </div><!-- End Task 6-->
 			        <div id="task7" class="taskitem">
 			        </div><!-- End Task 7-->
