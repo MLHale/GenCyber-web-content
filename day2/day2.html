@@ -512,15 +512,15 @@ export default Ember.Component.extend({
 					if(remember){
 						//save username and pass to local storage
 						localStorage.setItem('remember', true);
-						localStorage.setItem('username', this.get('username'));
-						localStorage.setItem('password', this.get('password'));
+						localStorage.setItem('username', controllerObj.get('username'));
+						localStorage.setItem('password', controllerObj.get('password'));
 					}
 					else{
-						controllerObj.set('password', response.userid);
 						localStorage.removeItem('remember');
 						localStorage.removeItem('username');
 						localStorage.removeItem('password');
 					}
+					controllerObj.set('password', '');
 				} else{
 					//errors
 					console.log('Login POST Request to ../api/session/ was unsuccessful.');
@@ -538,6 +538,12 @@ export default Ember.Component.extend({
 					controllerObj.set('errorMsg', '');
 					controllerObj.set('username', '');
 					controllerObj.set('userid', -1);
+
+					if(localStorage.remember) {
+						controllerObj.set('remember', localStorage.remember);
+						controllerObj.set('username', localStorage.username);
+						controllerObj.set('password', localStorage.password);
+					}
 				}
 			);
 
@@ -683,7 +689,8 @@ urlpatterns = [
 						<img src="images/csrf-error.png"/><br>
 						If you click the url, it will take you to the network tab where we can read the actual error. Click it now, then click the red session word, then click 'preview' to see:<br>
 						<img src="images/csrf-network.png"/><br>
-						Lets fix it. Create a new file in /gencybersite/api/ (right click api, select new file). In the file paste in the following:<br>
+						This says that CSRF (which stands for cross site request forgery) failed to validate the CSRF token. This is expected - because we are using a REST API that doesn't need CSRF protections. 
+						Lets fix this by getting rid of CSRF protections on all of our RESTful request handlers. Start by creating a new file in /gencybersite/api/ (right click api, select new file). In the file paste in the following:<br>
 						<pre><code>from rest_framework.authentication import SessionAuthentication
 
 class CsrfExemptSessionAuthentication (SessionAuthentication):
@@ -691,7 +698,25 @@ class CsrfExemptSessionAuthentication (SessionAuthentication):
 		return</code></pre><br>
 						Save the file (ctrl + s) as 'rest_framework_config.py'
 						<img src="images/csrf-fix.png"/><br>
-						Now
+						This is a little piece of middleware that we need to wire up in our settings.py file. Open /gencybersite/gencybersite/settings.py and go to the bottom of the file in sublime. Add in the following:<br>
+						<pre><code>REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'api.rest_framework_config.CsrfExemptSessionAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
+    ]
+}</code></pre><br>
+						The command DEFAULT_AUTHENTICATION_CLASSES tells django to use the new CSRF middleware we just created instead of the basic session authentication middleware. Now, if we save this file, refresh our app in the browser (i.e. localhost:8000), open the ember tab, click authManager, and then click the logout button in the upper right - we should see the interface update and our variables update correctly. Lets try it.<br>
+						<img src="images/logout-success.png"/><br>
+						Cool, now we see that everything has been reset as expected, and our username/password form is waiting at the top. If you take a quick look at your django runserver debug log (still open in one of your terminals) you will see something like:<br>
+						<img src="images/runserver-log.png"/><br>
+						The item to look for is the last one (the DELETE request). Clearly our logout function and the backend auth api endpoint are working. <br>
+						Lastly, lets test the login auth component on the client-side. Enter student/gencyberstudent into the form for username and password and then check the remember me box and the click signin. The interface should change and if you click the console you should see the message:<Br>
+						<img src="images/post-success.png"/><br>
+						Lets also check to ensure that the remember me function worked. Click 'Resources' then click 'Local Storage' then click 'http://localhost:8000'. You should see the stored data, e.g.:<br>
+						<img src="images/remember-me-works.png"/><br>
+						Ok! One last thing to check. Click logout, you should see the username and password reset (from localstorage). With the resources tab still open, uncheck remember me and then click signin again. You should see all three localstorage variables disappear! <br>
+
+						<h4>Hooray! Authentication is done and it works!</h4>
 			        </div><!-- End Task 6-->
 			        <div id="task7" class="taskitem">
 			        </div><!-- End Task 7-->
