@@ -18,12 +18,12 @@ Each step-by-step tutorial is specified by day and hosted at the linked urls:
 #### Day 2: Server-side Application Creation
 
 1. [Server Setup: Apache, Django, and Django REST framework](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html)
-  * UNIT 1: Installing Apache and Django and configuring a dev. and production environment
-  * UNIT 2: Integrating the server-side and client-side
-  * UNIT 3: Adding authentication and sessions
-  * UNIT 4: Adding a user profile
-  * UNIT 5: Access control and permissions
-  * UNIT 6: Input filtering and API hardening
+  * [UNIT 1: Installing Apache and Django and configuring a dev. and production environment](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task1)
+  * [UNIT 2: Integrating the server-side and client-side](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task4)
+  * [UNIT 3: Adding authentication and sessions](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task5)
+  * [UNIT 4: Adding a user profile](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task7)
+  * [UNIT 5: Access control and permissions](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task10)
+  * [UNIT 6: Input filtering and API hardening](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task13)
 2. [Server Hardening: Firewalls](./day2/day2-firewalls-iptables.md)  
 
 #### Day 3: Reducing Exposure: Training the Human and Cryptography
