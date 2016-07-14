@@ -130,15 +130,6 @@
 						<li><a href="#task11">11</a></li>
 						<li><a href="#task12">12</a></li>
 						<li><a href="#task13">13</a></li>
-						<li><a href="#task14">14</a></li>
-						<li><a href="#task15">15</a></li>
-						<li><a href="#task16">16</a></li>
-						<li><a href="#task17">17</a></li>
-						<li><a href="#task18">18</a></li>
-						<li><a href="#task19">19</a></li>
-						<li><a href="#task20">20</a></li>
-						<li><a href="#task21">21</a></li>
-						<li><a href="#task22">22</a></li>
 					</ul>
 				</nav>
 				<!--start content -->
@@ -154,7 +145,7 @@
 						<a href="#task5" class="list-group-item">UNIT 3: Adding Authentication and sessions</a>
 						<a href="#task7" class="list-group-item">UNIT 4: Adding a user profile</a>
 						<a href="#task10" class="list-group-item">UNIT 5: Access control and Permissions</a>
-						<a href="#task12" class="list-group-item">UNIT 6: Input filtering and API hardening</a>
+						<a href="#task13" class="list-group-item">UNIT 6: Input filtering and API hardening</a>
 					</div>
 					<div id="task1" class="taskitem">
 						<h2>UNIT1: Unit 1: Installing Apache and Django and configuring a dev. and production enviornment</h2>
@@ -1170,16 +1161,43 @@ export default Ember.Component.extend({
 			        </div><!-- End Task 9-->
 			        <div id="task10" class="taskitem">
 			        	<h2>UNIT 5: Access control and Permissions</h2>
-			        	<h3 class="taskitem">10. Adding access control and permissions for API calls</h3>
+			        	<h3 class="taskitem">10. See how vulnerable the API is by default</h3>
+			        	Finally, we are ready to switch back to security work. We've created this pretty cool API and nice client-side interface to use it. However, our API is by default pretty insecure. <br>
+			        	There are several problems. First, lets go back to our browser and go to localhost:8000/api/likes/. Now make sure you are logged out and you should still see all of the data:<br>
+			        	<img src="images/insecure-1.png"/><br>
+			        	Thinking about this screenshot, it might occur to you that this is problematic. Right now, all of our API calls can be executed without a user actually being logged in. To prove this and explore just how bad the security of the API is, we will be using a tool called the 'advanced rest client' Open the tool by going <a href="chrome-extension://bljmokabgbdkoefbmccaeficehkmlnao/RestClient.html" target="_parent">here</a>.<br>
+
+			        	Once opened, lets start with a simple GET request to http://localhost:8000/api/likes/. Enter the url, select GET and hit 'send'. As you can see the data is wide open without authentication or permissions.<br>
+			        	<img src="images/insecure-2.png"/><br>
+			        	Next lets try making an un-authenticated POST request. Select POST, click 'form', and then enter the following key / value pairs in the payload.
+			        	user: 1
+			        	title: &lt;p onmouseover=javascript:alert('well, this is insecure')&gt;test&lt;/p&gt;
+			        	objid: 1000
+			        	secret: hi
+			        	server: hi
+			        	farm: hi
+			        	<img src="images/rest-client-1.png"/><br>
+			        	<img src="images/rest-client-2.png"/><br>
+			        	Notice that it happily accepts the submission and produces the new like for us. This is a totally random, unauthenticated user that just made an arbitrary textual post to another user's profile page. Worse, the post has malicious javascript in it that could run if the real user 1 sees the page. Lets check this out. Going back and signing in as student and going to the student user profile we see:<br>
+			        	<img src="images/rest-client-3.png"/><br>
+			        	Clearly, the attack has been injected into the user's browser - thankfully ember filters out these basic kinds of attacks automatically. That said - we shouldnt rely on in-browser and in-framework protections - we should make the API itself be more secur.<br> 
+			        	Lets try two more attacks - a PUT (to overrite existing content) and a DELETE - to remove content entirely. Change the target address to http://localhost:8000/api/likes/idjustcreated/ where idjustcreated is the number returned under 'id' in the previous request, for me that number is 27. Change the title to something else - like "see what i did here" and send. As you can see - anonymous users can overrite existing data - a huge problem.<br>
+			        	<img src="images/rest-client-4.png"/><br>
+			        	<img src="images/rest-client-5.png"/><br>
+			        	Lastly, lets DELETE this item entirely. Select DELETE and just hit send.<br>
+			        	<img src="images/rest-client-6.png"/><br>
+			        	Poof - there it goes.<br>
 			        </div><!-- End Task 10-->
 			        <div id="task11" class="taskitem">
-			        	<h3 class="taskitem">11. Enforcing object-level permissions</h3>
+			        	<h3 class="taskitem">11. Adding access control and permissions for API calls</h3>
+			        	Obviously there are lots of problems with these default security measures. Lets start by actually requiring users to at least authenticate before they can make requests to the API.<br>
 			        </div><!-- End Task 11-->
 			        <div id="task12" class="taskitem">
-			        	<h2>UNIT 6: Input filtering and API hardening</h2>
-			        	<h3 class="taskitem">12. See how vulnerable the API is by default</h3>
+			        	
+			        	<h3 class="taskitem">12. Enforcing object-level permissions</h3>
 			        </div><!-- End Task 12-->
 			        <div id="task12" class="taskitem">
+			        	<h2>UNIT 6: Input filtering </h2>
 			        	<h3 class="taskitem">13. Filtering POST and PUT requests and adding validators</h3>
 			        </div><!-- End Task 13-->
 				</div><!--end scrollable content -->
