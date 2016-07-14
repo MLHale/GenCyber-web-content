@@ -1097,13 +1097,82 @@ export default Ember.Controller.extend({
 			        </div><!-- End Task 8-->
 			        <div id="task9" class="taskitem">
 			        	<h3 class="taskitem">9. Adding the actual user profile feed</h3>
-			        	That was the hard part, now lets get on with the task of creating the user profile.<br>
+			        	Now that we've got the refactoring out of the way, lets get on with the task of creating the user profile.<br>
+			        	Start by creating a link to user profile in /ember/app/templates/components/auth-manager.hbs. Replace the line where it says "Hello {{username}} with the following:<br>
+			        	<pre><code>Hello {{#link-to "profile" userid}}{{username}}{{/link-to}}</code></pre><br>
+			        	This will link to the profile page and pass in a parameter called userid.<br>
+			        	Next open /ember/app/router.js. Replace the line "this.route('profile')" with <pre><code>this.route('profile', {path: "profile/:userid"});</code></pre> to allow the parameter to be passed. At this point, open your browser and got to localhost:8000/home. Click 'student' and you should see:<br>
+			        	<img src="images/nav-profile.png"/><br>
+			        	<img src="images/nav-profile2.png"/><br>
+			        	As you can see, the userid was passed in as a model that we can access from the profile controller.<br>
+			        	<br>
+			        	Now open /ember/app/templates/profile.hbs and /ember/app/routes/profile.js in sublime. In the latter, lets create the code to actually get the liked photos for a user and send them to the controller.<br>
+			        	In make your /routes/profile.js look like the following:<br>
+			        	<pre><code>import Ember from 'ember';
+
+export default Ember.Route.extend({
+	setupController: function(controller, model){
+		var url = '../api/userprofiles/' + model.userid +'/';
+		Ember.$.get(url, function(response){
+			if(!response.detail){
+				//success
+				controller.set('likes', response.likes);
+				console.log('Loading user profile');
+
+			} else{
+				//errors
+				console.log('Error loading user profile.');
+			}
+			console.log(response);
+		});
+	}
+});</code></pre><br>
+						Basically, this function tells the controller to load the userid in model and then forms and sends a request to the server to get back whatever is on /api/userprofiles/userid.<br>
+
+						Now that we have our data loaded, open /ember/app/templates/profile.hbs and copy in the following:<br>
+						<pre><code>&lt;ul class=&quot;list-group&quot;&gt;
+	{{#each like in likes}}
+		{{like-item like=like}}
+	{{/each}}
+&lt;/ul&gt;</code></pre><br>
+						This simply iterates over each like in likes and sends it to a component called like-item to be displayed. Lets create like-item now: In a terminal, type:<br>
+						<pre><code>cd /var/www/ember/
+ember generate component like-item</code></pre><br>
+						Now, open up /ember/app/templates/components/like-item.hbs and copy in the following:<br>
+						<pre><code>&lt;li class=&quot;list-group-item&quot;&gt;
+	&lt;div class=&quot;media&quot;&gt;
+		&lt;h4 class=&quot;media-heading&quot;&gt;{{like.title}}&lt;/h4&gt;
+		&lt;div class=&quot;media-body&quot;&gt;
+			&lt;img src=&quot;{{url}}&quot; class=&quot;media-object profile-feed-img&quot;/&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/li&gt;
+</code></pre><br>
+						This simply creates a full page image with a title above it. To make it work, we need to do one last thing, modify the like-item component code. Open /ember/app/components/like-item.js in sublime and make it look like:<br>
+						<pre><code>import Ember from 'ember';
+
+export default Ember.Component.extend({
+	url: Ember.computed('like.farm','like.server','like.id','like.secret', function(){
+		return "https://farm"+this.get('like').farm+
+		".staticflickr.com/"+this.get('like').server+
+		"/"+this.get('like').objid+"_"+this.get('like').secret+"_b.jpg";
+	}),
+});
+</code></pre><br>
+						This function simply computes a url (similar to the photo model we created before) - allowing the image to load easily.<br>
+						Lastly, lets add a line of css to /ember/app/styles/app.css.<br>
+						<pre><code>.profile-feed-img {
+	min-width: 100%;
+}</code></pre><br>
+						Open your browser and load localhost:8000/profile/1 and you should see something like:<br>
+						<img src="images/feed-done.png"/><br>
+						That's it - we're done!
 			        </div><!-- End Task 9-->
 			        <div id="task10" class="taskitem">
 			        	<h2>UNIT 5: Access control and Permissions</h2>
 			        	<h3 class="taskitem">10. Adding access control and permissions for API calls</h3>
 			        </div><!-- End Task 10-->
-			        <div id="task10" class="taskitem">
+			        <div id="task11" class="taskitem">
 			        	<h3 class="taskitem">11. Enforcing object-level permissions</h3>
 			        </div><!-- End Task 11-->
 			        <div id="task12" class="taskitem">
