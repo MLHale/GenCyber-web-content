@@ -43,16 +43,20 @@ Each step-by-step tutorial is specified by day and hosted at the linked urls:
 
 For teachers interested in self exploration of Maker/Hacker kits, several options are available. These are optional, advanced projects for camp participants.
 
-1. WiFi Pineapple
-2. Ubertooth
-3. Alfa cards
-4. YARD stick one
-5. Circuit Playgrounds
-6. Arduino WiFi Maker kits
-7. Arduino Starter Kits
-8. Little Bits Starter Kit
-9. Little Bits Cloud Kit
+1. [WiFi Pineapple](https://www.wifipineapple.com)
+2. [Ubertooth](https://github.com/greatscottgadgets/ubertooth/wiki)
+3. [Alfa cards](http://hakshop.myshopify.com/products/alfa-usb-wifi-awus036neh)
+4. [YARD stick one](https://greatscottgadgets.com/yardstickone/)
+5. [Circuit Playgrounds](https://www.adafruit.com/circuitplayground)
+6. [Arduino WiFi Maker kits](https://www.adafruit.com/products/3156)
+7. [Arduino Starter Kits](http://store-usa.arduino.cc/products/arduino-starter-kit)
+8. [Little Bits Starter Kit](http://store-usa.arduino.cc/collections/kit/products/mk00641)
+9. [Little Bits Cloud Kit](http://store-usa.arduino.cc/collections/kit/products/mk00678)
 
+#### Other Resources
+
+[NSA Day of Cyber](http://nsadayofcyber.com)  
+It is an interactive self-guided, and fully automated cybersecurity career experience and is free for all registrants for a year.
 
 ### License  
 Gencyber web content.  
