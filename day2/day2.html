@@ -153,8 +153,8 @@
 						<a href="#task4" class="list-group-item">UNIT 2: Integrating the server-side and client-side</a>
 						<a href="#task5" class="list-group-item">UNIT 3: Adding Authentication and sessions</a>
 						<a href="#task7" class="list-group-item">UNIT 4: Adding a user profile</a>
-						<a href="#task9" class="list-group-item">UNIT 5: Access control and Permissions</a>
-						<a href="#task11" class="list-group-item">UNIT 6: Input filtering and API hardening</a>
+						<a href="#task10" class="list-group-item">UNIT 5: Access control and Permissions</a>
+						<a href="#task12" class="list-group-item">UNIT 6: Input filtering and API hardening</a>
 					</div>
 					<div id="task1" class="taskitem">
 						<h2>UNIT1: Unit 1: Installing Apache and Django and configuring a dev. and production enviornment</h2>
@@ -863,22 +863,256 @@ body { padding-top: 70px; }
 
 			        </div><!-- End Task 7-->
 			        <div id="task8" class="taskitem">
-			        	<h3 class="taskitem">8. Creating a user profile feed</h3>
+			        	<h3 class="taskitem">8. Refactoring the app to support multi-pages for the user profile feed</h3>
+			        	Now that a user can like photos, lets make it so they can see a feed of all photos they have previously liked. Up until this point, our app has been entirely contained in one page. Now we will do some quick refactoring to make it a multi-page app. Lets start by creating some new files using ember cli. In a new terminal window do the following:<br>
+			        	<pre><code>cd /var/www/ember/ 
+ember generate route profile
+ember generate controller profile
+ember generate route home
+ember generate controller home</code></pre><br>
+						These two items (home and profile) will be the two pages in our app. Next lets move the code currently in application.js to home.js.
+						Open /ember/app/controllers/home.js in sublime and copy and paste the following in:<br>
+						<pre><code>import Ember from 'ember';
+
+var PhotoCollection = Ember.ArrayProxy.extend(Ember.SortableMixin, {
+	sortProperties: ['dates.taken'],
+	sortAscending: false,
+	content: [],
+});
+
+export default Ember.Controller.extend({
+	applicationController: Ember.inject.controller('application'),
+	photos: PhotoCollection.create(),
+	searchField: '',
+	tagSearchField: '',
+	filteredPhotosLoaded: function(){
+		return this.get('filteredPhotos').length >0;
+	}.property('filteredPhotos.length'),
+	tagList: ['hi','cheese'],
+	filteredPhotos: function () {
+		var filter = this.get('searchField');
+		var rx = new RegExp(filter, 'gi');
+		var photos = this.get('photos');
+
+		return photos.filter(function(photo){
+			return photo.get('title').match(rx) || photo.get('owner.username').match(rx);
+		});
+	}.property('photos.@each','searchField'),
+	actions: {
+		like: function (photo) {
+			var title = photo.get('title');
+			if(title.length >= 97){
+				title = title.substring(0,96) + "...";
+			}
+			var photodata = {
+				'user': this.get('applicationController').get('userid'),
+				'title': title,
+				'objid': photo.get('id'),
+				'farm': photo.get('farm'),
+				'secret': photo.get('secret'),
+				'server': photo.get('server'),
+			};
+			Ember.$.post('../api/likes/', photodata, function(response){
+				photo.set('liked', true);
+				console.log('Request to add like for photo: '+photo.get('title')+' returned the following response');
+				console.log(response);
+			});
+		},
+		search: function () {
+			this.set('loading', true);
+			this.get('photos').content.clear();
+			this.store.unloadAll('photo');
+			this.send('getPhotos',this.get('tagSearchField'));
+		},
+		getPhotos: function(tag){
+			var apiKey = '01dbbdd8cb57d5d34b5f804aad4e392b';
+			var host = 'https://api.flickr.com/services/rest/';
+			var method = "flickr.photos.search";
+			var requestURL = host + "?method="+method + "&api_key="+apiKey+"&tags="+tag+"&per_page=50&format=json&nojsoncallback=1";
+			var photos = this.get('photos');
+			var t = this;
+			Ember.$.getJSON(requestURL, function(data){
+				if (! data.photos ) {
+					console.log("Could not load photos. Check your API key");
+					return;
+				}
+				//callback for successfully completed requests
+				//make secondary requests to get all of the photo information
+				data.photos.photo.map(function(photoitem) {//iterate over each photo
+					var infoRequestURL = host + "?method="+"flickr.photos.getInfo" + "&api_key="+apiKey+ "&photo_id="+photoitem.id+"&format=json&nojsoncallback=1";
+					Ember.$.getJSON(infoRequestURL, function(item){
+						var photo = item.photo;
+						var tags = photo.tags.tag.map(function(tagitem){
+							return tagitem._content;
+						});
+						var newPhotoItem = t.store.createRecord('photo',{
+							title: photo.title._content,
+							dates: photo.dates,
+							owner: photo.owner,
+							description: photo.description._content,
+							link: photo.urls.url[0]._content,
+							views: photo.views,
+							tags: tags,
+							//flickr url data
+							id: photo.id,
+							farm: photo.farm,
+							secret: photo.secret,
+							server: photo.server,
+						});
+						photos.pushObject(newPhotoItem);
+					});
+				});
+			});
+		},
+		clicktag: function(tag){
+			this.set('tagSearchField', tag);
+			this.set('loading', true);
+			this.get('photos').content.clear();
+			this.store.unloadAll('photo');
+			this.send('getPhotos',tag);
+		}
+	},
+	init: function(){
+		this._super.apply(this, arguments);
+		var apiKey = '4435e3a217bc7afc94dfcba607b70eb1';
+		var host = 'https://api.flickr.com/services/rest/';
+		var method = "flickr.tags.getHotList";
+		var requestURL = host + "?method="+method + "&api_key="+apiKey+"&count=75&format=json&nojsoncallback=1";
+		var t = this;
+		Ember.$.getJSON(requestURL, function(data){
+			//callback for successfully completed requests
+			console.log(data);
+			data.hottags.tag.map(function(tag) {
+				t.get('tagList').pushObject(tag._content);
+			});
+		});
+	}
+});</code></pre><br>	
+						This code is identically equal to what you had in application.js previously with two exceptions. Line 10 now injects the application controller and line 34 uses this controller to reference the userid (if a user is authenticated). Open up /ember/app/templates/application.js - we need to add one small property to handle the navbar (described next). In sublime edit application.js to look like the following:<br>
+						<pre><code>import Ember from 'ember';
+
+export default Ember.Controller.extend({
+	isHome: function(){
+		return this.get('currentRouteName') =='home';
+	}.property('currentRouteName')
+});
+</code></pre><br>
+						This is just a simple property that returns true if the user is currently on the home page and false otherwise.<br>
+						Now lets modify /ember/app/templates/application.hbs to look like the following:<br>
+						<pre><code>&lt;!-- app/templates/application.hbs --&gt;
+&lt;nav class=&quot;navbar navbar-default navbar-fixed-top&quot;&gt;
+	&lt;div class=&quot;container-fluid&quot;&gt;
+		&lt;div class=&quot;navbar-header&quot;&gt;
+			&lt;a class=&quot;navbar-brand&quot; href=&quot;#&quot;&gt;My App&lt;/a&gt;
+		&lt;/div&gt;
+		&lt;div class=&quot;navbar-right search-field&quot;&gt;
+			{{#if isHome}}
+				{{#bs-form formLayout=&quot;inline&quot; class=&quot;search-form&quot; action=&quot;search&quot;}}
+					{{#if filteredPhotos}}
+						{{bs-input type=&quot;text&quot; value=searchField placeholder=&quot;filter photos&quot;}}
+					{{/if}}
+					{{bs-input type=&quot;text&quot; value=tagSearchField action=&quot;search&quot; placeholder=&quot;search for a flickr tag&quot;}}
+					&lt;button type=&quot;submit&quot; class=&quot;btn btn-default&quot;&gt;
+						&lt;span class=&quot;glyphicon glyphicon-search&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+					&lt;/button&gt;
+				{{/bs-form}}
+			{{else}}
+				&lt;ul class=&quot;nav navbar-nav left-menu&quot;&gt;
+					&lt;li&gt;{{#link-to 'home'}}Home{{/link-to}}&lt;/li&gt;
+				&lt;/ul&gt;
+			{{/if}}
+			{{auth-manager class=&quot;auth-mgr&quot; userid=userid}}
+
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/nav&gt;
+&lt;div class=&quot;container&quot;&gt;
+	{{outlet}}
+&lt;/div&gt;</code></pre><br>
+						Notice that we have made the search form only appear if the user is on the home page. If they are not, the user will instead see a navigational link to home. All of the stuff in the container has been replaced by {{outlet}}. This is where our pages will render. Basically the navigational bar code will remain, but everything else will swap out every time the user switches pages.<br>
+						All of the code formerly in the container in application.hbs now needs to be copied into /ember/app/templates/home.hbs. To ensure that it is correct, copy and paste it into home.hbs from below:<br>
+						<pre><code>{{#liquid-if filteredPhotosLoaded use=&quot;toDown&quot;}}
+	&lt;ul class=&quot;list-group&quot;&gt;
+		{{#each photo in filteredPhotos}}
+		&lt;li class=&quot;list-group-item&quot;&gt;
+			&lt;div class=&quot;media&quot;&gt;
+				&lt;div class=&quot;media-left media-middle&quot;&gt;
+					{{light-box href=photo.url data-lightbox=photo.id data-title=photo.title
+						data-class=&quot;media-object feed-img&quot;}}
+					Taken: &lt;a href={{photo.link}}&gt;{{photo.humanReadableDate}}&lt;br&gt;&lt;/a&gt;
+					By: &lt;a href={{photo.ownerurl}} target=&quot;_blank&quot;&gt;{{photo.owner.username}}&lt;/a&gt;&lt;br&gt;
+				&lt;/div&gt;
+				&lt;div class=&quot;media-body&quot;&gt;
+					&lt;h4 class=&quot;media-heading&quot;&gt;{{photo.title}} ({{photo.views}} Views)
+					{{#if photo.liked}}
+						&lt;button class=&quot;btn btn-warning btn-xs pull-right&quot; disabled=&quot;disabled&quot;&gt; 
+							&lt;span class=&quot;glyphicon glyphicon-thumbs-up&quot;&gt;&lt;/span&gt; Like
+						&lt;/button&gt; 
+					{{else}}
+						&lt;button class=&quot;btn btn-default btn-xs pull-right&quot; {{action &quot;like&quot; photo}}&gt; 
+							&lt;span class=&quot;glyphicon glyphicon-thumbs-up&quot;&gt;&lt;/span&gt; Like
+						&lt;/button&gt; 
+					{{/if}}
+					&lt;/h4&gt;
+					{{{photo.description}}}
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;br&gt;
+			&lt;div class=&quot;row&quot;&gt;
+				&lt;div class=&quot;col-md-1 col-xs-1 col-sm-1&quot;&gt;Tags:&lt;/div&gt;
+				&lt;div class=&quot;col-md-11 col-xs-11 col-sm-11&quot;&gt;
+					{{#each tag in photo.tags}}
+						&lt;button class=&quot;btn btn-info btn-xs post-tag-button&quot; {{action &quot;clicktag&quot; tag}}&gt;#{{tag}}&lt;/button&gt; 
+					{{/each}}
+				&lt;/div&gt;
+			&lt;/div&gt;
+
+		&lt;/li&gt;
+		{{/each}}
+	&lt;/ul&gt;
+{{else}}
+	{{#liquid-if loading use=&quot;toDown&quot;}}
+		&lt;img src=&quot;../page-loading.gif&quot; class=&quot;img-responsive center-block&quot;/&gt;
+	{{else}}
+		&lt;div class=&quot;jumbotron&quot;&gt;
+			&lt;h1&gt;[app-name]&lt;/h1&gt;
+			&lt;p&gt;Created by [yourname]&lt;/p&gt;
+			&lt;p&gt;Click one of the popular flickr tags below or search one above:&lt;/p&gt;
+			{{#each tag in tagList}}
+				&lt;button class=&quot;btn btn-info btn-small tag-button&quot; {{action &quot;clicktag&quot; tag}}&gt;#{{tag}}&lt;/button&gt;
+			{{/each}}
+		&lt;/div&gt;
+	{{/liquid-if}}
+
+{{/liquid-if}}</code></pre><br>
+						This code remains unchanged from before.<br>
+						Lastly, lets add one small css change at the end of /ember/app/styles/app.css<br>
+						<pre><code>.left-menu {
+	margin-top: -8px;
+}</code></pre><br>	
+						This will adjust the home link up a few pixels to account for our other styling.<Br>
+						Thats it - your app is now refactored to be a multi-page app.<br>
+						
+				        	
 			        </div><!-- End Task 8-->
 			        <div id="task9" class="taskitem">
-			        	<h2>UNIT 5: Access control and Permissions</h2>
-			        	<h3 class="taskitem">9. Adding access control and permissions for API calls</h3>
+			        	<h3 class="taskitem">9. Adding the actual user profile feed</h3>
+			        	That was the hard part, now lets get on with the task of creating the user profile.<br>
 			        </div><!-- End Task 9-->
 			        <div id="task10" class="taskitem">
-			        	<h3 class="taskitem">10. Enforcing object-level permissions</h3>
+			        	<h2>UNIT 5: Access control and Permissions</h2>
+			        	<h3 class="taskitem">10. Adding access control and permissions for API calls</h3>
 			        </div><!-- End Task 10-->
-			        <div id="task11" class="taskitem">
-			        	<h2>UNIT 6: Input filtering and API hardening</h2>
-			        	<h3 class="taskitem">11. See how vulnerable the API is by default</h3>
-			        </div><!-- End Task 9-->
+			        <div id="task10" class="taskitem">
+			        	<h3 class="taskitem">11. Enforcing object-level permissions</h3>
+			        </div><!-- End Task 11-->
 			        <div id="task12" class="taskitem">
-			        	<h3 class="taskitem">12. Filtering POST and PUT requests and adding validators</h3>
-			        </div><!-- End Task 9-->
+			        	<h2>UNIT 6: Input filtering and API hardening</h2>
+			        	<h3 class="taskitem">12. See how vulnerable the API is by default</h3>
+			        </div><!-- End Task 12-->
+			        <div id="task12" class="taskitem">
+			        	<h3 class="taskitem">13. Filtering POST and PUT requests and adding validators</h3>
+			        </div><!-- End Task 13-->
 				</div><!--end scrollable content -->
 				<!-- Copyright info -->
 				<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">UNO Gencyber Content</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="mlhale.com" property="cc:attributionName" rel="cc:attributionURL">Dr. Matthew L. Hale</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/MLHale/GenCyber-web-content" rel="dct:source">https://github.com/MLHale/GenCyber-web-content</a>.
