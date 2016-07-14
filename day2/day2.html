@@ -721,6 +721,146 @@ class CsrfExemptSessionAuthentication (SessionAuthentication):
 			        <div id="task7" class="taskitem">
 			        	<h2>UNIT 4: Adding a user profile</h2>
 			        	<h3 class="taskitem">7. Creating a 'like' feature and storing likes server-side</h3>
+			        	Now that we have created the moving parts to allow users to login, lets create some registered user only functionality. To begin with, lets take a look at our app. Click a random tag in the tag list. I clicked 'farligt' in the screenshot below.<br>
+			        	<img src="images/navbar-css-issue.png"/><br>
+			        	Notice, that our navbar is all messed up when photos are actually loaded - something we didn't test for before with our simple nav-bar fix. Lets adjust this now to a accomodate all different states of the navbar. Open /ember/app/templates/application.hbs in sublime. Adjust your nav-bar code to the following (just add the class="auth-mgr" and userid=userid parts). The userid portion will be discussed later.<br>
+			        	<pre><code>&lt;nav class=&quot;navbar navbar-default navbar-fixed-top&quot;&gt;
+	&lt;div class=&quot;container-fluid&quot;&gt;
+		&lt;div class=&quot;navbar-header&quot;&gt;
+			&lt;a class=&quot;navbar-brand&quot; href=&quot;#&quot;&gt;My App&lt;/a&gt;
+		&lt;/div&gt;
+		&lt;div class=&quot;navbar-right search-field&quot;&gt;
+			{{#bs-form formLayout=&quot;inline&quot; class=&quot;search-form&quot; action=&quot;search&quot;}}
+				{{#if filteredPhotos}}
+					{{bs-input type=&quot;text&quot; value=searchField placeholder=&quot;filter photos&quot;}}
+				{{/if}}
+				{{bs-input type=&quot;text&quot; value=tagSearchField action=&quot;search&quot; placeholder=&quot;search for a flickr tag&quot;}}
+				&lt;button type=&quot;submit&quot; class=&quot;btn btn-default&quot;&gt;
+					&lt;span class=&quot;glyphicon glyphicon-search&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+				&lt;/button&gt;
+			{{/bs-form}}
+			{{auth-manager class=&quot;auth-mgr&quot; userid=userid}}
+
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/nav&gt;</code></pre><br>
+						Now open your /ember/app/styles/app.css file in sublime and do the following:<br>
+						<ul>
+							<li>Remove the .auth-form css</li>
+							<li>change the .search-form css to float: left;</li>
+							<li>Add a .navbar-brand as follows: <pre><code>.navbar-brand {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	margin: 0 auto;
+	z-index: -1;
+}</code></pre>
+							</li>
+							<li>add a .auth-mgr property and in it, add the float:right; directive</li>
+						</ul>
+						If you prefer, you can copy the following and replace the entire contents of the app.css file.<br>
+						<pre><code>.feed-img {
+	max-width: 100%
+}
+body { padding-top: 70px; }
+.search-field {
+	padding-top: 8px;
+	padding-right: 10px;
+	width: 100%;
+}
+
+.tag-button {
+	padding:4px;
+	margin: 1px;
+}
+.post-tag-button {
+	padding:2px;
+	margin-top: 1px;
+}
+.feed-img {
+	background: url('../loading-img.gif');
+	min-height: 64px;
+	min-width: 64px;
+	max-width: 240px;
+}
+
+.auth-user-field {
+	width: 150px !important;
+}
+
+.search-form {
+	float: left;
+}
+
+.navbar-brand {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	margin: 0 auto;
+	z-index: -1;
+}
+
+.auth-mgr {
+	float: right;
+}</code></pre><br>
+						Save your files and lets review the changes. Basically, we have centered the "my app" title, floated the search bar to the left, and floated the authentication form to the right. Reloading your app, you should see something like:<br>
+						<img src="images/navbar-fixed-unauthed.png"/><br>
+						and
+						<img src="images/navbar-fixed-authed.png"/><br>
+						<br>
+						With that fixed, lets move on to actually adding a like button to each photo. open /ember/app/templates/application.hbs again and lets modify the media-heading to include a like button.<br>
+						The media-body (line 35), becomes: <br>
+						<pre><code>&lt;div class=&quot;media-body&quot;&gt;
+	&lt;h4 class=&quot;media-heading&quot;&gt;{{photo.title}} ({{photo.views}} Views)
+	{{#if photo.liked}}
+		&lt;button class=&quot;btn btn-warning btn-xs pull-right&quot; disabled=&quot;disabled&quot;&gt; 
+			&lt;span class=&quot;glyphicon glyphicon-thumbs-up&quot;&gt;&lt;/span&gt; Like
+		&lt;/button&gt; 
+	{{else}}
+		&lt;button class=&quot;btn btn-default btn-xs pull-right&quot; {{action &quot;like&quot; photo}}&gt; 
+			&lt;span class=&quot;glyphicon glyphicon-thumbs-up&quot;&gt;&lt;/span&gt; Like
+		&lt;/button&gt; 
+	{{/if}}
+	&lt;/h4&gt;
+	{{{photo.description}}}
+&lt;/div&gt;</code></pre><br>
+						Notice that we have introduced a variable called photo.liked and an action called 'like'. Lets refresh the page and you should see the like button displayed on each post:<br>
+						<img src="images/like-button.png"/><br>
+						Now lets make it actually work. Open /ember/app/controllers/application.js in sublime. We will be adding a new action in actions: {} that talks to the server-side and creates a new like when the user clicks the like button. The code to do this is below and should be inserted in the action block, before the search action.<br> 
+
+						<pre><code>like: function (photo) {
+	var title = photo.get('title');
+	if(title.length >= 97){
+		title = title.substring(0,96) + "...";
+	}
+	var photodata = {
+		'user': this.get('userid'),
+		'title': title,
+		'objid': photo.get('id'),
+		'farm': photo.get('farm'),
+		'secret': photo.get('secret'),
+		'server': photo.get('server'),
+	};
+	Ember.$.post('../api/likes/', photodata, function(response){
+		photo.set('liked', true);
+		console.log('Request to add like for photo: '+photo.get('title')+' returned the following response');
+		console.log(response);
+	});
+},</code></pre>
+						The first part of the code states the action name (i.e. like) that gets invoked by the like button. The next parts grab information from the photo that was passed in by the action from the template and create a photodata object with the parameters that the server-side needs in order to store a new like. Since the server only accepts a title of length 100, we first check to ensure that the title is no more than 100 characters (concatenating it if it is). The last part (the Ember.$.post portion) makes a request to the serverside to store a new like, sets the 'liked' parameter on the photo to true, and logs the response from the server. Note that there isn't any error handling, but errors would be printed to the console.<br> 
+
+						If you reload your browser, click a tag from the list, and then click like on a photo - you should see something like:<br>
+						<img src="images/like-button-works.png"/><br>
+						In the console, you should also see the object created by the server printed for you. E.g.: <br>
+						<img src="images/like-button-works2.png"/><br>
+
+						If we open our django runserver terminal, we can also see the request as it was received by the server:<br>
+						<img src="images/like-button-works3.png"/><br>
+
+						Lastly, if we open up the API view in our browser (i.e. localhost:8000/api/likes/) we should see our newly created like listed in the output.<br>
+						<img src="images/like-button-works4.png"/><br>
+						Pretty cool!
+
 			        </div><!-- End Task 7-->
 			        <div id="task8" class="taskitem">
 			        	<h3 class="taskitem">8. Creating a user profile feed</h3>
