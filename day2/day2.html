@@ -1191,15 +1191,136 @@ export default Ember.Component.extend({
 			        <div id="task11" class="taskitem">
 			        	<h3 class="taskitem">11. Adding access control and permissions for API calls</h3>
 			        	Obviously there are lots of problems with these default security measures. Lets start by actually requiring users to at least authenticate before they can make requests to the API.<br>
+			        	Do enable authenicated views only, we need to open /gencybersite/gencybersite/settings.py<br>
+			        	Scroll down until you see the REST_FRAMEWORK block and add in the following:<br>
+			        	<pre><code>'DEFAULT_PERMISSION_CLASSES': [
+    'rest_framework.permissions.IsAuthenticated'
+],</code></pre><br>
+						When you are done the REST_FRAMEWORK block should be:<br>
+						<pre><code>REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'api.rest_framework_config.CsrfExemptSessionAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
+    ]
+}</code></pre>			
+						This requires users to be authenticated before they can view the API. Lets test it, go back to the advanced rest client and try to make a new post.<br>
+						<img src="images/rest-client-7.png"/><br>
+						Ok that was easy!<br> That will take care of the case where unauthenticated users can muck with data - but it doesn't prevent one authenticated user from mucking with another's data. Lets create a second user and use it to test. Go to localhost:8000/admin/ login with the student account, click the + sign that says add on the users row. Make the username test and the password gencybertest. Now logout as student and login as gencybertest. Next, go back to the advanced rest client and lets try to make a post to user 1's (student) profile. You can select a previous POST you made from the history tab:<br>
+						<img src="images/rest-client-8.png"/><br>
+						Notice below that the POST works even though we are logged in as test and not student.<br>
+						<img src="images/rest-client-9.png"/><br>
+
 			        </div><!-- End Task 11-->
 			        <div id="task12" class="taskitem">
-			        	
 			        	<h3 class="taskitem">12. Enforcing object-level permissions</h3>
+			        	To fix this issue and limit access by the owner of the object, we need object-level permissions.<br>
+			        	We can solve this problem now. Its actually quite easy.<br>
+			        	To limit the objects that a user can see to only their own, we need to change how the methods in the API viewsets compute their querysets. Open /gencybersite/api/views.py and scroll down to the "LikeViewSet<br>
+			        	Lets replace this viewset code with the following:<br>
+			        	<pre><code>class LikeViewSet(viewsets.ModelViewSet):
+	"""
+	API endpoint that allows users to be viewed.
+	"""
+	queryset = Like.objects.all()
+	serializer_class = LikeSerializer
+
+	def create(self, request):
+		serializer = self.get_serializer(data=request.data)
+		if serializer.is_valid():
+			if serializer.validated_data['user'] == request.user:
+				serializer.save()
+				print str(serializer.data)
+				profile, created = Userprofile.objects.get_or_create(user__id=int(serializer.data['user']))
+				profile.likes.add(serializer.data['id'])
+				return Response(serializer.data, status=status.HTTP_201_CREATED)
+			else:
+				return Response('Not authorized')
+		else:
+			return Response(serializer.errors)
+
+	def list(self, request):
+		likes = Like.objects.filter(user=request.user)
+		serializer = LikeSerializer(likes, many=True, context={'request': request})
+		return Response(serializer.data)
+
+	def retrieve(self, request, pk):
+		like = get_object_or_404(Like, id=pk,user=request.user)
+		serializer = LikeSerializer(like, context={'request': request})
+		return Response(serializer.data)</code></pre><br>
+						This does several things. Unlike before, we are no longer relying on all default behavior. Instead, by overriding each method (list, retieve, and create) we are able to specify exactly what the methods should do. In this case, we have modified create to first check to see if the actual authenticated user (request.user) is the same as the user they are trying to create an item for (serializer.validated_data['user']). If they aren't we return an error message. With list and retrieve (for many or one likes respectively), we use object.filter to filter out only those objects that the current authenticated user owns. All other objects are never even computed or sent to the currently logged in user. This prevents others from seeing the objects at all. <br>
+			        	When done, you should see requests made from user 3(test) in your browser to user 1(student) result in a 'not authorized' response that looks like:<br>
+			        	<img src="images/rest-client-10.png"/><br>
+
+			        	Whereas, if you log out of test and back in as student you would see:<br>
+			        	<img src="images/rest-client-11.png"/><br>
+
+			        	If we wanted to be absolutely complete, we would override the other 3 methods for PUTs and DELETEs. In this case, the point is made - so we are moving on.<br>
 			        </div><!-- End Task 12-->
 			        <div id="task12" class="taskitem">
 			        	<h2>UNIT 6: Input filtering </h2>
 			        	<h3 class="taskitem">13. Filtering POST and PUT requests and adding validators</h3>
+			        	For our last magic trick, we will be filtering text-based submissions before saving them to the database. As we saw earlier in step 10, our API allowed users to submit potentially malicious strings that were saved directly into the database. To prevent common injection attacks, it is important to filter and redact, or outright reject requests to store malicious code.<br>
+			        	This unit will briefly cover how to do exactly that using serializers.<br>
+
+			        	Lets start by opening the /gencybersite/api/serializers.py file in sublime.<br>
+			        	Change the serializer to the following:<br>
+			        	<pre><code>class LikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Like
+        fields = ('id', 'user', 'title', 'objid', 'farm', 'secret', 'server')
+
+    def validate_user(self, value):
+        return self.check_str(value);
+
+    def validate_title(self, value):
+        return self.check_str(value);
+
+    def validate_farm(self, value):
+        return self.check_str(value);
+
+    def validate_secret(self, value):
+        return self.check_str(value);
+
+    def validate_server(self, value):
+        return self.check_str(value);
+
+    def check_str(self, value):
+        if 'javascript' in str(value):
+            raise serializers.ValidationError('Malicious content is blocked')
+        elif '>' in str(value) or '<' in str(value):
+            raise serializers.ValidationError('HTML is not allowed')
+        return value
+</code></pre><br>	
+						The first portion is what we had before. The rest of the method is made of of 'validate_&lt;field&gt;' methods and a check_str method. Since most of the fields in our like model are strings, we can define one master method to run through and check for different possible bas things we want our API to avoid. In this case, check_str only searches for the word 'javascript' and for special characters &lt; and &gt;. Obviously this isn't robust, but it illustrates the basic point of input filtering - try to look for and prevent patterns of input from being accepted by an API. <br> 
+						<br>
+						Now if we log in as student, lets try some different requests that violate these rules.<br>
+						Start with changing the title in advanced rest client to 'something something javascript'<br>
+						If we send the request off we should see our malicious code violation error message. E.g. <br>
+						<img src="images/rest-client-12.png"/><br>
+						Replace ' javascript ' with the &lt; sign.<br>
+						Doing that should yield the second warning:<br>
+						<img src="images/rest-client-13.png"/><br>
+						Pretty nifty. For larger applications that require real, robust solutions to input filtering, you need larger more robust libraries to do input sanitization. In django, there is a nice library called django-bleach (available at <a href="https://bitbucket.org/ionata/django-bleach">https://bitbucket.org/ionata/django-bleach</a>). I would suggest using it for larger applications - but we are going to stop here - because the point is made and you now have a feel for how to integrate client and server-side components as well as how to secure them.
+
 			        </div><!-- End Task 13-->
+			        <div id="task14" class="taskitem">
+			        	<h3 class="taskitem">14. Pushing to production</h3>
+			        	Now it is time to push our working application over to our production space that we setup before.<br>
+			        	To do this, open a terminal:<br>
+			        	<pre><code>cd /var/www/gencybersite/
+git status
+git add .
+git commit -m "end of the tutorial, time to push to production"
+cd /var/www/production
+git reset --hard
+git clean -df
+git pull
+sudo service apache2 restart</code></pre><br>
+						BAM! You are done. With these commands you pushed the remaining changes you had from the development environment to github. Then you reset the production directory by removing all local changes and cleaning out untracked files. Lastly, you pulled in the changes and restarted your apache server to push them live. You should see your app. Click home to get started. Try liking a few things and checking out your user profile.<br>
+			        </div><!-- End Task 14-->
 				</div><!--end scrollable content -->
 				<!-- Copyright info -->
 				<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">UNO Gencyber Content</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="mlhale.com" property="cc:attributionName" rel="cc:attributionURL">Dr. Matthew L. Hale</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/MLHale/GenCyber-web-content" rel="dct:source">https://github.com/MLHale/GenCyber-web-content</a>.
