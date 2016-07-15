@@ -1,10 +1,10 @@
 # GenCyber Camp @ The University of Nebraska at Omaha
-Files in this repo are intended to provide step-by-step self paced tutorials to teachers seeking to learn about cybersecurity first principles as part of the UNO Gencyber camp.
+Files in this repository are intended to provide step-by-step self paced tutorials to teachers seeking to learn about cybersecurity first principles as part of the UNO Gencyber camp. The strategy is to *learn by doing*. The overall theme is to develop components of a web application with cybersecurity first principles *baked-in*.
 
-# Camp Study Resources
-Each step-by-step tutorial is specified by day and hosted at the linked urls:
+# Camp Study Guides
+The guides are organized by camp days and are available at the linked urls:
 
-#### Day1: Development Environment and Client-side App Creation
+### Day1: Development Environment and Client-side App Creation
 1. [Virtualization Primer](./day1/virtualization-primer.md)  
 2. [Github Primer](./day1/github-primer.md)
 3. Client-side web app setup and development
@@ -15,31 +15,46 @@ Each step-by-step tutorial is specified by day and hosted at the linked urls:
   * [Sub-Unit 5: Creating a good user experience](https://htmlpreview.github.io/?https://github.com/MLHale/GenCyber-web-content/blob/master/day1/day1.html#task16)  
   * [Sub-Unit 6: Deployment to Github.io](https://htmlpreview.github.io/?https://github.com/MLHale/GenCyber-web-content/blob/master/day1/day1.html#task21)  
 
-#### Day 2: Server-side Application Creation
+### Day 2: Server-side Application Creation
 
-1. [Server Setup: Apache, Django, and Django REST framework](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html)
+1. Server-side web app setup and development
   * [UNIT 1: Installing Apache and Django and configuring a dev. and production environment](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task1)
   * [UNIT 2: Integrating the server-side and client-side](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task4)
   * [UNIT 3: Adding authentication and sessions](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task5)
   * [UNIT 4: Adding a user profile](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task7)
   * [UNIT 5: Access control and permissions](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task10)
   * [UNIT 6: Input filtering and API hardening](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task13)
-2. [Server Hardening: Firewalls](./day2/day2-firewalls-iptables.md)  
+2. Server Hardening
+  * [Firewalls](./day2/day2-firewalls-iptables.md)  
 
-#### Day 3: Reducing Exposure: Training the Human and Cryptography
+### Day 3: Reducing Exposure: Training the Human and Cryptography
 1. Avoiding Phishing
   * [Email Header Analysis](./day3/day3-se-headeranalysis.md)
   * [URL Analysis](./day3/day3-url-analysis.md)
 3. Avoiding Network Snooping
   * Hands-on with Cryptography  
 
-#### Day 4: Teacher-Student group exercises
+### Day 4: Teacher-Student group exercises
+
+##### Module 1. Virtualization, Version Control and Collaboration  
+* [Virtualization Primer](./day1/virtualization-primer.md)   
+* [Github Primer](./day1/github-primer.md)   
+
+##### Module 2. Server Hardening and Firewalls
+  * [Firewalls](./day2/day2-firewalls-iptables.md)  
+
+##### Module 3. Avoiding Phishing
+  * [Email Header Analysis](./day3/day3-se-headeranalysis.md)
+  * [URL Analysis](./day3/day3-url-analysis.md)
+
+##### Module 4. REST API Hardening
+  * [Input filtering and API hardening](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task13)
 
 
-#### Day 5: Capture the Flag Contest
+### Day 5: Capture the Flag Contest
 1. [Jeopardy style contest among student-teacher teams](https://genctf.mlhale.com).
 
-#### Self Exploration Kits
+## Self Exploration Kits
 
 For teachers interested in self exploration of Maker/Hacker kits, several options are available. These are optional, advanced projects for camp participants.
 
@@ -53,7 +68,7 @@ For teachers interested in self exploration of Maker/Hacker kits, several option
 8. [Little Bits Starter Kit](http://store-usa.arduino.cc/collections/kit/products/mk00641)
 9. [Little Bits Cloud Kit](http://store-usa.arduino.cc/collections/kit/products/mk00678)
 
-#### Other Resources
+## Other Resources
 
 [NSA Day of Cyber](http://nsadayofcyber.com)  
 It is an interactive self-guided, and fully automated cybersecurity career experience and is free for all registrants for a year.
