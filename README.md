@@ -73,6 +73,20 @@ For teachers interested in self exploration of Maker/Hacker kits, several option
 [NSA Day of Cyber](http://nsadayofcyber.com)  
 It is an interactive self-guided, and fully automated cybersecurity career experience and is free for all registrants for a year.
 
+## Contacts
+
+[Matt Hale](https://mlhale.wordpress.com/about/)   
+Assistant Professor of Information Assurance  
+University of Nebraska at Omaha    
+
+[Robin Gandhi](http://faculty.ist.unomaha.edu/rgandhi/)    
+Associate Professor of Information Assurance   
+University of Nebraska at Omaha  
+
+[Abhishek Parakh](http://faculty.ist.unomaha.edu/aparakh/)    
+Assistant Professor of Information Assurance   
+University of Nebraska at Omaha  
+
 ### License  
 Gencyber web content.  
 Copyright (C) 2016  Dr. Matthew L. Hale  
