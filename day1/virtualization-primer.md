@@ -22,28 +22,33 @@
 
 ### Introduction
 
-Virtualization is a technique to abstract computer hardware resources. It allows sharing resources like CPU, memory and input/output devices between many __guest__ Operating Systems (OS). A host OS with virtualization software manages the guest OSes. A guest OS is unaware of other guest OSes and the underlying shared physical resources managed by the host OS. Virtualization provides _domain separation_ between guest OSes as well as the host OS. A guest OS is also referred to as a __virtual machine__ or VM for short.
+Virtualization is a technique to abstract computer hardware resources. It allows sharing resources like CPU, memory and input/output devices between many __guest__ Operating Systems (OS). A host OS with virtualization software manages many guest OSes. Through virtualization a guest OS is unaware of other guest OSes and the sharing of underlying physical computing resources with them. Virtualization provides _domain separation_ among guest OSes as well as with the host OS. A guest OS is also referred to as a __virtual machine__ or VM for short.
 
 Virtualization technologies are essential to the operation of large scale data centers. It allows many tenants to share the same data center resources. Virtualization enables them to do so without encroaching on each other's data and programs. This is an example of __resource encapsulation__.
 
 In this module we will install virtualization software on a Windows host OS. Next, install a Ubuntu Linux guest OS as a VM. This setup will provide __domain separation__ between our host OS and the development environment. Any changes and/or "accidents" in the guest OS, stay contained within the VM. Virtualization also allows safe experimentation with unknown software programs and malware samples. This is an example of __process isolation__. The failure of processes in a VM due to malware infection, does not impact the processes in the host machine. The VM may freeze, but it does not tie up the host machine resources.
 
-Our entire setup uses Free and Open Source Software (FOSS). When using FOSS, respect its copyright and license restrictions.
+Our entire setup uses Free and Open Source Software (FOSS). When using FOSS, respect its copyright and license restrictions. These obligations and rights are typically conveyed in a LICENSE file.
 
 [Top](#table-of-contents)
 
 ### Installing VirtualBox
 
-Virtual Box is a free open source virtualization software from Oracle. For a Windows host OS, a installation executable can be downloaded from here:
+VirtualBox is a free open source virtualization software from Oracle. For a Windows host OS, a installation executable can be downloaded from here:
+
+> If you see a VirtualBox shortcut on your lab computer desktop, you may skip the download and installation.
 
 ```text
 https://www.virtualbox.org/wiki/Downloads
 ```
+
 Click on the `VirtualBox xx.xx.xxx for Windows hosts  x86/amd64` download link. Once the file is downloaded, proceed with installation by double clicking the executable. Continue with defaults and answer YES to any prompts. Installation will require an account with administrative privileges.
 
 Upon successful installation, you should see this.
 
->![start](../img/virtualization/0-virtualboxstart.png)
+> On your lab machine there may be some VMs already configured for you. So your interface may look slightly different.
+
+![start](../img/virtualization/0-virtualboxstart.png)
 
 [Top](#table-of-contents)
 
@@ -70,7 +75,7 @@ The next configuration step creates a virtual hard drive for the VM. Select the 
 
 >![vminstall](../img/virtualization/4-harddisk.png)
 
-On the next `Hard disk file type` prompt, change the selection to **VMDK**. This hard drive format plays nice with VMware, another popular virtualization software. This hard drive format is also compatible with the Open Virtualization Format (OVF). OVF allows seamless export of VMs between different virtualization environments. Click `Next`.
+On the next `Hard disk file type` prompt, change the selection to **VMDK**. This hard drive format plays nice with `VMware`, another popular virtualization software. This hard drive format is also compatible with the Open Virtualization Format (OVF). OVF allows seamless export of VMs between different virtualization environments. Click `Next`.
 
 >![vminstall](../img/virtualization/5-vmdktype.png)
 
@@ -88,18 +93,21 @@ The _Dev Machine_ VM is now ready to be started in VirtualBox. It is currently p
 
 Now before you hit the "green" Start button, we need a installation CD for the Ubuntu Desktop OS. Download the ISO file for Ubuntu 14.04 64-bit Desktop version from here. It is a larger download but it includes all the files needed for installation.
 
+> On your host computer check C:/ISO/Desktop folder to see if this file is already on your computer. If yes, skip the download step.
+
 ```text
 http://releases.ubuntu.com/trusty/ubuntu-14.04.4-desktop-amd64.iso
 
 ```
 Save the ISO file in a convenient location on your computer.  
-> Optional: Check C:/ISO/Desktop folder to see if this file is already on your computer
 
 Now hit the Start button for the **Dev Machine** VM in VirtualBox. A `Select start-up disk` prompt should appear. Click the Folder Icon with a green pointer.
 
 > ![vminstall](../img/virtualization/9-startup-disk.png)
 
 Browse to the location where you saved the Ubuntu ISO file. Then select the ISO file as the start-up disk. Click `Start`.
+
+> On the lab computer, it will be in C:/ISO/Desktop
 
 > ![vminstall](../img/virtualization/10-ubuntuiso.png)
 
@@ -206,7 +214,7 @@ You do not need to install Guest Additions for a Server VM, since it only has te
 
 VirtualBox also allows launching VMs that others may have created. We will use this feature to load a previously configured development environment.
 
-> Check C:/ISO/GenCyber folder for files with `.ova` extension. If such files exist, then from VirtualBox select the `File --> Import Appliance` menu option to import them.
+> Check C:/ISO/GenCyber folder for files with `.ovf` or `.ova` extension. If such files exist, then from VirtualBox select the `File --> Import Appliance` menu option to import them.
 
 > ![vminstall](../img/virtualization/30-importappliance.png)
 
