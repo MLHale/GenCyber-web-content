@@ -14,9 +14,9 @@
 [Installing Ubuntu Desktop Linux VM](#installing-ubuntu-desktop-linux-vm)  
 [Customizing the VM](#customizing-the-vm)  
 [Installing Software in the VM](#installing-software-in-the-vm)   
+[Taking Snapshots](#taking-snapshots)  
 [Installing Ubuntu Server Linux VM](#installing-ubuntu-server-linux-vm)   
 [Launch an existing VM](#launch-an-existing-vm)  
-[Additional Tasks (Snapshots)](#additional-tasks)  
 [Further Readings](#further-readings)  
 
 
@@ -199,6 +199,14 @@ sudo apt-get -y install git
 ```
 [Top](#table-of-contents)
 
+### Taking Snapshots
+
+Now that we have the VM setup just like we want, it would be prudent to save this "pristine" state. Saving a state allows us to revert back to it incase something breaks or we suspect a malware infection in the VM.
+
+Follow the tutorial steps in the VirtualBox [user manual](https://www.virtualbox.org/manual/ch01.html#snapshots) and take a snapshot of your Ubuntu Desktop VM and then restore your VM to that snapshot. We will use this functionality several times during the camp.
+
+[Top](#table-of-contents)
+
 ### Installing Ubuntu Server Linux VM
 
 Using what you learned here, now install a Ubuntu Server VM. You may download the ISO for 64-bit Ubuntu Server OS version 14.04 from here.
@@ -222,21 +230,14 @@ This will bring up the `Import Virtual Appliance` prompt.
 
 > ![vminstall](../img/virtualization/31-importappliance.png)
 
-Navigate to the folder with the `.ova` files and click `Open`. Follow the prompts to import the VM and start it. Repeat the process for other `.ova` files.
-
-[Top](#table-of-contents)
-
-### Additional Tasks
-
-#### Taking Snapshots
-Follow the tutorial steps in the VirtualBox [user manual](https://www.virtualbox.org/manual/ch01.html#snapshots) and take a snapshot of your Ubuntu Desktop VM. Snapshots can help you revert your VM to a previously saved state incase something breaks.
+Navigate to the folder with the `.ovf` or `.ova` files, select one and click `Open`. Follow the prompts to import the VM and start it. The imported VM will be your development environment for the next several modules.
 
 [Top](#table-of-contents)
 
 ### Further Readings
 
 * VirtualBox [User Manual](https://www.virtualbox.org/manual/UserManual.html). This user manual has a lot more information on VMs including network settings.
-* [Shell prompt basics for a Linux Based OS](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/4/html/Step_by_Step_Guide/ch-basics.html), Redhat.
+* [Shell prompt basics for a Linux Based OS](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/4/html/Step_by_Step_Guide/ch-basics.html), Redhat. I highly recommend going through this to be a command-line ninja!
 
 > #### _Security tip_
 Do not allow VMs to share folders and storage volumes with other VMs or with the host OS. This prevents unintended data sharing between separated domains.
