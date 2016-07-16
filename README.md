@@ -48,8 +48,12 @@ The guides are organized by camp days and are available at the linked urls:
   * [URL Analysis](./day3/day3-url-analysis.md)
 
 ##### Module 4. REST API Hardening
-  * [Input filtering and API hardening](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task13)
+  * [Input filtering and API hardening](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task11)
 
+##### Evaluation Forms
+* [Student Evaluation Form](https://docs.google.com/forms/d/e/1FAIpQLSfaTgdb9j8x86PVtDRYB0XSJZHDF0M2g8-R5QD-_aJmKs-lLw/viewform)
+* [Teacher Peer Evaluation Form](https://docs.google.com/forms/d/e/1FAIpQLSeApna8ZsyeOtrWHEmlr_epKYarDq4EaxYnIPoyV3HDDVOTeA/viewform)
+* [Teacher Module Evaluation Form](https://docs.google.com/forms/d/e/1FAIpQLSfGxM5p10WfOeANDcxylNF240cVEeFew8HbCsAjss5IJawVyQ/viewform)
 
 ### Day 5: Capture the Flag Contest
 1. [Jeopardy style contest among student-teacher teams](https://genctf.mlhale.com).
