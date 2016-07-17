@@ -7,7 +7,7 @@ The guides are organized by camp days and are available at the linked urls:
 ### Day1: Development Environment and Client-side App Creation
 1. [Virtualization Primer](./day1/virtualization-primer.md)  
 2. [Github Primer](./day1/github-primer.md)
-3. Client-side web app setup and development
+3. [Client-side web app setup and development](https://htmlpreview.github.io/?https://github.com/MLHale/GenCyber-web-content/blob/master/day1/day1.html)
   * [Sub-Unit 1: Ember Hello World and app bootstrapping](https://htmlpreview.github.io/?https://github.com/MLHale/GenCyber-web-content/blob/master/day1/day1.html#task1)  
   * [Sub-Unit 2: App refinement and debugging](https://htmlpreview.github.io/?https://github.com/MLHale/GenCyber-web-content/blob/master/day1/day1.html#task11)  
   * [Sub-Unit 3: Interfacing with external web APIs](https://htmlpreview.github.io/?https://github.com/MLHale/GenCyber-web-content/blob/master/day1/day1.html#task14)  
@@ -17,7 +17,7 @@ The guides are organized by camp days and are available at the linked urls:
 
 ### Day 2: Server-side Application Creation
 
-1. Server-side web app setup and development
+1. [Server-side web app setup and development](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html)
   * [UNIT 1: Installing Apache and Django and configuring a dev. and production environment](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task1)
   * [UNIT 2: Integrating the server-side and client-side](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task4)
   * [UNIT 3: Adding authentication and sessions](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task5)
