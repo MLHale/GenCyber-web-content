@@ -136,8 +136,26 @@
 				<div class="col-sm-11 col-xs-12" id="scrollable-content" data-spy="scroll" data-target="#leftnav" data-offset="90">
 					<div class="jumbotron">
 						<h1>Welcome to Gencyber Day 2</h1>
-						<p>This guide will get you up and running with Apache, Django, and Django REST framework. You may want to replace 'myapp' with your actually application name below.</p>
-						<p><a class="btn btn-primary btn-lg" href="#task1" role="button">Get started</a></p>
+						<p>This guide will get you up and running with Apache, Django, and Django REST framework.</p>
+						<h2>Cybersecurity First Principles in this lesson</h2>
+						<ul>
+							<li>
+								<strong>Resource Encapsulation</strong> - Encapsulation is an object oriented concept where all data and functions required to use the resource are packaged into a single self-contained component. The goal is to only allow access or manipulation of the resource in the way the designer intended. An example, assume a flag pole is the object. There are fixed methods on how the flag pole is to be used. Put the flag on, take the flag off, raise or lower the flag. Nothing else can be done to the flag pole. In this lesson, we will use Django to encapsulate resources as part of a REST API.
+							</li>
+							<li>
+								<strong>Abstraction</strong> - An abstraction is a representation of an object or concept. The gauges in an automobile are an abstraction of the performance of a car. A map is an abstraction of the earth. Abstraction allows us to model an object without considering all of the (possibly infinite) complexity that the object may contain. In this lesson, we use abstraction to model data structures similarly as we did in lesson one.
+							</li>
+							<li>
+								<strong>Modularity</strong> - Modular programming is a software design technique that emphasizes separating the functionality of a program into independent, interchangeable modules. Each module contains everything necessary to execute a unique part of the desired functionality through well designed interfaces. These well defined interfaces provide all the detail needed for one module to replace another and achieve the needed results. This lesson focuses particularly on how client-side apps need not know the specifics of server-side implementations if well designed RESTful interfaces are used.
+							</li>
+							<li>
+								<strong>Layering</strong> - Layering allows designers to think about different problems at different levels of an implementation. Why should a front-end web developer care how data is stored in a databse? This lesson emphasizes how layering is an effective strategy for improving security. Layering happens in this lesson as part of the Django framework (i.e. seperation between database layer and application framework level) as well as part of the production environment setup (i.e. apache as a host, django as a web API, client-side as a web app).
+							</li>
+							<li>
+								<strong>Least Privilege</strong> - The principle of least privilege says to allow the minimum number of privileges necessary to accomplish the task. This lesson emphasizes this principle in its design of the web API calls (i.e. limit user privileges and access to data) as well as its focus on file permissions in the apache server configuration portions.
+							</li>
+						</ul>
+						<p>The guide is split into 6 subunits. Select a unit below or start from the beginning. <a class="btn btn-primary btn-lg" href="#task1" role="button">Get started</a></p>
 					</div>
 					<div class="list-group">
 						<a href="#task1" class="list-group-item">UNIT 1: Installing Apache and Django and configuring a dev. and production enviornment</a>
