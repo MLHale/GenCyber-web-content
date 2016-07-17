@@ -166,61 +166,82 @@ sudo apt-get install apache2</code></pre><br>
 			            You should see the default configuration running and it should look something like this:<br>
 			            <img src="images/apache-it-works.png"/><br>
 			            <br>
-			            At this point you are hosting a webserver just like you would find almost anywhere online. Pretty simple to start with right? Well at this point apache is just serving a single page called a "static file." You can find this page (the configuration page) in the /var/www/html/ directory using the file browser or command line. Open it up and take a look and you will see the raw html used to make the "It works" page.
+			            At this point you are hosting a webserver just like you would find almost anywhere online. Pretty simple to start with right? Well at this point apache is just serving a single page, index.html, called a "static file." You can find this page (the configuration page) in the /var/www/html/ directory using the file browser or command line. Open it up and take a look and you will see the raw html used to make the "It works" page. Hit control + x to exit the editor.<br>
+
+									<pre><code>nano /var/www/html/index.html</code></pre><br>
 
 					</div><!-- End Task 1-->
 					<div id="task2" class="taskitem">
 						<h3 class="taskitem">2. Setup your development environment: Installing Django and Forking the starter serverside code</h3>
-			            
+
 			            Now that we have a default install of apache ready, lets make our webserver more interesting by installing and configuring a web application framework called "Django" to work with the server. We will start with setting up a development environment. Step 3 will get django setup for production<br>
 
-			            First install Django by typing the following in the command line:<br>
+			            First install Django and its REST framework by typing the following in the command line:<br>
 			            <pre><code>sudo apt-get install python-pip
-pip install Django==1.9.7</code></pre><br>
+sudo pip install Django==1.9.7
+sudo pip install djangorestframework</code></pre><br>
 			           	Easy enough to install...<br>
 			            Next, lets create your first Django app by starting with some basic code I created for you to get going.<br>
-						
+
 						Go to <a href="https://github.com/MLHale/gencyberdjango">https://github.com/MLHale/gencyberdjango</a> and fork the repository by clicking the "fork" button in the upper right.<br>
 						<img src="images/fork-django-project.png"/><br>
 
-						This should create a copy of the repository that you can control.<br> 
+						This should create a copy of the repository that you can control.<br>
 						<img src="images/forked-repo.png"/><br>
 						When you are done it should look something like:<br>
 						<img src="images/forked-repo2.png"/><br>
 						Notice in the red elipse that you now have your own copy of the repo. If you go to "https://github.com/&lt;yourusername&gt;/gencyberdjango" you should see it.<br>
 			            Back in your virtual machine, lets get started with this code (we will review what is in there in a moment)<br>
-			            (make sure to replace &lt;yourusername&gt; with your actual github username)
+			            (make sure to replace &lt;yourusername&gt; with your actual github username). The chown command recursively (-R) chances the ownership of files and directories under /var/www/ to "student" user and group "www-data". If you have different account name than "student" then use that instead.<br>
+
 			            <pre><code>sudo chown student:www-data -R /var/www/
 cd /var/www/
 git clone https://github.com/&lt;yourusername&gt;/gencyberdjango gencybersite
 cd gencybersite/</code></pre><br>
-		            	
+
 			            With this project, you will get a directory structure that looks like
 			            <img src="images/django-project-structure.png"/><br>
 
-			            Now that we have Django installed and a project running we should be able to test Django in development mode using a utility called "runserver" that runs a development version of django for you to develop your code with. This utility provides real-time recompilation as you edit python files and keeps your app hosted on localhost:8000. This is helpful for testing purposes. The utility also provides real-time feedback every time you save python files in your django directory. This can help you debug if you make errors along the way. Lets take a look at runserver now:<br>
+			            Now that we have Django installed and a project running we should be able to test Django in development mode using a utility called "runserver" that runs a development version of django for you to develop your code with. This utility provides real-time recompilation as you edit python files and keeps your app hosted on localhost:8000. Localhost is also accessible at IP address: 127.0.0.1. runserver is helpful for testing purposes. The utility also provides real-time feedback every time you save python files in your django directory. This can help you debug if you make errors along the way. Lets take a look at runserver now:<br>
 			            <pre><code>python manage.py runserver</code></pre><br>
 			            You should see something that looks like:
 			            <img src="images/django-runserver.png"/><br>
-			            Now, open up a chrome browser window and navigate to localhost:8000/api/<br>
-			            You should see that your django server is running and that there are three types of data served by your api: users, likes, and userprofiles. 
+			            Now, open up a chrome browser window and navigate to <a href=localhost:8000/api/>localhost:8000/api</a><br>
+			            You should see that your django server is running and that there are three types of data served by your api: users, likes, and userprofiles.
 						<img src="images/api-running-in-runserver.png"/><br>
-						Lets investigate these data structures using the django admin interface. In your browser go to localhost:8000/admin/ and login using the username/password student/studentgencyber Then, click on like and then on "someflickrphototitle". Also take a look at the userprofile and user models.<br>
+						Lets investigate these data structures using the django admin interface. In your browser go to <a href=localhost:8000/admin/>localhost:8000/admin/</a> and login using the username/password student/gencyberstudent <br>
 						You should see something like: <img src="images/admin-interface.png"/><br>
-						then: <img src="images/admin-interface2.png"/><br>
-						Then: <img src="images/admin-interface3.png"/><br>
+						Then, click on "likes" and then on "someflickrphototitle".<br>
+						You should see something like: <img src="images/admin-interface2.png"/><br>
+						Also take a look at the userprofile and user models.<br>
+						You should see something like: <img src="images/admin-interface3.png"/><br>
 
 						Feel free to manipulate some fields and click "save"<br>
 
 						Now lets take a look at these items as our application will eventually see them: that is of course, in JSON format (javascript object notation).<br>
-						Go to localhost:8000/api/likes and you should see: <br>
+						Go to <a href=localhost:8000/api/likes>localhost:8000/api/likes</a> and you should see: <br>
 						then: <img src="images/api-likes.png"/><br>
 			        </div><!-- End Task 2-->
 			        <div id="task3" class="taskitem">
 			        	<h3 class="taskitem">3. Configuring Django for production</h3>
-			        	In the first step we installed apache. In the second, we install django. Notice they are running on different ports (port 80 for apache, i.e. just localhost, and port 8000 for django, i.e. localhost:8000). What we want is to setup apache to actually host django - so that when we make changes to our development enviornment we can 'push' them to production. Usually your production server would be an entirely different system. For the rest of this tutorial, we will just use a seperate folder. Lets get this setup. <br>
+			        	In the first step we installed apache. In the second, we install django. Notice they are running on different ports (port 80 for apache, i.e. just localhost, and port 8000 for django, i.e. localhost:8000). What we want is to setup apache to actually host django - so that when we make changes to our development enviornment we can 'push' them to production. Usually your production server would be an entirely different system. For the rest of this tutorial, we will just use a seperate folder. Lets get this setup. <br><br>
 
-			        	First, start by cloning your django repo into a new folder.
+			        	First, start by cloning your django repo into a new folder. Then, we use a <b>find</b> command to grab every directory (given by -type d) beneath the path ( /var/www/production/ ) and changes its permissions to 755 with a <b>chmod</b> command. The permissions are described as follows: The first number gives permission 7 to the owner (the first 7), 7 to group (the second 7), and 5 to all others (the 5).
+								The numbers can range from: 0 to 7 as follows:
+								<ul>
+									<li>0 – no permission</li>
+									<li>1 – execute</li>
+									<li>2 – write</li>
+									<li>3 – write and execute</li>
+									<li>4 – read</li>
+									<li>5 – read and execute</li>
+									<li>6 – read and write</li>
+									<li>7 – read, write, and execute</li>
+								</ul>
+								<br>
+								A second find command does a similar operation, but on files and sets their permissions to 664. <br>
+								The chown command recursively (-R) chances the ownership of files and directories under /var/www/production to "student" user and group "www-data". Again, if you have a different account name, use that instead of "student"
+
 			        	<pre><code>cd /var/www/
 git clone https://github.com/&lt;yourusername&gt;/gencyberdjango production
 sudo find /var/www/production/ -type d -exec chmod 775 {} +
@@ -228,9 +249,9 @@ sudo find /var/www/production/ -type f -exec chmod 664 {} +
 sudo chown -R student:www-data /var/www/production/
 cd production</code></pre><br>
 						Now you have two copies of django, one for development in /var/www/gencybersite/ and one in /var/www/production/ that you will be letting apache serve. <br>
-						Lets get this 'production environment' (a term based in the domain seperation and layering first principles) configured. <br>
+						Lets get this 'production environment' (a term based in the <b>domain seperation and layering first principles</b>) configured. <br>
 
-						You will need a module called mod_wsgi to allow apache to talk to the django python kernel (a run time environment for python). Lets go ahead and install it:<br>
+						You will need a module called <a href=https://modwsgi.readthedocs.io/en/develop/>mod_wsgi</a> to allow apache to talk to the django python kernel (a run time environment for python). Lets go ahead and install it:<br>
 
 			            <pre><code>sudo apt-get install libapache2-mod-wsgi</code></pre>
 			            This library allows Django to tell apache what to serve at any given time. <br>
@@ -238,7 +259,7 @@ cd production</code></pre><br>
 			            <br>
 			            Lets take a look at our current running apache config: open a new terminal window (ctrl+shift+t in terminal) and type<br>
 			            <pre><code>nano /etc/apache2/sites-available/000-default.conf</code></pre><br>
-			            Notice that it is hosting the files in /var/www/html/ that we looked at in step 1.<br>
+			            Notice that it is hosting the files in /var/www/html/ that we looked at in step 1. Hit control + x to exit the editor.<br>
 						<img src="images/apache-default-conf.png"/><br>
 			            To change it to django lets disable this site and create a new virtualhost setup for django:<br>
 			            First, lets create the new virtualhost conf file.
@@ -258,8 +279,8 @@ cd production</code></pre><br>
         ErrorLog ${APACHE_LOG_DIR}/error.log
         CustomLog ${APACHE_LOG_DIR}/access.log combined
 
-        Alias /static/ /var/www/production/static
-        
+        Alias /static/ /var/www/production/static/
+
         #allow access to static files
         &lt;Directory /var/www/production/static&gt;
             Options -Indexes
@@ -277,7 +298,10 @@ cd production</code></pre><br>
 &lt;/VirtualHost&gt;
 WSGIScriptAlias / /var/www/production/gencybersite/wsgi.py
 WSGIPythonPath /var/www/production/:/home/student/.local/lib/python2.7/site-packages/</code></pre><br>
-						To make these files active lets give apache access to site-packages and then reload and restart our server. The first command gives permission 7 to the owner (the first 7), 7 to group (the second 7), and 5 to all others (the 5).<br>
+
+						Hit <b>control + x</b>, <b>y</b> and then <b>enter</b> to save the file. <br>&nbsp<br>
+
+						To make these files active lets give apache access to site-packages and then reload and restart our server. The <b>chmod</b> command gives permission 7 to the owner (the first 7), 7 to group (the second 7), and 5 to all others (the 5).<br>
 						The numbers can range from: 0 to 7 as follows:
 						<ul>
 							<li>0 – no permission</li>
@@ -290,16 +314,20 @@ WSGIPythonPath /var/www/production/:/home/student/.local/lib/python2.7/site-pack
 							<li>7 – read, write, and execute</li>
 						</ul>
 						<br>
-						The second command (find) grabs every directory (given by -type d) beneath the path ( /home/student/.local/lib ) and changes its permissions to 755.<br>
+						The second command (find) grabs every directory (given by -type d) beneath the path ( /home/student/.local/lib ) and changes its permissions to 755.<br>&nbsp<br>
+						If you have different account, replace "student" with that account name.<br>&nbsp<br>
+
 						<pre><code>sudo chmod 775 /home/student/.local
-find /home/student/.local/lib -type d -exec chmod 755 {} +
+sudo find /home/student/.local/lib -type d -exec chmod 755 {} +
 cd /var/www/
+sudo a2ensite django
+sudo a2dissite 000-default
 sudo service apache2 reload
 sudo service apache2 restart</code></pre><br>
-						This virtual host is apache's way of binding certain ports to certain hosted files. In this configuration we are enabling django to run inside of apache using the WSGI interface. The WSGIScriptAlias maps to the wsgi.py file in our django install and the python path points to the directory where our project code is at. This configuration also hosts a static files directory that can be used to host any static files (like css or js or ...your ember flickr app).<br>
+						This virtual host is apache's way of binding certain ports to certain hosted files. In this configuration we are enabling django to run inside of apache using the WSGI interface using mod_wsgi module. The WSGIScriptAlias maps to the wsgi.py file in our django install and the python path points to the directory where our project code is at. This configuration also hosts a static files directory that can be used to host any static files (like css or js or ...your ember flickr app).<br>
 						<br>
 
-						If all goes well, you should see the same app as before, but hosted on localhost: e.g.<br>
+						If all goes well, you should see the same app as before, but hosted on localhost, instead of using the 8000 port: e.g.<br>
 						<img src="images/apache-django-configured.png"/><br>
 						Now we have two specific setups. One for development (/var/www/gencybersite) and one for production (/var/www/production/). Henceforth, we will make coding changes in development, push our changes to our github repo and then pull them down into our production setup when we are ready.<br>
 			        </div><!-- End Task 3-->
@@ -315,7 +343,7 @@ sudo service apache2 restart</code></pre><br>
 			            Just so we are all on the same page, lets go ahead and fork this repo on github and then do the following: (make sure to replace 'yourusername' with your actual username.<br>
 
 			            <pre><code>cd /var/www/
-git clone https://github.com/yourusername/gencyberember.git /var/www/ember
+git clone https://github.com/yourusername/gencyberember.git ember
 cd ember
 git reset 02a023b3 --hard
 npm install
@@ -332,7 +360,7 @@ bower install</code></pre><br>
 			            Now comes the integration step. In your terminal type the following:<br>
 			            <pre><code>cd /var/www/ember
 ember build --watch -o /var/www/gencybersite/static/ember</code></pre><br>
-			            Now you should see a familiar ember build watch running. The only difference is now it is building into a direcotry other than /dist/. Specifically it is building into a static folder called "ember/" in /var/www/gencybersite/static/<br> 
+			            Now you should see a familiar ember build watch running. The only difference is now it is building into a direcotry other than /dist/. Specifically it is building into a static folder called "ember/" in /var/www/gencybersite/static/<br>
 			            <br>
 			            <img src="images/ember-build.png"/><br>
 
@@ -352,7 +380,7 @@ python manage.py runserver</code></pre><br>
 			            <pre><code>def home(request):
   """
   Send requests to / to the ember.js clientside app  """
-  
+
   return render_to_response('index.html',
                 {}, RequestContext(request))</code></pre><br>
                 		<img src="images/home-template.png"/><br>
@@ -368,7 +396,7 @@ python manage.py runserver</code></pre><br>
 			            At this point your urls.py file should look like:<br>
 			            <img src="images/urls-py.png"/><br>
 
-			            This url configuration cascades through admin/ then api/. If it matches one of those, it will be sent to the corresponding set of views. Otherwise, every other possible url will be mapped to the views.home view - which is conveiently hosting our ember app. What this means is that django will offload all urls that don't match the first two patterns to ember (where, they will be handled by the ember client-side router). Nifty yeah?<br>
+			            This url configuration cascades through admin/ then api/. If it matches one of those, it will be sent to the corresponding set of views. Otherwise, every other possible url will be mapped to the views.home view - which is conveniently hosting our ember app. What this means is that django will offload all urls that don't match the first two patterns to ember (where, they will be handled by the ember client-side router). Nifty yeah?<br>
 
 			            To make it all work we need to do one more thing<br>
 			            The asset files aren't hosted at /assets/ as they are in the ember-cli build placement.<br>
@@ -418,9 +446,9 @@ ember generate component auth-component</code></pre><br>
 	&lt;/p&gt;
 {{else}} {{!Display login page}}
 	{{#if errorMsg}}
-		
+
 		&lt;form class=&quot;form-inline auth-form&quot;&gt;
-			
+
 			&lt;div class=&quot;form-group has-error&quot;&gt;
 				&lt;label class=&quot;control-label&quot;&gt;&lt;div class=&quot;alert alert-danger&quot; style=&quot;padding: 5px; margin-bottom: 0px;&quot; role=&quot;alert&quot;&gt;{{errorMsg}}&lt;/div&gt;&lt;/label&gt;
 				{{input class=&quot;form-control auth-user-field&quot; value=username action=&quot;login&quot; placeholder=&quot;Username&quot;}}
@@ -518,7 +546,7 @@ export default Ember.Component.extend({
 					controllerObj.set('errorMsg', response.message);
 				}
 			});
-			
+
 		},
 		logout: function(){
 			var controllerObj = this;
@@ -680,7 +708,7 @@ urlpatterns = [
 						<img src="images/csrf-error.png"/><br>
 						If you click the url, it will take you to the network tab where we can read the actual error. Click it now, then click the red session word, then click 'preview' to see:<br>
 						<img src="images/csrf-network.png"/><br>
-						This says that CSRF (which stands for cross site request forgery) failed to validate the CSRF token. This is expected - because we are using a REST API that doesn't need CSRF protections. 
+						This says that CSRF (which stands for cross site request forgery) failed to validate the CSRF token. This is expected - because we are using a REST API that doesn't need CSRF protections.
 						Lets fix this by getting rid of CSRF protections on all of our RESTful request handlers. Start by creating a new file in /gencybersite/api/ (right click api, select new file). In the file paste in the following:<br>
 						<pre><code>from rest_framework.authentication import SessionAuthentication
 
@@ -804,20 +832,20 @@ body { padding-top: 70px; }
 						<pre><code>&lt;div class=&quot;media-body&quot;&gt;
 	&lt;h4 class=&quot;media-heading&quot;&gt;{{photo.title}} ({{photo.views}} Views)
 	{{#if photo.liked}}
-		&lt;button class=&quot;btn btn-warning btn-xs pull-right&quot; disabled=&quot;disabled&quot;&gt; 
+		&lt;button class=&quot;btn btn-warning btn-xs pull-right&quot; disabled=&quot;disabled&quot;&gt;
 			&lt;span class=&quot;glyphicon glyphicon-thumbs-up&quot;&gt;&lt;/span&gt; Like
-		&lt;/button&gt; 
+		&lt;/button&gt;
 	{{else}}
-		&lt;button class=&quot;btn btn-default btn-xs pull-right&quot; {{action &quot;like&quot; photo}}&gt; 
+		&lt;button class=&quot;btn btn-default btn-xs pull-right&quot; {{action &quot;like&quot; photo}}&gt;
 			&lt;span class=&quot;glyphicon glyphicon-thumbs-up&quot;&gt;&lt;/span&gt; Like
-		&lt;/button&gt; 
+		&lt;/button&gt;
 	{{/if}}
 	&lt;/h4&gt;
 	{{{photo.description}}}
 &lt;/div&gt;</code></pre><br>
 						Notice that we have introduced a variable called photo.liked and an action called 'like'. Lets refresh the page and you should see the like button displayed on each post:<br>
 						<img src="images/like-button.png"/><br>
-						Now lets make it actually work. Open /ember/app/controllers/application.js in sublime. We will be adding a new action in actions: {} that talks to the server-side and creates a new like when the user clicks the like button. The code to do this is below and should be inserted in the action block, before the search action.<br> 
+						Now lets make it actually work. Open /ember/app/controllers/application.js in sublime. We will be adding a new action in actions: {} that talks to the server-side and creates a new like when the user clicks the like button. The code to do this is below and should be inserted in the action block, before the search action.<br>
 
 						<pre><code>like: function (photo) {
 	var title = photo.get('title');
@@ -838,7 +866,7 @@ body { padding-top: 70px; }
 		console.log(response);
 	});
 },</code></pre>
-						The first part of the code states the action name (i.e. like) that gets invoked by the like button. The next parts grab information from the photo that was passed in by the action from the template and create a photodata object with the parameters that the server-side needs in order to store a new like. Since the server only accepts a title of length 100, we first check to ensure that the title is no more than 100 characters (concatenating it if it is). The last part (the Ember.$.post portion) makes a request to the serverside to store a new like, sets the 'liked' parameter on the photo to true, and logs the response from the server. Note that there isn't any error handling, but errors would be printed to the console.<br> 
+						The first part of the code states the action name (i.e. like) that gets invoked by the like button. The next parts grab information from the photo that was passed in by the action from the template and create a photodata object with the parameters that the server-side needs in order to store a new like. Since the server only accepts a title of length 100, we first check to ensure that the title is no more than 100 characters (concatenating it if it is). The last part (the Ember.$.post portion) makes a request to the serverside to store a new like, sets the 'liked' parameter on the photo to true, and logs the response from the server. Note that there isn't any error handling, but errors would be printed to the console.<br>
 
 						If you reload your browser, click a tag from the list, and then click like on a photo - you should see something like:<br>
 						<img src="images/like-button-works.png"/><br>
@@ -856,7 +884,7 @@ body { padding-top: 70px; }
 			        <div id="task8" class="taskitem">
 			        	<h3 class="taskitem">8. Refactoring the app to support multi-pages for the user profile feed</h3>
 			        	Now that a user can like photos, lets make it so they can see a feed of all photos they have previously liked. Up until this point, our app has been entirely contained in one page. Now we will do some quick refactoring to make it a multi-page app. Lets start by creating some new files using ember cli. In a new terminal window do the following:<br>
-			        	<pre><code>cd /var/www/ember/ 
+			        	<pre><code>cd /var/www/ember/
 ember generate route profile
 ember generate controller profile
 ember generate route home
@@ -978,7 +1006,7 @@ export default Ember.Controller.extend({
 			});
 		});
 	}
-});</code></pre><br>	
+});</code></pre><br>
 						This code is identically equal to what you had in application.js previously with two exceptions. Line 10 now injects the application controller and line 34 uses this controller to reference the userid (if a user is authenticated). Open up /ember/app/templates/application.js - we need to add one small property to handle the navbar (described next). In sublime edit application.js to look like the following:<br>
 						<pre><code>import Ember from 'ember';
 
@@ -1036,13 +1064,13 @@ export default Ember.Controller.extend({
 				&lt;div class=&quot;media-body&quot;&gt;
 					&lt;h4 class=&quot;media-heading&quot;&gt;{{photo.title}} ({{photo.views}} Views)
 					{{#if photo.liked}}
-						&lt;button class=&quot;btn btn-warning btn-xs pull-right&quot; disabled=&quot;disabled&quot;&gt; 
+						&lt;button class=&quot;btn btn-warning btn-xs pull-right&quot; disabled=&quot;disabled&quot;&gt;
 							&lt;span class=&quot;glyphicon glyphicon-thumbs-up&quot;&gt;&lt;/span&gt; Like
-						&lt;/button&gt; 
+						&lt;/button&gt;
 					{{else}}
-						&lt;button class=&quot;btn btn-default btn-xs pull-right&quot; {{action &quot;like&quot; photo}}&gt; 
+						&lt;button class=&quot;btn btn-default btn-xs pull-right&quot; {{action &quot;like&quot; photo}}&gt;
 							&lt;span class=&quot;glyphicon glyphicon-thumbs-up&quot;&gt;&lt;/span&gt; Like
-						&lt;/button&gt; 
+						&lt;/button&gt;
 					{{/if}}
 					&lt;/h4&gt;
 					{{{photo.description}}}
@@ -1053,7 +1081,7 @@ export default Ember.Controller.extend({
 				&lt;div class=&quot;col-md-1 col-xs-1 col-sm-1&quot;&gt;Tags:&lt;/div&gt;
 				&lt;div class=&quot;col-md-11 col-xs-11 col-sm-11&quot;&gt;
 					{{#each tag in photo.tags}}
-						&lt;button class=&quot;btn btn-info btn-xs post-tag-button&quot; {{action &quot;clicktag&quot; tag}}&gt;#{{tag}}&lt;/button&gt; 
+						&lt;button class=&quot;btn btn-info btn-xs post-tag-button&quot; {{action &quot;clicktag&quot; tag}}&gt;#{{tag}}&lt;/button&gt;
 					{{/each}}
 				&lt;/div&gt;
 			&lt;/div&gt;
@@ -1080,11 +1108,11 @@ export default Ember.Controller.extend({
 						Lastly, lets add one small css change at the end of /ember/app/styles/app.css<br>
 						<pre><code>.left-menu {
 	margin-top: -8px;
-}</code></pre><br>	
+}</code></pre><br>
 						This will adjust the home link up a few pixels to account for our other styling.<Br>
 						Thats it - your app is now refactored to be a multi-page app.<br>
-						
-				        	
+
+
 			        </div><!-- End Task 8-->
 			        <div id="task9" class="taskitem">
 			        	<h3 class="taskitem">9. Adding the actual user profile feed</h3>
@@ -1180,7 +1208,7 @@ export default Ember.Component.extend({
 			        	<img src="images/rest-client-2.png"/><br>
 			        	Notice that it happily accepts the submission and produces the new like for us. This is a totally random, unauthenticated user that just made an arbitrary textual post to another user's profile page. Worse, the post has malicious javascript in it that could run if the real user 1 sees the page. Lets check this out. Going back and signing in as student and going to the student user profile we see:<br>
 			        	<img src="images/rest-client-3.png"/><br>
-			        	Clearly, the attack has been injected into the user's browser - thankfully ember filters out these basic kinds of attacks automatically. That said - we shouldnt rely on in-browser and in-framework protections - we should make the API itself be more secur.<br> 
+			        	Clearly, the attack has been injected into the user's browser - thankfully ember filters out these basic kinds of attacks automatically. That said - we shouldnt rely on in-browser and in-framework protections - we should make the API itself be more secur.<br>
 			        	Lets try two more attacks - a PUT (to overrite existing content) and a DELETE - to remove content entirely. Change the target address to http://localhost:8000/api/likes/idjustcreated/ where idjustcreated is the number returned under 'id' in the previous request, for me that number is 27. Change the title to something else - like "see what i did here" and send. As you can see - anonymous users can overrite existing data - a huge problem.<br>
 			        	<img src="images/rest-client-4.png"/><br>
 			        	<img src="images/rest-client-5.png"/><br>
@@ -1205,7 +1233,7 @@ export default Ember.Component.extend({
         'api.rest_framework_config.CsrfExemptSessionAuthentication',
         'rest_framework.authentication.SessionAuthentication'
     ]
-}</code></pre>			
+}</code></pre>
 						This requires users to be authenticated before they can view the API. Lets test it, go back to the advanced rest client and try to make a new post.<br>
 						<img src="images/rest-client-7.png"/><br>
 						Ok that was easy!<br> That will take care of the case where unauthenticated users can muck with data - but it doesn't prevent one authenticated user from mucking with another's data. Lets create a second user and use it to test. Go to localhost:8000/admin/ login with the student account, click the + sign that says add on the users row. Make the username test and the password gencybertest. Now logout as student and login as gencybertest. Next, go back to the advanced rest client and lets try to make a post to user 1's (student) profile. You can select a previous POST you made from the history tab:<br>
@@ -1293,8 +1321,8 @@ export default Ember.Component.extend({
         elif '>' in str(value) or '<' in str(value):
             raise serializers.ValidationError('HTML is not allowed')
         return value
-</code></pre><br>	
-						The first portion is what we had before. The rest of the method is made of of 'validate_&lt;field&gt;' methods and a check_str method. Since most of the fields in our like model are strings, we can define one master method to run through and check for different possible bas things we want our API to avoid. In this case, check_str only searches for the word 'javascript' and for special characters &lt; and &gt;. Obviously this isn't robust, but it illustrates the basic point of input filtering - try to look for and prevent patterns of input from being accepted by an API. <br> 
+</code></pre><br>
+						The first portion is what we had before. The rest of the method is made of of 'validate_&lt;field&gt;' methods and a check_str method. Since most of the fields in our like model are strings, we can define one master method to run through and check for different possible bas things we want our API to avoid. In this case, check_str only searches for the word 'javascript' and for special characters &lt; and &gt;. Obviously this isn't robust, but it illustrates the basic point of input filtering - try to look for and prevent patterns of input from being accepted by an API. <br>
 						<br>
 						Now if we log in as student, lets try some different requests that violate these rules.<br>
 						Start with changing the title in advanced rest client to 'something something javascript'<br>
@@ -1325,9 +1353,9 @@ sudo service apache2 restart</code></pre><br>
 				<!-- Copyright info -->
 				<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">UNO Gencyber Content</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="mlhale.com" property="cc:attributionName" rel="cc:attributionURL">Dr. Matthew L. Hale</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/MLHale/GenCyber-web-content" rel="dct:source">https://github.com/MLHale/GenCyber-web-content</a>.
 			</div><!-- end row -->
-			
-			
-			
+
+
+
 
 		</div><!-- end main -->
 		<p class="text-muted pull-right copy-stmt">Secure Web Development &copy; 2015 - Dr. Matt Hale</p>
