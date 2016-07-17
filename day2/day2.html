@@ -166,7 +166,7 @@ sudo apt-get install apache2</code></pre><br>
 			            You should see the default configuration running and it should look something like this:<br>
 			            <img src="images/apache-it-works.png"/><br>
 			            <br>
-			            At this point you are hosting a webserver just like you would find almost anywhere online. Pretty simple to start with right? Well at this point apache is just serving a single page, index.html, called a "static file." You can find this page (the configuration page) in the /var/www/html/ directory using the file browser or command line. Open it up and take a look and you will see the raw html used to make the "It works" page. Hit control + x to exit the editor.
+			            At this point you are hosting a webserver just like you would find almost anywhere online. Pretty simple to start with right? Well at this point apache is just serving a single page, index.html, called a "static file." You can find this page (the configuration page) in the /var/www/html/ directory using the file browser or command line. Open it up and take a look and you will see the raw html used to make the "It works" page. Hit control + x to exit the editor.<br>
 
 									<pre><code>nano /var/www/html/index.html</code></pre><br>
 
@@ -176,9 +176,10 @@ sudo apt-get install apache2</code></pre><br>
 
 			            Now that we have a default install of apache ready, lets make our webserver more interesting by installing and configuring a web application framework called "Django" to work with the server. We will start with setting up a development environment. Step 3 will get django setup for production<br>
 
-			            First install Django by typing the following in the command line:<br>
+			            First install Django and its REST framework by typing the following in the command line:<br>
 			            <pre><code>sudo apt-get install python-pip
-pip install Django==1.9.7</code></pre><br>
+sudo pip install Django==1.9.7
+sudo pip install djangorestframework</code></pre><br>
 			           	Easy enough to install...<br>
 			            Next, lets create your first Django app by starting with some basic code I created for you to get going.<br>
 
@@ -191,7 +192,8 @@ pip install Django==1.9.7</code></pre><br>
 						<img src="images/forked-repo2.png"/><br>
 						Notice in the red elipse that you now have your own copy of the repo. If you go to "https://github.com/&lt;yourusername&gt;/gencyberdjango" you should see it.<br>
 			            Back in your virtual machine, lets get started with this code (we will review what is in there in a moment)<br>
-			            (make sure to replace &lt;yourusername&gt; with your actual github username)
+			            (make sure to replace &lt;yourusername&gt; with your actual github username). The chown command recursively (-R) chances the ownership of files and directories under /var/www/ to "student" user and group "www-data". If you have different account name than "student" then use that instead.<br>
+
 			            <pre><code>sudo chown student:www-data -R /var/www/
 cd /var/www/
 git clone https://github.com/&lt;yourusername&gt;/gencyberdjango gencybersite
@@ -200,29 +202,31 @@ cd gencybersite/</code></pre><br>
 			            With this project, you will get a directory structure that looks like
 			            <img src="images/django-project-structure.png"/><br>
 
-			            Now that we have Django installed and a project running we should be able to test Django in development mode using a utility called "runserver" that runs a development version of django for you to develop your code with. This utility provides real-time recompilation as you edit python files and keeps your app hosted on localhost:8000. This is helpful for testing purposes. The utility also provides real-time feedback every time you save python files in your django directory. This can help you debug if you make errors along the way. Lets take a look at runserver now:<br>
+			            Now that we have Django installed and a project running we should be able to test Django in development mode using a utility called "runserver" that runs a development version of django for you to develop your code with. This utility provides real-time recompilation as you edit python files and keeps your app hosted on localhost:8000. Localhost is also accessible at IP address: 127.0.0.1. runserver is helpful for testing purposes. The utility also provides real-time feedback every time you save python files in your django directory. This can help you debug if you make errors along the way. Lets take a look at runserver now:<br>
 			            <pre><code>python manage.py runserver</code></pre><br>
 			            You should see something that looks like:
 			            <img src="images/django-runserver.png"/><br>
-			            Now, open up a chrome browser window and navigate to localhost:8000/api/<br>
+			            Now, open up a chrome browser window and navigate to <a href=localhost:8000/api/>localhost:8000/api</a><br>
 			            You should see that your django server is running and that there are three types of data served by your api: users, likes, and userprofiles.
 						<img src="images/api-running-in-runserver.png"/><br>
-						Lets investigate these data structures using the django admin interface. In your browser go to localhost:8000/admin/ and login using the username/password student/studentgencyber Then, click on like and then on "someflickrphototitle". Also take a look at the userprofile and user models.<br>
+						Lets investigate these data structures using the django admin interface. In your browser go to <a href=localhost:8000/admin/>localhost:8000/admin/</a> and login using the username/password student/gencyberstudent <br>
 						You should see something like: <img src="images/admin-interface.png"/><br>
-						then: <img src="images/admin-interface2.png"/><br>
-						Then: <img src="images/admin-interface3.png"/><br>
+						Then, click on "likes" and then on "someflickrphototitle".<br>
+						You should see something like: <img src="images/admin-interface2.png"/><br>
+						Also take a look at the userprofile and user models.<br>
+						You should see something like: <img src="images/admin-interface3.png"/><br>
 
 						Feel free to manipulate some fields and click "save"<br>
 
 						Now lets take a look at these items as our application will eventually see them: that is of course, in JSON format (javascript object notation).<br>
-						Go to localhost:8000/api/likes and you should see: <br>
+						Go to <a href=localhost:8000/api/likes>localhost:8000/api/likes</a> and you should see: <br>
 						then: <img src="images/api-likes.png"/><br>
 			        </div><!-- End Task 2-->
 			        <div id="task3" class="taskitem">
 			        	<h3 class="taskitem">3. Configuring Django for production</h3>
-			        	In the first step we installed apache. In the second, we install django. Notice they are running on different ports (port 80 for apache, i.e. just localhost, and port 8000 for django, i.e. localhost:8000). What we want is to setup apache to actually host django - so that when we make changes to our development enviornment we can 'push' them to production. Usually your production server would be an entirely different system. For the rest of this tutorial, we will just use a seperate folder. Lets get this setup. <br>
+			        	In the first step we installed apache. In the second, we install django. Notice they are running on different ports (port 80 for apache, i.e. just localhost, and port 8000 for django, i.e. localhost:8000). What we want is to setup apache to actually host django - so that when we make changes to our development enviornment we can 'push' them to production. Usually your production server would be an entirely different system. For the rest of this tutorial, we will just use a seperate folder. Lets get this setup. <br><br>
 
-			        	First, start by cloning your django repo into a new folder. Then, we use a find command to grab every directory (given by -type d) beneath the path ( /var/www/production/ ) and changes its permissions to 755. The permissions are described as follows: The first number gives permission 7 to the owner (the first 7), 7 to group (the second 7), and 5 to all others (the 5).<br>
+			        	First, start by cloning your django repo into a new folder. Then, we use a <b>find</b> command to grab every directory (given by -type d) beneath the path ( /var/www/production/ ) and changes its permissions to 755 with a <b>chmod</b> command. The permissions are described as follows: The first number gives permission 7 to the owner (the first 7), 7 to group (the second 7), and 5 to all others (the 5).
 								The numbers can range from: 0 to 7 as follows:
 								<ul>
 									<li>0 – no permission</li>
@@ -236,7 +240,7 @@ cd gencybersite/</code></pre><br>
 								</ul>
 								<br>
 								A second find command does a similar operation, but on files and sets their permissions to 664. <br>
-								The chown command recursively (-R) chances the ownership of files and directories under /var/www/production to "student" user and group "www-data".
+								The chown command recursively (-R) chances the ownership of files and directories under /var/www/production to "student" user and group "www-data". Again, if you have a different account name, use that instead of "student"
 
 			        	<pre><code>cd /var/www/
 git clone https://github.com/&lt;yourusername&gt;/gencyberdjango production
@@ -245,9 +249,9 @@ sudo find /var/www/production/ -type f -exec chmod 664 {} +
 sudo chown -R student:www-data /var/www/production/
 cd production</code></pre><br>
 						Now you have two copies of django, one for development in /var/www/gencybersite/ and one in /var/www/production/ that you will be letting apache serve. <br>
-						Lets get this 'production environment' (a term based in the domain seperation and layering first principles) configured. <br>
+						Lets get this 'production environment' (a term based in the <b>domain seperation and layering first principles</b>) configured. <br>
 
-						You will need a module called mod_wsgi to allow apache to talk to the django python kernel (a run time environment for python). Lets go ahead and install it:<br>
+						You will need a module called <a href=https://modwsgi.readthedocs.io/en/develop/>mod_wsgi</a> to allow apache to talk to the django python kernel (a run time environment for python). Lets go ahead and install it:<br>
 
 			            <pre><code>sudo apt-get install libapache2-mod-wsgi</code></pre>
 			            This library allows Django to tell apache what to serve at any given time. <br>
@@ -255,7 +259,7 @@ cd production</code></pre><br>
 			            <br>
 			            Lets take a look at our current running apache config: open a new terminal window (ctrl+shift+t in terminal) and type<br>
 			            <pre><code>nano /etc/apache2/sites-available/000-default.conf</code></pre><br>
-			            Notice that it is hosting the files in /var/www/html/ that we looked at in step 1.<br>
+			            Notice that it is hosting the files in /var/www/html/ that we looked at in step 1. Hit control + x to exit the editor.<br>
 						<img src="images/apache-default-conf.png"/><br>
 			            To change it to django lets disable this site and create a new virtualhost setup for django:<br>
 			            First, lets create the new virtualhost conf file.
@@ -275,7 +279,7 @@ cd production</code></pre><br>
         ErrorLog ${APACHE_LOG_DIR}/error.log
         CustomLog ${APACHE_LOG_DIR}/access.log combined
 
-        Alias /static/ /var/www/production/static
+        Alias /static/ /var/www/production/static/
 
         #allow access to static files
         &lt;Directory /var/www/production/static&gt;
@@ -294,7 +298,10 @@ cd production</code></pre><br>
 &lt;/VirtualHost&gt;
 WSGIScriptAlias / /var/www/production/gencybersite/wsgi.py
 WSGIPythonPath /var/www/production/:/home/student/.local/lib/python2.7/site-packages/</code></pre><br>
-						To make these files active lets give apache access to site-packages and then reload and restart our server. The first command gives permission 7 to the owner (the first 7), 7 to group (the second 7), and 5 to all others (the 5).<br>
+
+						Hit <b>control + x</b>, <b>y</b> and then <b>enter</b> to save the file. <br>&nbsp<br>
+
+						To make these files active lets give apache access to site-packages and then reload and restart our server. The <b>chmod</b> command gives permission 7 to the owner (the first 7), 7 to group (the second 7), and 5 to all others (the 5).<br>
 						The numbers can range from: 0 to 7 as follows:
 						<ul>
 							<li>0 – no permission</li>
@@ -307,16 +314,20 @@ WSGIPythonPath /var/www/production/:/home/student/.local/lib/python2.7/site-pack
 							<li>7 – read, write, and execute</li>
 						</ul>
 						<br>
-						The second command (find) grabs every directory (given by -type d) beneath the path ( /home/student/.local/lib ) and changes its permissions to 755.<br>
+						The second command (find) grabs every directory (given by -type d) beneath the path ( /home/student/.local/lib ) and changes its permissions to 755.<br>&nbsp<br>
+						If you have different account, replace "student" with that account name.<br>&nbsp<br>
+
 						<pre><code>sudo chmod 775 /home/student/.local
-find /home/student/.local/lib -type d -exec chmod 755 {} +
+sudo find /home/student/.local/lib -type d -exec chmod 755 {} +
 cd /var/www/
+sudo a2ensite django
+sudo a2dissite 000-default
 sudo service apache2 reload
 sudo service apache2 restart</code></pre><br>
-						This virtual host is apache's way of binding certain ports to certain hosted files. In this configuration we are enabling django to run inside of apache using the WSGI interface. The WSGIScriptAlias maps to the wsgi.py file in our django install and the python path points to the directory where our project code is at. This configuration also hosts a static files directory that can be used to host any static files (like css or js or ...your ember flickr app).<br>
+						This virtual host is apache's way of binding certain ports to certain hosted files. In this configuration we are enabling django to run inside of apache using the WSGI interface using mod_wsgi module. The WSGIScriptAlias maps to the wsgi.py file in our django install and the python path points to the directory where our project code is at. This configuration also hosts a static files directory that can be used to host any static files (like css or js or ...your ember flickr app).<br>
 						<br>
 
-						If all goes well, you should see the same app as before, but hosted on localhost: e.g.<br>
+						If all goes well, you should see the same app as before, but hosted on localhost, instead of using the 8000 port: e.g.<br>
 						<img src="images/apache-django-configured.png"/><br>
 						Now we have two specific setups. One for development (/var/www/gencybersite) and one for production (/var/www/production/). Henceforth, we will make coding changes in development, push our changes to our github repo and then pull them down into our production setup when we are ready.<br>
 			        </div><!-- End Task 3-->
@@ -332,7 +343,7 @@ sudo service apache2 restart</code></pre><br>
 			            Just so we are all on the same page, lets go ahead and fork this repo on github and then do the following: (make sure to replace 'yourusername' with your actual username.<br>
 
 			            <pre><code>cd /var/www/
-git clone https://github.com/yourusername/gencyberember.git /var/www/ember
+git clone https://github.com/yourusername/gencyberember.git ember
 cd ember
 git reset 02a023b3 --hard
 npm install
