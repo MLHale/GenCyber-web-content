@@ -1,13 +1,13 @@
 ## Github Primer
 
 ### Cybersecurity First Principles
-* __Domain Separation__: Good fences make good neighbors. When trying to secure a home or computer, separating the areas where resources are and people work prevents accidents and loss of data or private information. We are preventing the information worlds from colliding. This lesson focuses on using development tools such as github to manage different environments (such as development and production) effectively. 
+* __Domain Separation__: Good fences make good neighbors. When trying to secure a home or computer, separating the areas where resources are and people work prevents accidents and loss of data or private information. We are preventing the information worlds from colliding. This lesson focuses on using development tools such as Github to manage different environments (such as development and production) effectively. 
 
 * __Modularization__: The concept of modularity is like building blocks. Each block (or module) can be put in or taken out from a bigger project. Each module has its own separate function that is interchangeable with other modules
 
 * __Least Privilege__: One of the ways to protect information is by limiting what people can see and do with your information and resources.
 
-Git is a popular software development tool used by developers to collaborate and version control code. It is, however, not limited to just code. You can, and many others already do, use it as a collaborative enviroment to develop other written works. The most popular online platform to host public git repositories is a site called [github.com](www.github.com). For our lessons here, we will use Github, but do note that there are also several other services, such as [BitBucket](https://bitbucket.org/), that also provide git and other version control repository hosting capabilities. The following tutorials focus on how you can use git and Github for collaboration and version control.
+[Git](https://git-scm.com/) is a popular software development tool used by developers to collaborate and version control code. It is, however, not limited to just code. You can, and many others already do, use it as a collaborative enviroment to develop other written works. The most popular online platform to host public git repositories is a site called [Github](www.github.com). For our lessons here, we will use Github, but do note that there are several other services, such as [BitBucket](https://bitbucket.org/), that also provide git and other version control repository hosting capabilities. The following tutorials focus on how you can use Git and Github for collaboration and version control.
 
 ### Table of Contents    
 [Step 1: Create Account](#step-1)  
@@ -28,10 +28,10 @@ First things first, create a free account on Github. https://github.com/join
 [Top](#table-of-contents)
 
 ### Step 2
-Complete the Github tutorial.
+Complete the following Github tutorial:
 https://guides.github.com/activities/hello-world/
 
-At the end of the Hello World Step 2, you will have created a **Remote** repository and will have added a 'branch'. It is "remote" because all your files are in the Github cloud. As a developer, you might ask, "how do I use this to create code if it is just online?" It is not convenient to write and test code online, especially when many applications require locally install packages to even work. It would be great to use your own **Local** repository. We will do just that in the next step.
+At the end of the Hello World Step 2, you will have created a **Remote** repository and will have added a `branch`. It is `remote` because all your files are in the Github cloud. As a developer, you might ask, "how do I use this to create code if it is just online?" It is not convenient to write and test code online, especially when many applications require locally install packages to even work. It would be great to use your own **Local** repository. We will do just that in the next step.
 
 [Top](#table-of-contents)
 
@@ -43,7 +43,7 @@ To create a **Local** repository there are two basic options.
 [Top](#table-of-contents)
 
 ##### Clone a remote repository
-Let's start by looking at option #1. Git tools do not come pre-installed with all operating systems. To check if they exist on your operating system, open up a command line interface and type `git`. If git is installed, this command will give you some help options. If the command is not recognized, then it means you need to install git on your OS. The information available at [https://git-scm.com/book/en/v2/Getting-Started-Installing-Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) can walk you through it for a variety of OSes.
+Let's start by looking at option #1. Git tools do not come pre-installed with all operating systems. To check if they exist on your operating system, open up a command line interface and type `git`. If Git is installed, this command will give you some help options. If the command is not recognized, then it means you need to install git on your OS. The information available at [https://git-scm.com/book/en/v2/Getting-Started-Installing-Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) can walk you through it for a variety of OSes.
 
 For an Ubuntu Desktop OS like the one you created in the `Virtualization` module, the instructions you need to type in a terminal are below. To open a new terminal in the Ubuntu VM you created earlier, press ctrl + alt + t.
 
@@ -81,7 +81,7 @@ LICENSE  README.md
 
 > We do not need to use this option currently, so you may move to [Step 4](#step-4)
 
-If you need to create a new repository you would just navigate to the folder containing the files you wish to version control and then use the init command: `git init`. That's it! This is useful if you are creating new files from scratch. Using github, you can also push newly tracked files such as these to a remote repository. The steps are the same as you will see for cloned respositories below.
+If you need to create a new repository you would just navigate to the folder (using the `cd` command) containing the files you wish to version control and then use the init command: `git init`. That's it! This is useful if you are creating new files from scratch. Using github, you can also push newly tracked files such as these to a remote repository. The steps are the same as you will see for cloned respositories below.
 
 [Top](#table-of-contents)
 
@@ -109,8 +109,8 @@ git status
 
 A few things to notice here.
 * `On branch master`: You are on the master branch in your local repository.
-* `Your branch is up-to-date with 'origin/master'` Your local repository master branch is in sync with your remote repository master brach on Github. The default name for the remote repository is **origin**.
-* `Changes not staged for commit:` git follows a two step process to save changes to a repository. First the user indicates which modified/deleted/new files need to be _staged_ for a save in the repository. Second these staged files are _committed_ to the repository. We will look at commands to do both of these shortly.
+* `Your branch is up-to-date with 'origin/master'`: Your local repository master branch is in sync with your remote repository master brach on Github. The default name for the remote repository is **origin**.
+* `Changes not staged for commit:`: git follows a two step process to save changes to a repository. First the user indicates which modified/deleted/new files need to be _staged_ for a save in the repository. Second these staged files are _committed_ to the repository. We will look at commands to do both of these shortly.
 * `modified:   README.md`: git knows that the README.md file has been modified
 
 Now we stage our changes for a commit using the `git add --all` command and then we can check the status of the repository again using `git status`.
@@ -133,6 +133,8 @@ Now let's commit the changes that we staged before. Here we use the `commit` opt
 
 ![gitcommit](../img/primer/gitcommit.png)
 
+`git log` will show a summary of commits in the repository, stating with the most recent. Observe the hash code, user details and commit message. These attributes provide attribution of all changes in the code repository, promoting code integrity.
+
 `git status` now reports no uncommitted changes. But it indicates that `Your branch is ahead of 'origin/master' by 1 commit`. Which means that our local repository master branch has more recent commits than the remote repository master branch.
 
 To push our local commits to the remote repository, we need the git `push` command. With this command we need to indicate the name of the remote repository followed by the name of the local repository branch that has updates to be pushed.
@@ -149,7 +151,7 @@ The status of the local repository is: Nothing to commit. up-to-date.
 
 ![gitpush](../img/primer/gitstatuspush.png)
 
-If you visit your remote repository your changes will be reflected there. You should also see your commit message there.
+If you visit your remote repository your changes will be reflected there. You should also see your commit message there. Clicking on the commit message will show the file differences in that commit.
 
 ![updateremote](../img/primer/remoteupdate.png)
 
