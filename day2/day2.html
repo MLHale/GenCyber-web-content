@@ -390,7 +390,7 @@ python manage.py runserver</code></pre><br>
 
 			            In sublime, open /var/www/gencybersite/gencybersite/settings.py<br>
 			            Find "TEMPLATES" then change the "DIRS" line to:<br>
-			            <pre><code>'DIRS': ['static/ember/'],</code></pre><br>
+			            <pre><code>'DIRS': [os.path.join(BASE_DIR, "static/ember/")],</code></pre><br>
 
 			            <img src="images/templates-dir.png"/><br>
 
@@ -1361,6 +1361,7 @@ cd /var/www/production
 git reset --hard
 git clean -df
 git pull
+sudo chown -R student:www-data static/
 sudo service apache2 restart</code></pre><br>
 						BAM! You are done. With these commands you pushed the remaining changes you had from the development environment to github. Then you reset the production directory by removing all local changes and cleaning out untracked files. Lastly, you pulled in the changes and restarted your apache server to push them live. You should see your app. Click home to get started. Try liking a few things and checking out your user profile.<br>
 			        </div><!-- End Task 14-->
