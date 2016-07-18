@@ -197,11 +197,15 @@ sudo chown student -R myproject/</code></pre>
 						<h3 class="taskitem">3. Lets finish the installation and launch our new app</h3>
 
 						<pre><code>cd myproject</code></pre><br>
-						Open up bower.json and change<br>
-						"jquery": "^1.11.1","<br>
-						to:<br>
-						"jquery": "1.11.1",<br>
-						Also change the "ember" and "ember-data" versions to "1.13.12" <br>
+						Using the left hand side menu, open sublime (the black icon with an S on it). Next select file (top left menu) and then click 'open file'. When the prompt opens, navigate to Desktop/myproject and then click bower.json to open it for changes. Change the following lines:<br>
+						<pre><code>"ember" : "1.12.0"</code></pre> to 
+						<pre><code>"ember" : "1.13.12"</code></pre><br>
+						<pre><code>"ember-data" : "1.0.0-beta"</code></pre> to 
+						<pre><code>"ember" : "1.13.12"</code></pre><br>
+						and
+						<pre><code>"jquery": "^1.11.1"</code></pre> to 
+						<pre><code>"jquery": "1.11.1"</code></pre><br>
+						
 						Then do the following:
 <pre><code>sudo bower install --allow-root
 ember server</code></pre>
