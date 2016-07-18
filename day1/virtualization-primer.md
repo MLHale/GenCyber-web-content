@@ -1,11 +1,11 @@
 # Virtualization
 
 ### Cybersecurity First Principles
-* __Domain Separation__: Good fences make good neighbors. When trying to secure a home or computer, separating the areas where resources are and people work prevents accidents and loss of data or private information. We are preventing the information worlds from colliding.
+* __Domain Separation__: Good fences make good neighbors. When trying to secure a home or computer, separating the areas where resources are and people work prevents accidents and loss of data or private information. We are preventing the information worlds from colliding. In this lesson, we apply this principle to managing distinct sets of resources by seperating them with a virtual fence in a 'virtual machine.'
 
-* __Resource Encapsulation__: A resource can be hardware such as memory, disk drives, or a display screen. It can also be system objects such as semaphores, a linked list, or shared memory. Processes (or programs) need resources to run. Resources have to be separated and used in the way they were intended.
+* __Resource Encapsulation__: A resource can be hardware such as memory, disk drives, or a display screen. It can also be system objects such as semaphores, a linked list, or shared memory. Processes (or programs) need resources to run. Resources have to be separated and used in the way they were intended. Virtual machines encapsulate an operating system and all of the processes and applications it contains.
 
-* __Process Isolation__: A process is when a program is run. By keeping processes separated, it prevents the failure of one process from causing another to fail.
+* __Process Isolation__: A process is when a program is run. By keeping processes separated, it prevents the failure of one process from causing another to fail. Virtual machines isolate processes running inside them from those running elsewhere on a computer. This allows users to do many dangerous tasks (such as malware analysis) with little or no risk of harm outside of the virtual machine.
 
 
 ### Table of Contents
@@ -36,7 +36,7 @@ Our entire setup uses Free and Open Source Software (FOSS). When using FOSS, res
 
 VirtualBox is a free open source virtualization software from Oracle. For a Windows host OS, a installation executable can be downloaded from here:
 
-> If you see a VirtualBox shortcut on your lab computer desktop, you may skip the download and installation.
+> If you see a VirtualBox shortcut on your lab computer desktop, you may skip the download and installation and go on to the [next step](#installing-ubuntu-desktop-linux-vm).
 
 ```text
 https://www.virtualbox.org/wiki/Downloads
@@ -54,7 +54,7 @@ Upon successful installation, you should see this.
 
 ### Installing Ubuntu Desktop Linux VM
 
-For our guest OS we will select a popular Linux distribution. The Ubuntu Desktop OS. It is easy to setup and supports many development environments. In particular, the 64-bit Ubuntu version 14.04, Trusty Thar, is supported by many OSS packages and development frameworks. For example, Facebook CTF OSS package found at `https://github.com/facebook/fbctf` only supports installation for this OS.
+For our guest OS we will select a popular Linux distribution. The Ubuntu Desktop OS. It is easy to setup and supports many development environments. In particular, the 64-bit Ubuntu version 14.04, Trusty Thar, is supported by many open source software (OSS) packages and development frameworks. For example, Facebook CTF OSS package found at `https://github.com/facebook/fbctf` only supports installation for this OS.
 
 To create a new VM, press the blue `New` button in VirtualBox. It should bring up a `Create Virtual Machine` prompt.
 
@@ -63,6 +63,9 @@ To create a new VM, press the blue `New` button in VirtualBox. It should bring u
 Go ahead and enter a `Name:` like `Dev Machine`  
 When you list the `Type:` option, you will see that VirtualBox supports many types of guest OSes. Select `Linux`.  
 For `Version:` select `Ubuntu (64-bit)`  
+
+> Its possible, depending on which host OS you are using, that your operating system may only support 32bit virtual machines - in which case you will need to use a 32bit Ubuntu install. Its also possible, that your BIOS is not configured to support 64bit VMs - in which case you can follow the easy guide at [https://techfixes.net/how-to-fix-virtualbox-only-showing-32-bit-option/](https://techfixes.net/how-to-fix-virtualbox-only-showing-32-bit-option/) to resolve this issue.
+
 Your final configuration should look like this. Then click `Next`.
 
 >![vminstall](../img/virtualization/2-selectos.png)

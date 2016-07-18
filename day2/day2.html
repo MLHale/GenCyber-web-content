@@ -1220,7 +1220,7 @@ export default Ember.Component.extend({
 			        	Notice that it happily accepts the submission and produces the new like for us. This is a totally random, unauthenticated user that just made an arbitrary textual post to another user's profile page. Worse, the post has malicious javascript in it that could run if the real user 1 sees the page. Lets check this out. Going back and signing in as student and going to the student user profile we see <a href=localhost:8000/profile/1>localhost:8000/profile/1</a>:<br>
 			        	<img src="images/rest-client-3.png"/><br>
 			        	Clearly, the attack has been injected into the user's browser - thankfully ember filters out these basic kinds of attacks automatically. That said - we shouldnt rely on in-browser and in-framework protections - we should make the API itself be more secure.<br>
-			        	Lets try two more attacks - a PUT (to overrite existing content) and a DELETE - to remove content entirely. Change the target address to http://localhost:8000/api/likes/<idjustcreated>/ where <idjustcreated> is replaced with the number returned under 'id' in the response for the previous request, for me that number is 27. Change the title to something else - like "see what i did here" and send. As you can see - anonymous users can overrite existing data - a huge problem!<br>&nbsp<br>
+			        	Lets try two more attacks - a PUT (to overrite existing content) and a DELETE - to remove content entirely. Change the target address to http://localhost:8000/api/likes/&lt;idjustcreated&gt;/ where &lt;idjustcreated&gt; is replaced with the number returned under 'id' in the response for the previous request, for me that number is 27. Change the title to something else - like "see what i did here" and send. As you can see - anonymous users can overrite existing data - a huge problem!<br>&nbsp<br>
 			        	<img src="images/rest-client-4.png"/><br>
 			        	<img src="images/rest-client-5.png"/><br>
 			        	Lastly, lets DELETE this item entirely. Select DELETE and just hit send.<br>
@@ -1367,6 +1367,7 @@ sudo service apache2 restart</code></pre><br>
 				</div><!--end scrollable content -->
 				<!-- Copyright info -->
 				<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">UNO Gencyber Content</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="mlhale.com" property="cc:attributionName" rel="cc:attributionURL">Dr. Matthew L. Hale</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/MLHale/GenCyber-web-content" rel="dct:source">https://github.com/MLHale/GenCyber-web-content</a>.
+				<p>A special thanks to Robin Gandhi for reviewing this module.</p>
 			</div><!-- end row -->
 
 
