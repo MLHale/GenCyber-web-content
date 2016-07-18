@@ -133,7 +133,7 @@ Now let's commit the changes that we staged before. Here we use the `commit` opt
 
 ![gitcommit](../img/primer/gitcommit.png)
 
-`git log` will show a summary of commits in the repository, stating with the most recent. Observe the hash code, user details and commit message. These attributes provide attribution of all changes in the code repository, promoting code integrity.
+`git log` will show a summary of commits in the repository, stating with the most recent. Observe the hash code, user details and commit message. These attributes provide attribution of all changes in the code repository, promoting code integrity. Hit `q` to exit the log of commit messages.
 
 `git status` now reports no uncommitted changes. But it indicates that `Your branch is ahead of 'origin/master' by 1 commit`. Which means that our local repository master branch has more recent commits than the remote repository master branch.
 
