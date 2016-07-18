@@ -504,7 +504,7 @@ ember generate component auth-manager</code></pre><br>
 						<img src="images/nav-bar.png"/><br>
 						To see the fruits of your efforts, reload your app in the browser and you should see something like:<br>
 						<img src="images/app-login-form.png"/><br>
-						Notice the nav bar is on two lines in the header. To fix this, lets add a few lines of css to our /var/www/ember/styles/app.css file in sublime. Specifically, add the following:<br>
+						Notice the nav bar is on two lines in the header. To fix this, lets add a few lines of css to our /var/www/ember/app/styles/app.css file in sublime. Specifically, add the following:<br>
 						<pre><code>.auth-form {
 	margin-top: -34px;
 }
@@ -518,7 +518,7 @@ ember generate component auth-manager</code></pre><br>
 }</code></pre><br>
 					Now it should look better: <br>
 					<img src="images/nav-bar-fixed.png"/><br>
-					Ok, so it looks great - but if we click the "sign in" button nothing happens! Well not to worry, this is just because we haven't actually created the logic to handle this form. Lets do that now. Open up the /var/www/ember/components/auth-manager.js file in sublime and lets make this form actually work. <b>Replace</b> the component code with the following (explanation below).<br>
+					Ok, so it looks great - but if we click the "sign in" button nothing happens! Well not to worry, this is just because we haven't actually created the logic to handle this form. Lets do that now. Open up the /var/www/ember/app/components/auth-manager.js file in sublime and lets make this form actually work. <b>Replace</b> the component code with the following (explanation below).<br>
 					<pre><code>import Ember from 'ember';
 
 export default Ember.Component.extend({
@@ -1356,6 +1356,7 @@ export default Ember.Component.extend({
 git status
 git add .
 git commit -m "end of the tutorial, time to push to production"
+git push
 cd /var/www/production
 git reset --hard
 git clean -df
