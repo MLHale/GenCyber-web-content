@@ -64,7 +64,7 @@ Go ahead and enter a `Name:` like `Dev Machine`
 When you list the `Type:` option, you will see that VirtualBox supports many types of guest OSes. Select `Linux`.  
 For `Version:` select `Ubuntu (64-bit)`  
 
-> Its possible, depending on which host OS you are using, that your operating system may only support 32bit virtual machines - in which case you will need to use a 32bit Ubuntu install. Its also possible, that your BIOS is not configured to support 64bit VMs - in which case you can follow the easy guide at [https://techfixes.net/how-to-fix-virtualbox-only-showing-32-bit-option/](https://techfixes.net/how-to-fix-virtualbox-only-showing-32-bit-option/) to resolve this issue.
+> Its possible, depending on which host OS you are using, that your operating system may only support 32-bit virtual machines - in which case you will need to use a [32-bit Ubuntu Desktop install](http://mirror.pnl.gov/releases/trusty/ubuntu-14.04.4-desktop-i386.iso). Its also possible, that your BIOS is not configured to support 64bit VMs - in which case you can follow the easy guide at [https://techfixes.net/how-to-fix-virtualbox-only-showing-32-bit-option/](https://techfixes.net/how-to-fix-virtualbox-only-showing-32-bit-option/) to resolve this issue.
 
 Your final configuration should look like this. Then click `Next`.
 
@@ -219,6 +219,8 @@ Using what you learned here, now install a Ubuntu Server VM. You may download th
 http://releases.ubuntu.com/trusty/ubuntu-14.04.4-server-amd64.iso
 
 ```
+> Its possible, depending on which host OS you are using, that your operating system may only support 32-bit virtual machines - in which case you will need to use a [32-bit Ubuntu server install](http://mirror.pnl.gov/releases/trusty/ubuntu-14.04.4-server-i386.iso). Its also possible, that your BIOS is not configured to support 64bit VMs - in which case you can follow the easy guide at [https://techfixes.net/how-to-fix-virtualbox-only-showing-32-bit-option/](https://techfixes.net/how-to-fix-virtualbox-only-showing-32-bit-option/) to resolve this issue.
+
 You do not need to install Guest Additions for a Server VM, since it only has terminal based interactions.
 
 ### Launch an existing VM
