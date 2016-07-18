@@ -24,6 +24,7 @@
 
 ### Step 1
 First things first, create a free account on Github. https://github.com/join
+You will also need to verify your email address after registration in order to use your new github account.
 
 [Top](#table-of-contents)
 
