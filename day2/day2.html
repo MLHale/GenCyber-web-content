@@ -196,8 +196,10 @@ sudo apt-get install apache2</code></pre><br>
 
 			            First install Django and its REST framework by typing the following in the command line:<br>
 			            <pre><code>sudo apt-get install python-pip
-sudo pip install Django==1.9.7
-sudo pip install djangorestframework</code></pre><br>
+pip install Django==1.9.7
+pip install djangorestframework
+pip install markdown 
+pip install django-filter</code></pre><br>
 			           	Easy enough to install...<br>
 			            Next, lets create your first Django app by starting with some basic code I created for you to get going.<br>
 
@@ -390,7 +392,7 @@ python manage.py runserver</code></pre><br>
 
 			            In sublime, open /var/www/gencybersite/gencybersite/settings.py<br>
 			            Find "TEMPLATES" then change the "DIRS" line to:<br>
-			            <pre><code>'DIRS': ['static/ember/'],</code></pre><br>
+			            <pre><code>'DIRS': [os.path.join(BASE_DIR, "static/ember/")],</code></pre><br>
 
 			            <img src="images/templates-dir.png"/><br>
 
@@ -504,7 +506,7 @@ ember generate component auth-manager</code></pre><br>
 						<img src="images/nav-bar.png"/><br>
 						To see the fruits of your efforts, reload your app in the browser and you should see something like:<br>
 						<img src="images/app-login-form.png"/><br>
-						Notice the nav bar is on two lines in the header. To fix this, lets add a few lines of css to our /var/www/ember/styles/app.css file in sublime. Specifically, add the following:<br>
+						Notice the nav bar is on two lines in the header. To fix this, lets add a few lines of css to our /var/www/ember/app/styles/app.css file in sublime. Specifically, add the following:<br>
 						<pre><code>.auth-form {
 	margin-top: -34px;
 }
@@ -518,7 +520,7 @@ ember generate component auth-manager</code></pre><br>
 }</code></pre><br>
 					Now it should look better: <br>
 					<img src="images/nav-bar-fixed.png"/><br>
-					Ok, so it looks great - but if we click the "sign in" button nothing happens! Well not to worry, this is just because we haven't actually created the logic to handle this form. Lets do that now. Open up the /var/www/ember/components/auth-manager.js file in sublime and lets make this form actually work. <b>Replace</b> the component code with the following (explanation below).<br>
+					Ok, so it looks great - but if we click the "sign in" button nothing happens! Well not to worry, this is just because we haven't actually created the logic to handle this form. Lets do that now. Open up the /var/www/ember/app/components/auth-manager.js file in sublime and lets make this form actually work. <b>Replace</b> the component code with the following (explanation below).<br>
 					<pre><code>import Ember from 'ember';
 
 export default Ember.Component.extend({
@@ -1220,7 +1222,7 @@ export default Ember.Component.extend({
 			        	Notice that it happily accepts the submission and produces the new like for us. This is a totally random, unauthenticated user that just made an arbitrary textual post to another user's profile page. Worse, the post has malicious javascript in it that could run if the real user 1 sees the page. Lets check this out. Going back and signing in as student and going to the student user profile we see <a href=localhost:8000/profile/1>localhost:8000/profile/1</a>:<br>
 			        	<img src="images/rest-client-3.png"/><br>
 			        	Clearly, the attack has been injected into the user's browser - thankfully ember filters out these basic kinds of attacks automatically. That said - we shouldnt rely on in-browser and in-framework protections - we should make the API itself be more secure.<br>
-			        	Lets try two more attacks - a PUT (to overrite existing content) and a DELETE - to remove content entirely. Change the target address to http://localhost:8000/api/likes/<idjustcreated>/ where <idjustcreated> is replaced with the number returned under 'id' in the response for the previous request, for me that number is 27. Change the title to something else - like "see what i did here" and send. As you can see - anonymous users can overrite existing data - a huge problem!<br>&nbsp<br>
+			        	Lets try two more attacks - a PUT (to overrite existing content) and a DELETE - to remove content entirely. Change the target address to http://localhost:8000/api/likes/&lt;idjustcreated&gt;/ where &lt;idjustcreated&gt; is replaced with the number returned under 'id' in the response for the previous request, for me that number is 27. Change the title to something else - like "see what i did here" and send. As you can see - anonymous users can overrite existing data - a huge problem!<br>&nbsp<br>
 			        	<img src="images/rest-client-4.png"/><br>
 			        	<img src="images/rest-client-5.png"/><br>
 			        	Lastly, lets DELETE this item entirely. Select DELETE and just hit send.<br>
@@ -1356,16 +1358,19 @@ export default Ember.Component.extend({
 git status
 git add .
 git commit -m "end of the tutorial, time to push to production"
+git push
 cd /var/www/production
 git reset --hard
 git clean -df
 git pull
+sudo chown -R student:www-data static/
 sudo service apache2 restart</code></pre><br>
 						BAM! You are done. With these commands you pushed the remaining changes you had from the development environment to github. Then you reset the production directory by removing all local changes and cleaning out untracked files. Lastly, you pulled in the changes and restarted your apache server to push them live. You should see your app. Click home to get started. Try liking a few things and checking out your user profile.<br>
 			        </div><!-- End Task 14-->
 				</div><!--end scrollable content -->
 				<!-- Copyright info -->
 				<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">UNO Gencyber Content</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="mlhale.com" property="cc:attributionName" rel="cc:attributionURL">Dr. Matthew L. Hale</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/MLHale/GenCyber-web-content" rel="dct:source">https://github.com/MLHale/GenCyber-web-content</a>.
+				<p>A special thanks to Robin Gandhi for reviewing this module.</p>
 			</div><!-- end row -->
 
 

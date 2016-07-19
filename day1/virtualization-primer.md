@@ -1,11 +1,11 @@
 # Virtualization
 
 ### Cybersecurity First Principles
-* __Domain Separation__: Good fences make good neighbors. When trying to secure a home or computer, separating the areas where resources are and people work prevents accidents and loss of data or private information. We are preventing the information worlds from colliding.
+* __Domain Separation__: Good fences make good neighbors. When trying to secure a home or computer, separating the areas where resources are and people work prevents accidents and loss of data or private information. We are preventing the information worlds from colliding. In this lesson, we apply this principle to managing distinct sets of resources by seperating them with a virtual fence in a 'virtual machine.'
 
-* __Resource Encapsulation__: A resource can be hardware such as memory, disk drives, or a display screen. It can also be system objects such as semaphores, a linked list, or shared memory. Processes (or programs) need resources to run. Resources have to be separated and used in the way they were intended.
+* __Resource Encapsulation__: A resource can be hardware such as memory, disk drives, or a display screen. It can also be system objects such as semaphores, a linked list, or shared memory. Processes (or programs) need resources to run. Resources have to be separated and used in the way they were intended. Virtual machines encapsulate an operating system and all of the processes and applications it contains.
 
-* __Process Isolation__: A process is when a program is run. By keeping processes separated, it prevents the failure of one process from causing another to fail.
+* __Process Isolation__: A process is when a program is run. By keeping processes separated, it prevents the failure of one process from causing another to fail. Virtual machines isolate processes running inside them from those running elsewhere on a computer. This allows users to do many dangerous tasks (such as malware analysis) with little or no risk of harm outside of the virtual machine.
 
 
 ### Table of Contents
@@ -36,7 +36,7 @@ Our entire setup uses Free and Open Source Software (FOSS). When using FOSS, res
 
 VirtualBox is a free open source virtualization software from Oracle. For a Windows host OS, a installation executable can be downloaded from here:
 
-> If you see a VirtualBox shortcut on your lab computer desktop, you may skip the download and installation.
+> If you see a VirtualBox shortcut on your lab computer desktop, you may skip the download and installation and go on to the [next step](#installing-ubuntu-desktop-linux-vm).
 
 ```text
 https://www.virtualbox.org/wiki/Downloads
@@ -48,21 +48,28 @@ Upon successful installation, you should see this.
 
 > On your lab machine there may be some VMs already configured for you. So your interface may look slightly different.
 
-![start](../img/virtualization/0-virtualboxstart.png)
+![start](../img/virtualization/0-vboxstartclean.png)
 
 [Top](#table-of-contents)
 
 ### Installing Ubuntu Desktop Linux VM
 
-For our guest OS we will select a popular Linux distribution. The Ubuntu Desktop OS. It is easy to setup and supports many development environments. In particular, the 64-bit Ubuntu version 14.04, Trusty Thar, is supported by many OSS packages and development frameworks. For example, Facebook CTF OSS package found at `https://github.com/facebook/fbctf` only supports installation for this OS.
+For our guest OS we will select a popular Linux distribution. The Ubuntu Desktop OS. It is easy to setup and supports many development environments. In particular, the 64-bit Ubuntu version 14.04, Trusty Thar, is supported by many open source software (OSS) packages and development frameworks.
 
-To create a new VM, press the blue `New` button in VirtualBox. It should bring up a `Create Virtual Machine` prompt.
+> Fact: Facebook capture the flag hosting package found at `https://github.com/facebook/fbctf` only supports installation on Ubuntu 14.04 OS. This shows how developer friendly Ubuntu Linux operating systems are.
 
+To create a new VM, press the blue `New` button in VirtualBox.
+>![start](../img/virtualization/0-virtualboxstart.png)
+
+It should bring up a `Create Virtual Machine` prompt.
 >![vminstall](../img/virtualization/1-selectos.png)
 
 Go ahead and enter a `Name:` like `Dev Machine`  
 When you list the `Type:` option, you will see that VirtualBox supports many types of guest OSes. Select `Linux`.  
 For `Version:` select `Ubuntu (64-bit)`  
+
+> Its possible, depending on which host OS you are using, that your operating system may only support 32-bit virtual machines - in which case you will need to use a [32-bit Ubuntu Desktop install](http://mirror.pnl.gov/releases/trusty/ubuntu-14.04.4-desktop-i386.iso). Its also possible, that your BIOS is not configured to support 64bit VMs - in which case you can follow the easy guide at [https://techfixes.net/how-to-fix-virtualbox-only-showing-32-bit-option/](https://techfixes.net/how-to-fix-virtualbox-only-showing-32-bit-option/) to resolve this issue.
+
 Your final configuration should look like this. Then click `Next`.
 
 >![vminstall](../img/virtualization/2-selectos.png)
@@ -87,12 +94,9 @@ Finally, in the `File location and size` prompt specify the name of the new hard
 
 > ![vminstall](../img/virtualization/7-filelocation.png)
 
-The _Dev Machine_ VM is now ready to be started in VirtualBox. It is currently powered off.
+The _Dev Machine_ VM is now ready to be started in VirtualBox. It is currently powered off. Now before you start this VM, we need a installation CD for the Ubuntu Desktop OS.
 
-> ![vminstall](../img/virtualization/8-startvm.png)
-
-Now before you hit the "green" Start button, we need a installation CD for the Ubuntu Desktop OS. Download the ISO file for Ubuntu 14.04 64-bit Desktop version from here. It is a larger download but it includes all the files needed for installation.
-
+Download the ISO file for Ubuntu 14.04 64-bit Desktop version from here. It is a large download but it includes all the files needed for installation.
 > On your host computer check C:/ISO/Desktop folder to see if this file is already on your computer. If yes, skip the download step.
 
 ```text
@@ -101,14 +105,16 @@ http://releases.ubuntu.com/trusty/ubuntu-14.04.4-desktop-amd64.iso
 ```
 Save the ISO file in a convenient location on your computer.  
 
-Now hit the Start button for the **Dev Machine** VM in VirtualBox. A `Select start-up disk` prompt should appear. Click the Folder Icon with a green pointer.
+Now hit the Start button for the **Dev Machine** VM in VirtualBox.
+> ![vminstall](../img/virtualization/8-startvm.png)
 
+A `Select start-up disk` prompt should appear. Click the Folder Icon with a green pointer to select the ISO file as our start-up disk.
 > ![vminstall](../img/virtualization/9-startup-disk.png)
 
-Browse to the location where you saved the Ubuntu ISO file. Then select the ISO file as the start-up disk. Click `Start`.
-
+Browse to the location where you saved the Ubuntu ISO file.
 > On the lab computer, it will be in C:/ISO/Desktop
 
+Then select the ISO file as the start-up disk. Now click `Start`.
 > ![vminstall](../img/virtualization/10-ubuntuiso.png)
 
 The VM will now start with a boot screen displayed.
@@ -216,6 +222,8 @@ Using what you learned here, now install a Ubuntu Server VM. You may download th
 http://releases.ubuntu.com/trusty/ubuntu-14.04.4-server-amd64.iso
 
 ```
+> Its possible, depending on which host OS you are using, that your operating system may only support 32-bit virtual machines - in which case you will need to use a [32-bit Ubuntu server install](http://mirror.pnl.gov/releases/trusty/ubuntu-14.04.4-server-i386.iso). Its also possible, that your BIOS is not configured to support 64bit VMs - in which case you can follow the easy guide at [https://techfixes.net/how-to-fix-virtualbox-only-showing-32-bit-option/](https://techfixes.net/how-to-fix-virtualbox-only-showing-32-bit-option/) to resolve this issue.
+
 You do not need to install Guest Additions for a Server VM, since it only has terminal based interactions.
 
 ### Launch an existing VM
