@@ -90,12 +90,9 @@ Finally, in the `File location and size` prompt specify the name of the new hard
 
 > ![vminstall](../img/virtualization/7-filelocation.png)
 
-The _Dev Machine_ VM is now ready to be started in VirtualBox. It is currently powered off.
+The _Dev Machine_ VM is now ready to be started in VirtualBox. It is currently powered off. Now before you start this VM, we need a installation CD for the Ubuntu Desktop OS.
 
-> ![vminstall](../img/virtualization/8-startvm.png)
-
-Now before you hit the "green" Start button, we need a installation CD for the Ubuntu Desktop OS. Download the ISO file for Ubuntu 14.04 64-bit Desktop version from here. It is a larger download but it includes all the files needed for installation.
-
+Download the ISO file for Ubuntu 14.04 64-bit Desktop version from here. It is a large download but it includes all the files needed for installation.
 > On your host computer check C:/ISO/Desktop folder to see if this file is already on your computer. If yes, skip the download step.
 
 ```text
@@ -104,14 +101,16 @@ http://releases.ubuntu.com/trusty/ubuntu-14.04.4-desktop-amd64.iso
 ```
 Save the ISO file in a convenient location on your computer.  
 
-Now hit the Start button for the **Dev Machine** VM in VirtualBox. A `Select start-up disk` prompt should appear. Click the Folder Icon with a green pointer.
+Now hit the Start button for the **Dev Machine** VM in VirtualBox.
+> ![vminstall](../img/virtualization/8-startvm.png)
 
+A `Select start-up disk` prompt should appear. Click the Folder Icon with a green pointer to select the ISO file as our start-up disk.
 > ![vminstall](../img/virtualization/9-startup-disk.png)
 
-Browse to the location where you saved the Ubuntu ISO file. Then select the ISO file as the start-up disk. Click `Start`.
-
+Browse to the location where you saved the Ubuntu ISO file.
 > On the lab computer, it will be in C:/ISO/Desktop
 
+Then select the ISO file as the start-up disk. Now click `Start`.
 > ![vminstall](../img/virtualization/10-ubuntuiso.png)
 
 The VM will now start with a boot screen displayed.
