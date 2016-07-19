@@ -535,13 +535,13 @@ export default Ember.Controller.extend({
 						<br>
 						Now lets modify our application template (application.hbs in /home/student/Desktop/myproject/app/templates) to use our formatting.<br>
 						<br>
-						Change:<br>
+						Change these lines (not including the dots):<br>
 						<pre><code>...
 {{photo.title}} ({{photo.username}})<br>
 &lt;img src="{{photo.url}}" /&gt;
 ..</code></pre>
 						<br>
-						To:<br>
+						To these lines (not including the dots):<br>
 						<pre><code>...
 {{photo.title}} ({{photo.username}})<br>
 &lt;img class="feed-img" src="{{photo.url}}" /&gt;
@@ -650,7 +650,7 @@ export default Ember.Controller.extend({
 						<br>
 						Lets try out our new search function!<br>
 						<br>
-						In your chrome window, type "google" in the search by name field<br>
+						In your chrome window, type "google" in the "search by name" field of our web app<br>
 						Now use the ember inspector, by right clicking anywhere in the page, selecting "inspect element", and then clicking the "ember" tab.<br>
 						You should see: <img src="images/ember-inspector.png"/><br>
 						<br>
@@ -668,9 +668,9 @@ export default Ember.Controller.extend({
 {{#each photo in filteredPhotos}}
 ...</code></pre>
 						<br>
-						Save (ctrl+s) and now try typing google in your search bar and hitting enter again.<br>
+						Save (ctrl+s) and now try typing type "google" in the "search by name" field of our web app and hitting enter again.<br>
 						You have a search bar, Awesome!<br>
-						Lets also commit our code. In one of your terminals not running ember server type the following:<br>
+						Lets also commit our code. In one of your terminals that is not running ember server, type the following:<br>
 						<pre><code>cd /home/student/Desktop/myproject/
 git status
 git add -A
@@ -820,7 +820,7 @@ git push</code></pre>
 				{{#bs-button type="primary" icon="glyphicon glyphicon-download" action="getPhotos"}}{{/bs-button}}
 				...</code></pre>
 
-						Be carefule to inser the new line of code at the appropriate place as indicated above.<br>
+						Be careful to insert the new line of code at the appropriate place as indicated above.<br>
 						Once added, press ctrl+s to save.<br>
 						Now you should see a download button like: <img src="images/download-button.png"/><br>
 
@@ -881,7 +881,7 @@ git push</code></pre>
 						We have to make one last change to see the results in our page.<bR>
 						Since we are updating the "photos" data collection, we need to make sure that our computed property <b>filteredPhotos</b> is updated each time it is updated.<br>
 						<br>
-						For that, we need to change the property to make it observe each item in photos, in the /home/student/Desktop/myproject/app/controllers/application.js controller, change:<br>
+						For that, we need to change the property to make it observe each item in photos, in the /home/student/Desktop/myproject/app/controllers/application.js controller. So change the following:<br>
 						<pre><code>filteredPhotos: function () {
 		var filter = this.get('searchField');
 		var rx = new RegExp(filter, 'gi');
@@ -903,7 +903,7 @@ git push</code></pre>
 		});
 	}.property('photos.@each','searchField'),</code></pre>
 						<br>
-						Save this change (ctrl+s), and then click the download button. You should see the data from flickr being loaded into your page. Pretty cool huh?<br>
+						Save this change (ctrl+s), and then click the download button on the web app. You should see the data from flickr being loaded into your page. Pretty cool huh?<br>
 						<br>
 						But, you also probably notice a problem. Where is the actual photo?<br>
 						Well you may have noticed that we didn't load the url parameter, so our app doesnt know where to go to find the actual photo<br>
@@ -916,7 +916,7 @@ git push</code></pre>
 						where b stands for large sized.<br>
 						<br>
 						To make this work with our app, we can make the Photo url a computed property that returns an appropriate url given these parameters<br>
-						In the /home/student/Desktop/myproject/app/controllers/application.js controller, change:<br>
+						In the /home/student/Desktop/myproject/app/controllers/application.js controller file, change:<br>
 						<pre><code>var Photo = Ember.Object.extend({
 	title: '',
 	username: '',
@@ -1247,7 +1247,7 @@ filteredPhotos: function () {
 						<br>
 						If you were thinking the next step is to replace the dummy data with actual data from flickr, then you would be right<br>
 						<br>
-						Go back to your /home/student/Desktop/myproject/app/controllers/application.js controller and add the following (beneath actions), making sure to add a comma after actions:<br>
+						Go back to your /home/student/Desktop/myproject/app/controllers/application.js controller and add the following (beneath actions), <b> MAKING SURE to add a comma after actions block that we added before:</b><br>
 						<pre><code>init: function(){
 	this._super.apply(this, arguments);
 	var apiKey = '4435e3a217bc7afc94dfcba607b70eb1';
@@ -1494,7 +1494,9 @@ export default DS.Model.extend({
 						<br>
 						Save (Ctrl+s). This return days formatted as [Week Day] [month] DD, YYYY<br>
 						<br>
-						Lets just tell our template to use this, in /home/student/Desktop/myproject/app/templates/application.hbs change &lt;div class="media-left media-middle"&gt; block to the following:<br>
+						Lets just tell our template to use this, in /home/student/Desktop/myproject/app/templates/application.hbs change:
+						<pre><code> &lt;div class="media-left media-middle"&gt;</code></pre>
+						To the following:<br>
 						<pre><code>&lt;div class="media-left media-middle"&gt;
 	&lt;a href="{{photo.link}}" target="_blank"&gt;
 		&lt;img class="media-object" src="{{photo.url}}" /&gt;
@@ -1607,9 +1609,11 @@ git commit -m "end of task 18, photo feed working"</code></pre>
 						In one of your open terminals (not the ember server one) do the following:<br>
 						<pre><code>cd  /home/student/Desktop/myproject/
 sudo ember install liquid-fire@0.21.*</code></pre><br>
-						Now switch to the terminal running ember server and restart it (ctrl+s, then press up, then hit enter).<br>
+						Now switch to the terminal running ember server and restart it (ctrl+c, then press up arrow key, then hit enter).<br>
 
-						Then to enable it, open your  /home/student/Desktop/myproject/app/templates/application.hbs file and change the {{if}} block to the following:<br>
+						Then to enable it, open your  /home/student/Desktop/myproject/app/templates/application.hbs file and change the following block: <pre><code>{{if}}</code></pre>
+
+						To the following:<br>
 						<pre><code>{{#liquid-if filteredPhotosLoaded use="toDown"}}
 	&lt;ul class="list-group"&gt;
 		{{#each photo in filteredPhotos}}
@@ -1687,12 +1691,12 @@ sudo chown student -R  /home/student/Desktop/myproject/</code></pre>
 						<br>
 						Since lightbox uses a base64 image encoding we need to update our content security policy to allow base64 images. Change your content security policy to allow for "data:"<br>
 						do this as follows:<br>
-						open  /home/student/Desktop/myproject/config/environment.js and add "data:" to the "img-src" line.<br>
-						it should look something like:<br>
+						open  /home/student/Desktop/myproject/config/environment.js and add <code>data:</code> to the <code>img-src</code> line.<br>
+						It should look something like:<br>
 						<pre><code>'img-src': "'self' http: https: data:",</code></pre>
 						Then restart your ember server by going to the terminal it is running and pressing ctrl+c then hitting up, then pressing enter.<br>
 						<br>
-						Now lets update the images that appear in the filteredPhotos list by modifying /home/student/Desktop/myproject/app/templates/application.hbs. Specifically replace the {{#liquid-if}} block with:<br>
+						Now lets update the images that appear in the filteredPhotos list by modifying /home/student/Desktop/myproject/app/templates/application.hbs. Specifically replace the <code>{{#liquid-if}}</code> block with:<br>
 						<pre><code>{{#liquid-if filteredPhotosLoaded use="toDown"}}
 	&lt;ul class="list-group"&gt;
 		{{#each photo in filteredPhotos}}
@@ -1733,12 +1737,12 @@ sudo chown student -R  /home/student/Desktop/myproject/</code></pre>
 						<h3>20. Deployment to GitHub.io</h3>
 						So, now you have this awesome application, but it's stuck on your VM at UNO.  How can we share the application with the world?<br>
 
-						You already have your project on GitHub, which means you can take advantage of GitHub's IO or <b><a href="https://pages.github.com/">GitHub Pages.</a></b>.  GitHub Pages is a service that lets you host HTML/CSS/JS pages through your GitHub account using a special repository.  Since our application is a client-side app, it will work here too!  GitHub pages is  free!<br><br>
+						You already have your project on GitHub, which means you can take advantage of GitHub's IO or <b><a href="https://pages.github.com/">GitHub Pages</a></b>.  GitHub Pages is a service that lets you host HTML/CSS/JS pages through your GitHub account using a special repository.  Since our application is a client-side app, it will work here too!  GitHub pages is  free!<br><br>
 
 						In this section, we are going to create the Pages repository, set up  ember's production environment, and deploy your project to the internet!  Let's go!<br>
 
 						<h4>Set up GitHub Pages</h4>
-						<p>These steps are basically the ones you can find at <b><a href="https://pages.github.com/">https://pages.github.com/</a></b>, but tailored to the in-class VM set up.</p>
+						<p>These steps are basically the ones you can find at <b><a href="https://pages.github.com/">https://pages.github.com/</a></b>, but tailored to the in-lab VM set up.</p>
 
 						<p>Create a new repository named <code>username.github.io</code><br> <code>username</code> is your GitHub username. </p>
 
@@ -1785,7 +1789,7 @@ git push
 
 <br>					<h4>Notes</h4>
 						<p>Be sure to watch the console for errors now that the project is deployed.  404 Errors mean that the deployment folder location may not match what was expected.</p>
-						<p>In your <code>application.hbs</code> change
+						<p>In your <code>/home/student/Desktop/myproject/app/templates/application.hbs</code> change
 <pre><code>&lt;img src="../page-loading.gif" class="img-responsive center-block"/&gt;</code></pre>
 to
 <pre><code>&lt;img src="page-loading.gif" class="img-responsive center-block"/&gt;</code></pre>
