@@ -340,7 +340,6 @@ sudo find /home/student/.local/lib -type d -exec chmod 755 {} +
 cd /var/www/
 sudo a2ensite django
 sudo a2dissite 000-default
-sudo service apache2 reload
 sudo service apache2 restart</code></pre><br>
 						This virtual host is apache's way of binding certain ports to certain hosted files. In this configuration we are enabling django to run inside of apache using the WSGI interface using mod_wsgi module. The WSGIScriptAlias maps to the wsgi.py file in our django install and the python path points to the directory where our project code is at. This configuration also hosts a static files directory that can be used to host any static files (like css or js or ...your ember flickr app).<br>
 						<br>
