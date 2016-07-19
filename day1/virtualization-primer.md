@@ -48,16 +48,20 @@ Upon successful installation, you should see this.
 
 > On your lab machine there may be some VMs already configured for you. So your interface may look slightly different.
 
-![start](../img/virtualization/0-virtualboxstart.png)
+![start](../img/virtualization/0-vboxstartclean.png)
 
 [Top](#table-of-contents)
 
 ### Installing Ubuntu Desktop Linux VM
 
-For our guest OS we will select a popular Linux distribution. The Ubuntu Desktop OS. It is easy to setup and supports many development environments. In particular, the 64-bit Ubuntu version 14.04, Trusty Thar, is supported by many open source software (OSS) packages and development frameworks. For example, Facebook CTF OSS package found at `https://github.com/facebook/fbctf` only supports installation for this OS.
+For our guest OS we will select a popular Linux distribution. The Ubuntu Desktop OS. It is easy to setup and supports many development environments. In particular, the 64-bit Ubuntu version 14.04, Trusty Thar, is supported by many open source software (OSS) packages and development frameworks.
 
-To create a new VM, press the blue `New` button in VirtualBox. It should bring up a `Create Virtual Machine` prompt.
+> Fact: Facebook capture the flag hosting package found at `https://github.com/facebook/fbctf` only supports installation on Ubuntu 14.04 OS. This shows how developer friendly Ubuntu Linux operating systems are.
 
+To create a new VM, press the blue `New` button in VirtualBox.
+>![start](../img/virtualization/0-virtualboxstart.png)
+
+It should bring up a `Create Virtual Machine` prompt.
 >![vminstall](../img/virtualization/1-selectos.png)
 
 Go ahead and enter a `Name:` like `Dev Machine`  
