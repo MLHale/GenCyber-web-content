@@ -61,7 +61,7 @@ Now we are ready to clone this remote repository, and create a local repository.
 ```bash
 git clone <replace this with the clone URL that you copied above>
 ```
-The command may prompt you to enter your Github username and password (for private repositories). You will start to see some download messages and upon success, your local repository will be ready for use. You will also be asked to authenticate.
+You will start to see some download messages and upon success, your local repository will be ready for use. You will also be asked to authenticate.
 
 Now switch to the hello-world directory that has all the files from the repository that you just cloned.
 
@@ -109,17 +109,17 @@ You should see something like this:
 
 >![gitstatus](../img/primer/gitstatus.png)
 
-A few things to notice here about these status messages:
-1. `On branch master`: You are on the master branch in your local repository.
-2. `Your branch is up-to-date with 'origin/master'`: Your local repository master branch is in sync with your remote repository master brach on Github. The default name for the remote repository is **origin**.
-3. `Changes not staged for commit:`: git follows a two step process to save changes to a repository. First the user indicates which modified/deleted/new files need to be _staged_ for a save in the repository. Second these staged files are _committed_ to the repository. We will look at commands to do both of these shortly.
-4. `modified:   README.md`: git knows that the README.md file has been modified
+A few things to notice here about these status messages:  
+1. `On branch master`: You are on the master branch in your local repository.  
+2. `Your branch is up-to-date with 'origin/master'`: Your local repository master branch is in sync with your remote repository master brach on Github. The default name for the remote repository is **origin**.  
+3. `Changes not staged for commit:`: git follows a two step process to save changes to a repository. First the user indicates which modified/deleted/new files need to be _staged_ for a save in the repository. Second these staged files are _committed_ to the repository. We will look at commands to do both of these shortly.  
+4. `modified:   README.md`: git knows that the README.md file has been modified  
 
 Now we stage our changes for a commit using this command:
 ```bash
 git add --all
 ```
-This command will add any edited files in a staging area, a temporary holding place. We can check the status of the repository again using the following command:
+The above command adds any edited files in a staging area, a temporary holding place before a commit. We can check the status of the repository again using the following command:
 
 ```bash
 git status
@@ -130,10 +130,10 @@ You should see something like this:
 
 This time the modified files are staged for a commit and appear in green.
 
-Now before we **commit** these files into our repository, the git author details need to be set. Using the commands below, save your information to the git configuration files and set them for all of your local repositories. Make sure to use the same name and email you used to register with Github.
+Now before we **commit** these files into our repository, the git author details need to be set. This is for accountability of commits. Using the commands below, save your information to the git configuration files and set them for all of your local repositories. Make sure to use the same name and email you used to register with Github.
 
 ```bash
-git config --global user.name "<replace this with your name>"
+git config --global user.name "replace this with your name"
 git config --global user.email youremail@example.com
 ```
 You should see something like this:
@@ -151,7 +151,7 @@ You only have to set the config parameters once. Now that they are set, git will
 Now let's commit the changes that we staged before. Here we use the `commit` option with `-m` to provide a short commit message. This helps us remember various checkpoints in our editing process. These messages are very helpful to rollback changes to an appropriate commit.
 
 ```bash
-git commit -m "edited README.md"
+git commit -m "added UNO description"
 ```
 You should see something like this:
 >![gitcommit](../img/primer/gitcommit.png)
@@ -161,7 +161,7 @@ Use this command to see all your commits:
 git log
 ```
 This command shows a summary of commits in the repository, stating with the most recent. Observe the hash code, user details and commit message. These attributes provide attribution of all changes in the code repository, promoting code integrity.  
-> Hit `q` to exit the log of commit messages.
+> Hit the key `q` to exit the log of commit messages.
 
 Issue this command to check your repository status once again:
 ```bash
@@ -190,7 +190,7 @@ git status
 You should see something like this:
 >![gitpush](../img/primer/gitstatuspush.png)
 
-If you visit your remote repository your changes will be reflected there. You should also see your commit message there. Clicking on the commit message will show the file differences in that commit.
+If you visit your remote repository on Github.com your changes will be reflected there. You should also see your commit message there. Clicking on the commit message will show the file differences in that commit.
 
 ![updateremote](../img/primer/remoteupdate.png)
 
@@ -201,7 +201,7 @@ As mentioned before in the introduction, git version control is very efficient f
 ### Step 5
 What happens if we make some changes to README.md on Github.com? How do we get these changes back into our local repository. We will learn just that in this step.
 
-I realized that I forgot to add a link to UNO's Cybersecurity programs in the README.md file. So I will go ahead and do that and commit those changes online.
+So, I realized that I forgot to add a link to UNO's Cybersecurity programs in the README.md file. So I will make these changes and commit those changes on Github.com itself.
 
 1. First click on README.md file on Github and then click the edit option as shown below:
 >![githubedit](../img/primer/githubedit.png)
@@ -212,7 +212,7 @@ I realized that I forgot to add a link to UNO's Cybersecurity programs in the RE
 3. See changes in your README.md file
 >![githubupdated](../img/primer/githubupdated.png)
 
-Now the remote repository is one commit ahead of the local repository. To bring the local repository up to speed, we use the following command.
+Now the remote repository is one commit ahead of the local repository. To bring the _local_ repository up to speed, we use the following command in a terminal.
 
 ```bash
 git pull
@@ -222,16 +222,17 @@ You should see something like this:
 
 Now if we look at our local README.MD file, it should have the updated link.
 
-1.   
+1. Locate README.md on your computer
 >![readme](../img/primer/openreadme.png)
-2.  
+
+2. View README.md contents
 >![localpullupdate](../img/primer/localpullupdate.png)
 
 At this point you know enough to keep both the local and remote repositories synchronized.    
 
-As long as you always pull before making changes and push any new changes - you will avoid most conflicts that can occur.  
+As long as you always pull before making changes and keep pushing any new changes - you will avoid most merge conflicts that can occur.  
 
-If you are interested in learning more about complex team interaction scenarios - you may want to explore a concept called merge conflicts, for more see: [https://help.github.com/articles/resolving-a-merge-conflict-from-the-command-line/](https://help.github.com/articles/resolving-a-merge-conflict-from-the-command-line/).
+If you are interested in learning more about complex team interaction scenarios - you may want to explore a concept called merge conflicts; for more information see: [https://help.github.com/articles/resolving-a-merge-conflict-from-the-command-line/](https://help.github.com/articles/resolving-a-merge-conflict-from-the-command-line/).
 
 [Top](#table-of-contents)
 
@@ -247,21 +248,21 @@ Here is what Github [says](https://help.github.com/articles/fork-a-repo/):
 
 So head-on over to a hello-world repository developed by one of your peers. You can do this by browsing to the git URL of their hello-world repository in your browser.  
 
-Then click the "Fork" button.
-
 You should see something like this on your peer's repository:
 >![githubfork](../img/primer/githubfork.png)
 
-After forking, you will have your very own copy of your peer's repository to work on. Using [Step 3](#step-3) you can clone this repository to your local computer. Make changes to files and push it back to this forked remote repository.   
+Click the "Fork" button.
+
+After forking, you will have your own copy of your peer's repository to work on. Using [Step 3](#step-3) you can clone this repository to your local computer. Make changes to files and push it back to this forked remote repository.   
 
 You may also choose to make direct changes to it on Github itself. Let's do this in the next step.
 
 [Top](#table-of-contents)
 
 ### Step 7
-In this step we make changes to the fork of your peers' repository and create a pull request, all on Github.com.
+In this step we make changes to the fork of your peers' repository on Github.com and create a pull request.
 
-Let's assume that a `gencyber` user forks `robinagandhi/hello-world` repository.
+Let's assume that a `gencyber` (insert your ID here) user forks `robinagandhi/hello-world` repository (this will be your peer's repository).
 
 The forked repository for the `gencyber` user will look like this:
 >![forkedrepo](../img/primer/forkedrepo.png)
@@ -275,8 +276,7 @@ Now to suggest these changes to `robinagandhi` user; the `gencyber` user needs t
 Here is an open pull request that compares the master branches across the two repositories.
 >![forkpullopen](../img/primer/forkpullopen.png)
 
-The `robinagandhi` user is now notified of a pull request on his hello-world repository.
-He examines the suggested changes, and in this case the files can be automatically merged.
+The `robinagandhi` user is now notified of a pull request on his hello-world repository.He examines the suggested changes, and in this case the files can be automatically merged.
 >![forkmerge](../img/primer/forkmerge.png)
 
 In cases where files cannot be merged automatically, discussions around the pull request can help to resolve the conflicts manually. In this case that won't be necessary. With a few more simple clicks the changes are merged. Your peer will see something like this to confirm the merge:
@@ -287,6 +287,8 @@ Here is a confirmation message after a successful merge:
 
 The updated content is now reflected in the peer's repository. It will be something like this:
 >![finalupdate](../img/primer/forkupdatefinal.png)
+
+Now return the favor to your peer. Help them fork your hello-world repository and make a pull request to you.
 
 And that is one way you can collaborate using Github.
 
