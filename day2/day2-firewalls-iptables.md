@@ -295,7 +295,7 @@ sudo ip6tables -nL
 Unless you commit your iptables rules to a specific location, they will be reset upon machine restart. Now we don't want that to happen, so let's save the rules and make them persistent across machine reboots. The following commands will work on Ubuntu OS.
 
 ```bash
-apt-get install iptables-persistent
+sudo apt-get install iptables-persistent
 iptables-save > rules.v4
 sudo cp rules.v4 /etc/iptables/rules.v4
 ip6tables-save > rules.v6
