@@ -129,7 +129,6 @@
 						<li><a href="#task19">19</a></li>
 						<li><a href="#task20">20</a></li>
 						<li><a href="#task21">21</a></li>
-						<li><a href="#task22">22</a></li>
 					</ul>
 				</nav>
 				<!--start content -->
@@ -160,7 +159,7 @@
 						<a href="#task14" class="list-group-item">Unit 3: Interfacing with external web APIs</a>
 						<a href="#task15" class="list-group-item">Unit 4: Separating Data and Logic layers</a>
 						<a href="#task16" class="list-group-item">Unit 5: Creating a good user experience</a>
-						<a href="#task22" class="list-group-item">Unit 6: Deployment to Github.io</a>
+						<a href="#task20" class="list-group-item">Unit 6: Deployment to Github.io</a>
 					</div>
 					<div id="task1" class="taskitem">
 						<h2>UNIT1: Ember Hello World and App Bootstrapping</h2>
@@ -907,7 +906,7 @@ git push</code></pre>
 						where b stands for large sized.<br>
 						<br>
 						To make this work with our app, we can make the Photo url a computed property that returns an appropriate url given these parameters<br>
-						In the application controller, change:<br>
+						In the /home/student/Desktop/myproject/app/controllers/application.js controller, change:<br>
 						<pre><code>var Photo = Ember.Object.extend({
 	title: '',
 	username: '',
@@ -939,11 +938,12 @@ git push</code></pre>
 	}.property('farm','server','id','secret'),
 });</code></pre>
 						<br>
-
+						and save (ctrl+s).
 						You should now actually see the images from flickr!!<br>
 						Notice that your search feature still works for sorting through images and filtering out the ones that match your query<br>
 						Lets commit our code<br>
-						<pre><code>git status
+						<pre><code>cd /home/student/Desktop/myproject/
+git status
 git add -A
 git commit -m "end of task 15, basic integration with flickr"</code></pre>
 						<br>
@@ -952,7 +952,7 @@ git commit -m "end of task 15, basic integration with flickr"</code></pre>
 						<h2>UNIT4: Separating Data and Logic Layers</h2>
 						<h3>15. Cleaning up</h3>
 						Now that we can connect with flicker, lets clean up our app. <br>
-						Start by removing the test content from our application.js controller<br>
+						Start by removing the test content from our /home/student/Desktop/myproject/app/controllers/application.js controller<br>
 						<br>
 						Change:<br>
 						<pre><code>var PhotoCollection = Ember.ArrayProxy.extend(Ember.SortableMixin, {
@@ -1022,11 +1022,11 @@ export default Ember.Controller.extend({
 	  'media-src': "'self' "
 	}</code></pre>
 
-						That fixed that problem. <br>
+						and save (Ctrl+s). That fixed that problem. <br>
 						<br>
 						Now, we don't want users to see nothing when they first visit our app, so lets make some cosmetic changes to our app template.<br>
 						<br>
-						Change the container code to:<br>
+						After opening /home/student/Desktop/myproject/app/templates/application.hbs, replace the code in the 'div' container with:<br>
 						<pre><code>&lt;div class="container"&gt;
 
 	{{#if filteredPhotos}}
@@ -1047,9 +1047,9 @@ export default Ember.Controller.extend({
 	{{/if}}
 &lt;/div&gt;</code></pre>
 						<br>
-						Lets also adjust our search bar to only show when photos are on the page and then introduce a bar for searching flickr tags<br>
+						and save (Ctrl+s). Lets also adjust our search bar to only show when photos are on the page and then introduce a bar for searching flickr tags<br>
 						<br>
-						in the header change: <br>
+						in the same file (/home/student/Desktop/myproject/app/templates/application.hbs) change the navbar {{#bs-form}} from: <br>
 						<pre><code>{{#bs-form formLayout="inline" action="search"}}
 	{{#bs-button type="primary" icon="glyphicon glyphicon-download" action="getPhotos"}}{{/bs-button}}
 	{{bs-input type="text" value=searchField placeholder="search something"}}
@@ -1070,15 +1070,16 @@ export default Ember.Controller.extend({
 {{/bs-form}}</code></pre>
 
 						<br>
+						and save (Ctrl+s).
 						Now we need to adjust the controller to fit<br>
 						<br>
-						Add a <b>tagSearchField</b>:<br>
+						Go back to /home/student/Desktop/myproject/app/controllers/application.js and add a <b>tagSearchField</b>: to the declared variable section. (just below searchField as follows - NOTE: make sure not to re-copy the other stuff in.<br>
 						<pre><code>photos: PhotoCollection.create(),
 	searchField: '',
 	tagSearchField: '',</code></pre>
 
 						<br>
-						Now change getPhotos and search to the following:<br>
+						Now save (Ctrl+s) and then (in the same file) change the 'actions' block to the following:<br>
 						<pre><code>actions: {
 	search: function () {
 		this.get('photos').content.clear();
@@ -1111,7 +1112,7 @@ export default Ember.Controller.extend({
 	},
 }</code></pre>
 						<br>
-						So this will allow search to call getPhotos and send it the value of the tagSearchField when a user clicks the search button or hits enter in the tagSearch box. Once content is loaded, the nav bar will display a second field for filtering photos by name.<br>
+						Save again (ctrl+s). So this will allow search to call getPhotos and send it the value of the tagSearchField when a user clicks the search button or hits enter in the tagSearch box. Once content is loaded, the nav bar will display a second field for filtering photos by name.<br>
 						<br>
 						Its looking good yeah?<br>
 						Try searching some different tags and see the results.<br>
@@ -1121,14 +1122,13 @@ export default Ember.Controller.extend({
 						<br>
 						Ember has something called a model, where Photo would fit much better. Lets move it there<br>
 
-						Open a terminal window (ctrl + alt +t) and type the following:<br>
-						<pre><code>cd Desktop/myproject/
+						Open a terminal window not running ember and type the following:<br>
+						<pre><code>cd /home/student/Desktop/myproject/
 ember generate model photo</code></pre>
 						<br>
-						This will create a new file called photo.js in your app/models/ folder.<br>
-						Now copy over the photo object into the photo.js file.<bR>
+						This will create a new file called photo.js in your /home/student/Desktop/myproject/app/models/ folder.<br>
 						<br>
-						Your photo.js should look like:<br>	
+						Copy the following into the new /home/student/Desktop/myproject/app/models/photo.js file:<br>	
 						<pre><code>import DS from 'ember-data';
 
 export default DS.Model.extend({
@@ -1148,7 +1148,7 @@ export default DS.Model.extend({
 	}.property('farm','server','id','secret'),
 });</code></pre>
 						<br>
-						Now to patch up your controller.js you just need to change search and getPhotos to the following:<br>
+						Save (Ctrl+s). Now to patch up your /home/student/Desktop/myproject/app/controllers/application.js you just need to change search and getPhotos to the following:<br>
 						<pre><code>search: function () {
 	this.get('photos').content.clear();
 	this.store.unloadAll('photo');
@@ -1181,10 +1181,11 @@ getPhotos: function(tag){
 	});
 },</code></pre>
 						<br>
-						This introduces the ember concept of a <b>store</b> which houses records for you. It also maintains the seperation between controllers and models (in this case a Photo) in case you want to use your model elsewhere in your app outside of this controller.
+						Save (Ctrl+s). This introduces the ember concept of a <b>store</b> which houses records for you. It also maintains the seperation between controllers and models (in this case a Photo) in case you want to use your model elsewhere in your app outside of this controller.
 
-						Lets commit our code<br>
-						<pre><code>git status
+						Lets commit our code, in an open terminal not running ember server type<br>
+						<pre><code>cd /home/student/Desktop/myproject/
+git status
 git add -A
 git commit -m "end of task 16, using ember store"</code></pre>
 					</div><!-- end task 16-->
@@ -1195,7 +1196,7 @@ git commit -m "end of task 16, using ember store"</code></pre>
 						<br>
 						As usual, start with the template, lets add some ui to display tags<br>
 						<br>
-						In your application.hbs template in the jumbotron add the following:<br>
+						In your /home/student/Desktop/myproject/app/templates/application.hbs template replace the {{else}} block with the following:<br>
 						<pre><code>{{else}}
 	&lt;div class="jumbotron"&gt;
 		&lt;h1&gt;[app-name]&lt;/h1&gt;
@@ -1208,11 +1209,11 @@ git commit -m "end of task 16, using ember store"</code></pre>
 {{/if}}</code></pre>
 
 						<br>
-						Like our photo list, this will iterate over the <b>tagList</b> data and display clickable buttons to search based on whatever value the "tag" property is.<br>
+						Save (Ctrl+s). Like our photo list, this will iterate over the <b>tagList</b> data and display clickable buttons to search based on whatever value the "tag" property is.<br>
 						<br> 
 						Of course we need to wire it up in the controller.<br>
 						<br>
-						In application.js add the following to the bottom of action list (under getPhotos):<bR>
+						In /home/student/Desktop/myproject/app/controllers/application.js add the following to the bottom of action list (under getPhotos):<br>
 						<pre><code>},
 clicktag: function(tag){
 	this.set('tagSearchField', tag);
@@ -1221,23 +1222,22 @@ clicktag: function(tag){
 	this.send('getPhotos',tag);
 }</code></pre>
 						<br>
-						This works much like the search field, but it also fills in the tagSearchField so that when a user clicks the tag, it ends up in your search bar<br>
+						Save (ctrl+s). This works much like the search field, but it also fills in the tagSearchField so that when a user clicks the tag, it ends up in your search bar<br>
 						<br>
-						You also need to add the <b>tagList</b> property to the controller, lets add the following test data:<bR>
-						<pre><code>...
-tagSearchField: '',
+						You also need to add the <b>tagList</b> property to the application controller (/home/student/Desktop/myproject/app/controllers/application.js), add the following test data just under tagSearchField:<bR>
+						<pre><code>
 tagList: ['hi','cheese'],
 filteredPhotos: function () {
-...</code></pre>
+</code></pre>
 						<br>
-						Reload your app and try clicking one of the tags<br>
+						Save (ctrl+s) and reload your app and try clicking one of the tags<br>
 						Pretty awesome yeah?<br>
 						<br>
 						Can you guess the next step?<bR>
 						<br>
 						If you were thinking the next step is to replace the dummy data with actual data from flickr, then you would be right<br>
 						<br>
-						Go back to your application.js controller and add the following (beneath actions):<br>
+						Go back to your /home/student/Desktop/myproject/app/controllers/application.js controller and add the following (beneath actions), making sure to add a comma after actions:<br>
 						<pre><code>init: function(){
 	this._super.apply(this, arguments);
 	var apiKey = '4435e3a217bc7afc94dfcba607b70eb1';
@@ -1254,13 +1254,13 @@ filteredPhotos: function () {
 	});
 }</code></pre>
 						<br>
-						This invokes the controller's <b>init</b> method in order to load in data when the page loads. We're loading in the list of top recent tags for the day on flickr.<br>
+						Save (ctrl+s). This invokes the controller's <b>init</b> method in order to load in data when the page loads. We're loading in the list of top recent tags for the day on flickr.<br>
 						<br>
 						Ok its working cool!<br>
 						<br>
 						Lets style it a little so that the buttons look better.<br>
 						<br>
-						In app.css add the following:<br>
+						In /home/student/Desktop/myproject/app/styles/app.css add the following:<br>
 						<pre><code>.tag-button {
 	padding:4px;
 	margin: 1px;
@@ -1269,7 +1269,8 @@ filteredPhotos: function () {
 						At this point you should see something like:<br>
 						<img src="images/app-with-hotlist-buttons.png"/><br>
 						Lets commit our code<br>
-						<pre><code>git status
+						<pre><code>cd /home/student/Desktop/myproject/
+git status
 git add -A
 git commit -m "end of task 17, loads data when the page loads"</code></pre>
 
@@ -1290,12 +1291,8 @@ git commit -m "end of task 17, loads data when the page loads"</code></pre>
 						<br>
 						In our app, we're going to make secondary queries for each photo we load to get all of the photo information. This will also let us to annotate the photos we load much better.<br>
 						<br>
-						To start lets swap out the getClusterPhotos method. In application.js controller change the getPhotos method and requestURL to the following:<br>
-						<pre><code>var method = "flickr.photos.search";
-var requestURL = host + "?method="+method + "&api_key="+apiKey+"&tags="+tag+"&format=json&nojsoncallback=1";</code></pre>
+						To start lets swap out the getClusterPhotos method. In the /home/student/Desktop/myproject/app/controllers/application.js controller change the getPhotos method to the following:<br>
 
-						<br>
-						Now to add in secondary requests lets change our getPhotos method to the following:<br>
 						<pre><code>getPhotos: function(tag){
 	var apiKey = '4435e3a217bc7afc94dfcba607b70eb1';
 	var host = 'https://api.flickr.com/services/rest/';
@@ -1333,6 +1330,7 @@ var requestURL = host + "?method="+method + "&api_key="+apiKey+"&tags="+tag+"&fo
 	});
 },</code></pre>
 						<br>
+						Save (ctrl+s). <br>
 						There is a lot going on here, obviously.
 						First we introduced a second query under the data.photos.photo.map call. <br>
 						The second query uses the <b>photos.getInfo</b> API call to return all of the data about each photo as we get them in the main list<br>
@@ -1344,12 +1342,13 @@ var requestURL = host + "?method="+method + "&api_key="+apiKey+"&tags="+tag+"&fo
 						<br>
 						First lets add an object transform so we can pull in javascript objects directly into our model.<br>
 						<br>
-						On the command line type the following command:<br>
-						<pre><code>ember generate transform object</code></pre>
+						Open one of your terminals not running ember server and type the following command:<br>
+						<pre><code>cd /home/student/Desktop/myproject/
+ember generate transform object</code></pre>
 						<br>
-						This will create an object.js file in your /app/transforms folder.<br>
+						This will create an object.js file in your /home/student/Desktop/myproject/app/transforms folder.<br>
 						<br>
-						Open it up and change it to the following<br>
+						Open it up and replace the code in it with the following<br>
 						<pre><code>// app/transforms/object.js
 import Ember from 'ember';
 import DS from 'ember-data';
@@ -1372,7 +1371,7 @@ export default DS.Transform.extend({
 });
 </code></pre>
 						<br>
-						Now lets open our photo.js in /models folder and update it to include all of our new data types. Change it to the following:<br>
+						Save (ctrl+s). Now lets open our photo.js in the /home/student/Desktop/myproject/app/models/ folder and update it to include all of our new data types. Change it to the following:<br>
 						<pre><code>import DS from 'ember-data';
 
 export default DS.Model.extend({
@@ -1395,7 +1394,7 @@ export default DS.Model.extend({
 	}.property('farm','server','id','secret'),
 });</code></pre>
 						<br>
-						This uses DS.attr to make all of the data an attribute in ember data. This will be helpful later when we update our template.<Br>
+						Save (ctrl+s). This uses DS.attr to make all of the data an attribute in ember data. This will be helpful later when we update our template.<Br>
 						Also notice that we are using our new transform (DS.attr('object')) to load in the more complicated fields without worrying about their structure.<br>
 						We will return to these in a little bit<br>
 						<br>
@@ -1409,7 +1408,7 @@ export default DS.Model.extend({
 						<br>
 						Lets add some of this new data to our photo template.<br>
 						<br>
-						In the application.hbs template change the {{#each photo in filteredPhotos}} block to be:<br>
+						In the /home/student/Desktop/myproject/app/templates/application.hbs template change the {{#each photo in filteredPhotos}} block to be:<br>
 						<pre><code>{{#each photo in filteredPhotos}}
 &lt;li class="list-group-item"&gt;
 	Title: {{photo.title}} &lt;br&gt;
@@ -1422,13 +1421,13 @@ export default DS.Model.extend({
 &lt;/li&gt;
 {{/each}}</code></pre>
 						<br>
-						Now you should see all of this new information in the page if you search a tag. It should look something like<br>
+						Save (ctrl+s). Now you should see all of this new information in the page if you search a tag. It should look something like<br>
 						<img src="images/photo-search-with-more-data.png"/><br>
 						<br>
 						Pretty cool yeah?<Br>
 						Obviously the format kind of sucks, so lets style it up with bootstrap and some better markup.<br>
 						<br>
-						In the application.hbs template change the {{#each photo in filteredPhotos}} block to be:<br>
+						In the /home/student/Desktop/myproject/app/templates/application.hbs template change the {{#each photo in filteredPhotos}} block to be:<br>
 						<pre><code>&lt;ul class="list-group"&gt;
 {{#each photo in filteredPhotos}}
 &lt;li class="list-group-item"&gt;
@@ -1458,31 +1457,24 @@ export default DS.Model.extend({
 {{/each}}
 &lt;/ul></code></pre>
 						<br> 
-						This makes our interface look really nice. It puts the post on the left, uses the media header to display the photo title. Places the description beneath the photo title and lists out photo information, like the date it was taken, the user who took it (with a link to their profile), and the tags on the post. <br>
+						Save (ctrl+s). This makes our interface look really nice. It puts the post on the left, uses the media header to display the photo title. Places the description beneath the photo title and lists out photo information, like the date it was taken, the user who took it (with a link to their profile), and the tags on the post. <br>
 						<br>
 						Lets make three small changes to make the ownerurl work, give the tags some better styling, and to change the date from machine format to human format.<br>
 						<br>
-						First, for ownerurl, open up your photo.js model and add the following beneath the url computed property<br>
-						<pre><code>url: function(){
-	return "https://farm"+this.get('farm')+
-	".staticflickr.com/"+this.get('server')+
-	"/"+this.get('id')+"_"+this.get('secret')+"_b.jpg";
-}.property('farm','server','id','secret'),
-ownerurl: function () {
+						First, for ownerurl, open up your /home/student/Desktop/myproject/app/models/photo.js model and add the following beneath the url computed property<br>
+						<pre><code>ownerurl: function () {
 	return "http://www.flickr.com/photos/"+this.get('owner.nsid');
 }.property('owner.nsid')</code></pre>
-						
-						Next lets add some styling to the tags under the post. Open app.css in /styles and add the following:<br>
+						<br>
+						Save (Ctrl+s).
+						Next lets add some styling to the tags under the post. Open /home/student/Desktop/myproject/app/styles/app.css in and add the following:<br>
 						<pre><code>.post-tag-button {
 	padding:2px;
 	margin-top: 1px;
 }</code></pre>
 						<br>
-						Finally to make the date look better add the following to your photo model under ownerurl:<br>
-						<pre><code>ownerurl: function () {
-	return "http://www.flickr.com/photos/"+this.get('owner.nsid');
-}.property('owner.nsid'),
-humanReadableDate: function () {
+						Save (ctrl+s). Finally to make the date look better add the following to your photo model (/home/student/Desktop/myproject/app/models/photo.js) under ownerurl:<br>
+						<pre><code>humanReadableDate: function () {
 	var taken = new Date(this.get('dates.taken'));
 	var days =  ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 	var months =  ["January","Feburary","March","April","May","June","July",
@@ -1490,9 +1482,9 @@ humanReadableDate: function () {
 	return days[taken.getDay()] + " " + months[taken.getMonth()] +" "+taken.getDate()+", "+taken.getFullYear();
 }.property('dates.taken')</code></pre>
 						<br>
-						This return days formatted as [Week Day] [month] DD, YYYY<br>
+						Save (Ctrl+s). This return days formatted as [Week Day] [month] DD, YYYY<br>
 						<br>
-						Lets just tell our template to use this, in application.hbs change the following:<br>
+						Lets just tell our template to use this, in /home/student/Desktop/myproject/app/templates/application.hbs change &lt;div class="media-left media-middle"&gt; block to the following:<br>
 						<pre><code>&lt;div class="media-left media-middle"&gt;
 	&lt;a href="{{photo.link}}" target="_blank"&gt;
 		&lt;img class="media-object" src="{{photo.url}}" /&gt;
@@ -1502,21 +1494,21 @@ humanReadableDate: function () {
 &lt;/div&gt;</code></pre>
 						
 						<br>
-						If everything is working you should see something like:<br>
+						Save (ctrl+s). If everything is working you should see something like:<br>
 						<img src="images/structured-media-page.png"/><br>
 						<Br>
 
 						Notice that the photos aren't in chronological order?<br>
 						Lets fix that<br>
 						<br>
-						In your application.js controller, change the following:<br>
+						In your  /home/student/Desktop/myproject/app/controllers/application.js controller, change the PhotoCollection object to look like the following:<br>
 						<pre><code>var PhotoCollection = Ember.ArrayProxy.extend(Ember.SortableMixin, {
 	sortProperties: ['dates.taken'],
 	sortAscending: false,
 	content: [],
 });</code></pre>
 						<br>
-						Lastly, when we change the format of a photo, it broke the filter field. Lets fix the regex to work correctly again. In application.js controller change to the following: <br>
+						Save (ctrl+s). Lastly, when we change the format of a photo, it broke the filter field. Lets fix the regex to work correctly again. In  /home/student/Desktop/myproject/app/controllers/application.js controller replace the filteredPhotos method with the following: <br>
 						<pre><code>filteredPhotos: function () {
 	var filter = this.get('searchField');
 	var rx = new RegExp(filter, 'gi');
@@ -1527,12 +1519,13 @@ humanReadableDate: function () {
 	});
 }.property('photos.@each','searchField'),</code></pre>
 						<br>
-						We basically just replaced username with owner.username. It should work again now<br>
+						Save (ctrl+s). We basically just replaced username with owner.username. It should work again now<br>
 						<br>
 						We finally have a completed photo feed!<br>
 						<h4>Great work!</h4>
 						Lets commit our code<br>
-						<pre><code>git status
+						<pre><code>cd  /home/student/Desktop/myproject/
+git status
 git add -A
 git commit -m "end of task 18, photo feed working"</code></pre>
 
@@ -1543,7 +1536,7 @@ git commit -m "end of task 18, photo feed working"</code></pre>
 						This happens, because we set up a simple if in our template that checked to see if filteredPhotos was empty. When we clear it as part of the clickedTag and search methods, we end up temporarily making the if false.<br>
 						Lets add a condition to make the transition smoother.<br>
 						<br>
-						Change your {{else}} condition beneath filteredPhotos in application.hbs to the following:.
+						Change the {{else}} condition beneath filteredPhotos in  /home/student/Desktop/myproject/app/templates/application.hbs to the following:.
 						<pre><code>{{else}}
 	{{#if loading}}
 		&lt;img src="../page-loading.gif" class="img-responsive center-block"/&gt;
@@ -1560,9 +1553,9 @@ git commit -m "end of task 18, photo feed working"</code></pre>
 
 {{/if}}</code></pre>
 						<br>
-						Now download the page-loading gif from <a href="http://www.bkmag.com/wp-content/uploads/2014/09/loading.gif" target="_blank">http://www.bkmag.com/wp-content/uploads/2014/09/loading.gif</a><br>
+						Save (ctrl+s). Now download the page-loading gif from <a href="http://www.bkmag.com/wp-content/uploads/2014/09/loading.gif" target="_blank">http://www.bkmag.com/wp-content/uploads/2014/09/loading.gif</a><br>
 						Right click and download this file to your /Desktop/myproject/public folder.
-						Also, change your search and clicktag methods in application.js controller to the following:<br>
+						Also, change your search and clicktag methods in the /home/student/Desktop/myproject/app/controllers/application.js controller to the following:<br>
 						<pre><code>search: function () {
 	this.set('loading', true);
 	this.get('photos').content.clear();
@@ -1579,11 +1572,11 @@ git commit -m "end of task 18, photo feed working"</code></pre>
 	this.send('getPhotos',tag);
 }</code></pre>
 						<br>
-						This will add an intermediate step to ensure that a loading page shows up between searches after the initial search.<br>
+						Save (ctrl+s). This will add an intermediate step to ensure that a loading page shows up between searches after the initial search.<br>
 						Pretty cool<br>
 						Lets also add a spinner to individual loading images to make transitions cleaner.<br>
 						Download <a href="http://preloaders.net/preloaders/4/Fading%20balls.gif" target="_blank">http://preloaders.net/preloaders/4/Fading%20balls.gif</a> to your /public folder as loading-img.gif<br>
-						Then open your app.css file and change feed-img to:<br>
+						Then open your  /home/student/Desktop/myproject/app/styles/app.css file and change feed-img block to:<br>
 						<pre><code>.feed-img {
 	background: url('../loading-img.gif');
 	min-height: 64px;
@@ -1591,21 +1584,22 @@ git commit -m "end of task 18, photo feed working"</code></pre>
 	max-width: 240px;
 }</code></pre>
 						<br>
-						Now add the "feed-img" class to the img tag in application.hbs<br>
+						Now add the "feed-img" class to the img tag in  /home/student/Desktop/myproject/app/templates/application.hbs<br>
 						<pre><code>&lt;a href="{{photo.link}}" target="_blank"&gt;
 	&lt;img class="media-object feed-img" src="{{photo.url}}" /&gt;
 &lt;/a&gt;</code></pre>
 						
-						Now when you click a tag, all of the images will load with a spinning wheel until the image loads. Looks a lot cleaner yeah?<br>
+						Save (ctrl+s). Now when you click a tag, all of the images will load with a spinning wheel until the image loads. Looks a lot cleaner yeah?<br>
 
 						Lets do one last thing for making transitions look nice.<Br>
 						There is an add-on called "liquid-fire" that makes ember really shine. Lets add it to our project<br>
 						<br>
-						At the command line do the following:<br>
-						<pre><code> sudo ember install liquid-fire@0.21.*</code></pre>
-						Now restart your ember server
+						In one of your open terminals (not the ember server one) do the following:<br>
+						<pre><code>cd  /home/student/Desktop/myproject/
+sudo ember install liquid-fire@0.21.*</code></pre><br>
+						Now switch to the terminal running ember server and restart it (ctrl+s, then press up, then hit enter).<br>
 
-						Then to enable it, open your application.hbs file and change the {{if}} to the following:<br>
+						Then to enable it, open your  /home/student/Desktop/myproject/app/templates/application.hbs file and change the {{if}} block to the following:<br>
 						<pre><code>{{#liquid-if filteredPhotosLoaded use="toDown"}}
 	&lt;ul class="list-group"&gt;
 		{{#each photo in filteredPhotos}}
@@ -1651,16 +1645,14 @@ git commit -m "end of task 18, photo feed working"</code></pre>
 
 {{/liquid-if}}</code></pre>
 						<br>
-						To make this work, we need to add in a few things to our controller.
+						Save (Ctrl+s). To make this work, we need to add in a few things to our  /home/student/Desktop/myproject/app/controllers/application.js controller.
 
-						First, define a new property  called  filteredPhotosLoaded and set it to false initially. In application.js controller add the following under your tagSearchField<br>
-						<pre><code>..
-tagSearchField: '',
-filteredPhotosLoaded: false,</code></pre>
+						First, define a new property  called  filteredPhotosLoaded and set it to false initially. In  /home/student/Desktop/myproject/app/controllers/application.js add the following under your tagSearchField<br>
+						<pre><code>filteredPhotosLoaded: false,</code></pre>
 						<br>
-						Pretty cool yeah?<br> 
+						Save (ctrl+s). Pretty cool yeah?<br> 
 						Lets make one more change to make sure that the loading page refreshes when you click a new tag<br>
-						at the top of your controller beneath the defined attributes,  find the line:
+						at the top of your  /home/student/Desktop/myproject/app/controllers/application.js controller beneath the defined attributes,  find the line:
 						<pre><code>filteredPhotosLoaded: false,</code></pre>
 						<br>
 						Replace it with the computed property below:
@@ -1668,7 +1660,7 @@ filteredPhotosLoaded: false,</code></pre>
 	return this.get('filteredPhotos').length >0;
 }.property('filteredPhotos.length'),</code></pre>
 						<br>
-						This property will constantly watch the entries in the filteredPhotos array and return true if the length is greater than 0. It turns out this condition is exactly what we need to watch in the template in order to appropriately update the page to display our loading graph (show spinning wheel while waiting for the data, then show individual spinning wheels on the pictures after the data has loaded but not the images).<br>
+						Save (ctrl+s). This property will constantly watch the entries in the filteredPhotos array and return true if the length is greater than 0. It turns out this condition is exactly what we need to watch in the template in order to appropriately update the page to display our loading graph (show spinning wheel while waiting for the data, then show individual spinning wheels on the pictures after the data has loaded but not the images).<br>
 						
 						Our app is really coming along.<br>
 					</div><!-- end task 19-->
@@ -1678,18 +1670,19 @@ filteredPhotosLoaded: false,</code></pre>
 						Lets make one last modification to allow users to click images and have them expand full screen for larger viewing<br>
 						For this we will use another ember-addon called "ember-cli-lightbox"<br>
 						<br>
-						To install do the following on the command line:<bR>
-						<pre><code>sudo ember install ember-cli-lightbox
-sudo chown student -R ~/Desktop/myproject</code></pre>
+						To install open one of your non-ember server terminals and type:<bR>
+						<pre><code>cd  /home/student/Desktop/myproject/
+sudo ember install ember-cli-lightbox
+sudo chown student -R  /home/student/Desktop/myproject/</code></pre>
 						<br>
 						Since lightbox uses a base64 image encoding we need to update our content security policy to allow base64 images. Change your content security policy to allow for "data:"<br> 
 						do this as follows:<br>
-						open /config/environment.js and add "data:" to the "img-src" line.<br>
+						open  /home/student/Desktop/myproject/config/environment.js and add "data:" to the "img-src" line.<br>
 						it should look something like:<br>
 						<pre><code>'img-src': "'self' http: https: data:",</code></pre>
-						Then restart your server.<br>
+						Then restart your ember server by going to the terminal it is running and pressing ctrl+c then hitting up, then pressing enter.<br>
 						<br>
-						Now lets update the image in the filteredPhotos list as follows:<br>
+						Now lets update the images that appear in the filteredPhotos list by modifying /home/student/Desktop/myproject/app/templates/application.hbs. Specifically replace the {{#liquid-if}} block with:<br>
 						<pre><code>{{#liquid-if filteredPhotosLoaded use="toDown"}}
 	&lt;ul class="list-group"&gt;
 		{{#each photo in filteredPhotos}}
@@ -1722,21 +1715,12 @@ sudo chown student -R ~/Desktop/myproject</code></pre>
 {{else}}</code></pre>
 			
 						<br>
-						If everything went well, you should see something this if you click on an image:<br>
+						Save (Ctrl+s). If everything went well, you should see something like this if you click on an image:<br>
 						<img src="images/lightbox.png"/><br>
-					</div><!-- end task 20-->
+					</div><!-- end task 19-->
 					<div id="task20" class="taskitem">
-						
-						<h3>20. Time to go off on your own and tinker around</h3>
-						If you have questions - we will be happy to help you move towards whatever vision you have.<br>
-						Idea 1 - Display things like comments and likes<br>
-						Idea 2 - Port your app to apache cordova and build a mobile app for your phone.<br>
-						Idea 3 - integrate OAuth into your app <br>
-			
-					</div><!-- end task 21-->
-					<div id="task21" class="taskitem">
 						<h2>UNIT6: Deployment to Github.io</h2>
-						<h3>21. Deployment to GitHub.io</h3>
+						<h3>20. Deployment to GitHub.io</h3>
 						So, now you have this awesome application, but it's stuck on your VM at UNO.  How can we share the application with the world?<br>
 
 						You already have your project on GitHub, which means you can take advantage of GitHub's IO or <b><a href="https://pages.github.com/">GitHub Pages.</a></b>.  GitHub Pages is a service that lets you host HTML/CSS/JS pages through your GitHub account using a special repository.  Since our application is a client-side app, it will work here too!  GitHub pages is  free!<br><br>
@@ -1810,9 +1794,9 @@ git push
 
 
 						
-					</div><!-- end task 22-->
-					<div id="task22" class="taskitem">
-						<h3>22.   Continue at Home</h3>
+					</div><!-- end task 20-->
+					<div id="task21" class="taskitem">
+						<h3>21.   Continue at Home</h3>
 						Want to continue this work at home?<br><br>
 
 						All you really need to do is install <b>ember-cli</b> and its dependencies.<br>
@@ -1825,7 +1809,7 @@ git push
 							<pre><code>npm install -g ember-cli</code></pre></li>
 							<li>Install GIT - <a href="http://git-scm.com/downloads">http://git-scm.com/downloads</a></li>
 						</ol>
-					</div><!-- end task 23 -->
+					</div><!-- end task 21 -->
 				</div><!--end scrollable content -->
 				<!-- Copyright info -->
 				<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">UNO Gencyber Content</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="mlhale.com" property="cc:attributionName" rel="cc:attributionURL">Dr. Matthew L. Hale</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/MLHale/GenCyber-web-content" rel="dct:source">https://github.com/MLHale/GenCyber-web-content</a>.
