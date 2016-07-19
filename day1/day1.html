@@ -90,15 +90,6 @@
 		</style>
 	</head>
 	<body>
-		<!-- <nav class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header">
-					<img alt="University of Nebraska Omaha" src="images/logo-subsite-o-2.png">
-					<p id="unologo">UNO: Techademy</p>
-					<p id="tagline">Secure Web Development &copy; 2016 - Dr. Matt Hale</p>
-				</div>
-			</div>
-		</nav> -->
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container">
 				<div class="row">
@@ -188,7 +179,7 @@ sudo ember new myproject</code></pre>
 					</div> <!--end task1-->
 					<div id="task2" class="taskitem">
 						<h3 class="taskitem">2. Set permissions on the new directory</h3>
-
+						In the same terminal type:<br>
 						<pre><code>sudo chmod 775 -R myproject/
 sudo chown student -R myproject/</code></pre>
 
@@ -197,14 +188,16 @@ sudo chown student -R myproject/</code></pre>
 						<h3 class="taskitem">3. Lets finish the installation and launch our new app</h3>
 
 						<pre><code>cd myproject</code></pre><br>
-						Using the left hand side menu, open sublime (the black icon with an S on it). Next select file (top left menu) and then click 'open file'. When the prompt opens, navigate to Desktop/myproject and then click bower.json to open it for changes. Change the following lines:<br>
+						Using the left hand side menu, open sublime (the black icon with an S on it). Next select file (top left menu) and then click 'open file'.  <br>
+						<img src="images/open-sublime.png"/><br>
+						When the prompt opens, navigate to Desktop/myproject and then click bower.json to open it for changes. Change the following lines:<br>
 						<pre><code>"ember" : "1.12.0"</code></pre> to 
-						<pre><code>"ember" : "1.13.12"</code></pre><br>
+						<pre><code>"ember" : "1.13.12"</code></pre>
 						<pre><code>"ember-data" : "1.0.0-beta"</code></pre> to 
-						<pre><code>"ember" : "1.13.12"</code></pre><br>
+						<pre><code>"ember" : "1.13.12"</code></pre>
 						and
 						<pre><code>"jquery": "^1.11.1"</code></pre> to 
-						<pre><code>"jquery": "1.11.1"</code></pre><br>
+						<pre><code>"jquery": "1.11.1"</code></pre>
 						
 						Then do the following:
 <pre><code>sudo bower install --allow-root
@@ -239,15 +232,16 @@ ember server</code></pre>
 						<br>
 						Do the following: <br>
 						Open a new terminal (type ctrl + t), then type the following:<br>
-						<pre><code>git status
+						<pre><code>cd /home/student/Desktop/myproject/
+git status
 git add -A
 git config --global user.email "&lt;your-email&gt;"
 git config --global user.name "&lt;your-github-account-username@github.com&gt;"
-git commit -m "Initial commit in Techademy"</code></pre>
+git commit -m "Initial commit in Gencyber"</code></pre>
 						<br>
 						The first two and last commands are three that you should get very familiar with. They, respectively, show all file changes since the last commit, stages (add or remove) all new, modified, and deleted files for commits, and then finally commits the changes to your local git repository for change tracking. The middle two commands will configure your machine globally with your preferred email and username, so that subsequent commits and pushes will identify you as the person who modified the files. You won't need to use them again unless you want to change your email or username.<br>
 						<br>
-						Now do the following to push your repository to github.<br>
+						Now do the following in the same terminal to push your repository to github.<br>
 						<pre><code>git remote add origin https://github.com/[your github username]/[your github repository name].git
 git push -u origin master</code></pre>
 						<br>
@@ -314,8 +308,8 @@ git push -u origin master</code></pre>
 						You will quickly realize that templates only work when we give them some data to work with. For that, you want to use a "controller." In Ember the controller is the brains of the operation.<br>
 						<br>
 						Lets create some mockup data that we can use to test our template.<br>
-						Switch to a new terminal (ctrl+alt+t) and type the following commands<br>
-						<pre><code>cd Desktop/myproject/
+						Switch to a new terminal (ctrl+shift+t) and type the following commands<br>
+						<pre><code>cd /home/student/Desktop/myproject/
 ember generate controller application</code></pre>
 
 						Switch back to sublime and lets modify our new controller. Find "controllers" and then "application.js"<br>
@@ -323,7 +317,7 @@ ember generate controller application</code></pre>
 						As I mentioned, controllers are the brains of your page. You can define javascript methods in here, interact with data, define handlers to process user actions, and also store data for loading into your templates. <br>
 						<br>
 						Lets create some javascript objects to implement our "photo" list.<br><br>
-						Change:<br>
+						in /home/student/Desktop/myproject/controllers/application.hbs Change:<br>
 						<pre><code>import Ember from 'ember';
 
 export default Ember.Controller.extend({
@@ -372,7 +366,7 @@ export default Ember.Controller.extend({
 });
 </code></pre>
 						<br>
-						Save your controller, watch the command line to make sure there aren't any errors. <br>
+						Save your controller (press ctrl+s), watch the command line to make sure there aren't any errors. <br>
 						<br>
 						Ok my code works - great, but what does it all mean?<br>
 						Lets break the code you wrote down.<br>
@@ -395,15 +389,16 @@ export default Ember.Controller.extend({
 					</div><!-- end task 9-->
 					<div id="task10" class="taskitem">
 						<h3>10. Our template works now!</h3>
-						Ember seemlessly wired up out controller to our template. Once we introduced data to the controller, our template loaded it and displayed it on the screen. Pretty awesome huh? Lets change the order, to display the titles alphabetically using the SortableMixin.
+						Ember seemlessly wired up our controller to our template. Once we introduced data to the controller, our template loaded it and displayed it on the screen. Pretty awesome huh? Lets change the order, to display the titles alphabetically using the SortableMixin.
 						<br>
 						in sublime open the application controller and modify the <b>sortAscending</b> line to look like:
 						<pre><code>sortAscending: true</code></pre>
 						<br>
 						save your file (ctrl+s) and watch as ember updates the page to display the titles in order.
 						<br>
-						Lets also commit our code (A good practice to follow as you develop anything)
-						<pre><code>git status
+						Lets also commit our code (A good practice to follow as you develop anything), in one of your open terminal windows,
+						<pre><code>cd /home/student/Desktop/myproject/
+git status
 git add -A
 git commit -m "end of task 10, created basic flickr page"</code></pre>
 					</div><!-- end task 10-->
@@ -417,9 +412,9 @@ git commit -m "end of task 10, created basic flickr page"</code></pre>
 						<br>
 						Ember cli uses something called "addons." In here we're going to use a library called "ember-bootstrap" that very smoothly integrates bootstrap with ember. <br>
 						<br>
-						To use it all you have to do is (at the commandline) stop your ember server terminal (press ctrl+c) then type:<br>
+						To use it all you have to do is stop your ember server terminal (it should be running in one of your terminal screens, press ctrl+c to stop it, then type:<br>
 						<pre><code>ember install ember-bootstrap</code></pre>
-						Now open your ember Brocfile.js and tell ember to load bootstrap. To do this, change:<br>
+						Now open your ember's Brocfile.js (located at /home/student/Desktop/myproject/Brocfile.js in sublime and tell ember to load bootstrap. To do this, change:<br>
 						<pre><code>var app = new EmberApp();</code></pre>
 						<br>
 						To:
@@ -433,7 +428,7 @@ git commit -m "end of task 10, created basic flickr page"</code></pre>
 						<br>
 						This will actually mess up the ember liveReload - which we can easily fix now.<br>
 						<br>
-						To fix it, do the following. Open the .ember-cli file in sublime.<br>
+						To fix it, do the following. Open the /home/student/Desktop/myproject/.ember-cli file in sublime.<br>
 						Add two flags so that your file looks like<br>
 						<pre><code>{
   /**
@@ -447,8 +442,9 @@ git commit -m "end of task 10, created basic flickr page"</code></pre>
   "watcher": "polling"
 }</code></pre>
 						<br>
-						Since you modified your Brocfile, you need to restart the ember server. Go to a command line and restart ember cli:<br>
-						<pre><code>ember server</code></pre>
+						Save (ctrl+s). Since you modified your Brocfile, you need to restart the ember server. Go back to a command line and restart ember cli:<br>
+						<pre><code>cd /home/student/Desktop/myproject/
+ember server</code></pre>
 						<br>
 						Once you've done this, you should see that your page is now using some different fonts and has shifted slightly to a centered div. This is because we used the "container" class earlier in our template.<br>
 						<br>
@@ -456,9 +452,9 @@ git commit -m "end of task 10, created basic flickr page"</code></pre>
 						<br>
 						For now, lets style our list template using bootstrap css (see <a href="http://getbootstrap.com/components/">http://getbootstrap.com/components/</a>)<br>
 						<br>
-						If you look at the link, you will see that bootstrap uses the css class names <b>"list-group"</b> and <b>"list-group-item"</b> to apply styling to the elements. Lets modify our application.hbs template file to do this.<br>
+						If you look at the link, you will see that bootstrap uses the css class names <b>"list-group"</b> and <b>"list-group-item"</b> to apply styling to the elements. Lets modify our /home/student/Desktop/myproject/app/templates/application.hbs template file to do this.<br>
 						<br>
-						The new code should be:<br>
+						Open the file in sublime and replace it with the following:<br>
 						<pre><code>&lt;!-- app/templates/application.hbs --&gt;
 &lt;div class="container"&gt;
 	&lt;h2 id="title"&gt;Flickr feed:&lt;/h2&gt;
@@ -479,7 +475,7 @@ git commit -m "end of task 10, created basic flickr page"</code></pre>
 						<br>
 						Lets find out, add a new item to your test data in the controller.<br>
 						<br>
-						Open app/controllers/application.js in sublime. Beneath testimg3, lets add a testimg4<br>
+						Open /home/student/Desktop/myproject/app/controllers/application.js in sublime. Beneath testimg3, lets add a testimg4<br>
 						<br>
 						Change: <br>
 						<pre><code>var testimg3 = Photo.create({
@@ -521,14 +517,14 @@ export default Ember.Controller.extend({
 						When the page reloads, you will see that we have a problem - Images aren't scaled to a size that fits in our list group container. Lets fix this..<br>
 						The best (and easiest) way to fix this is to use CSS. Lets create a new app-specific css file. <br>
 						<br>
-						Open the <i>app.css</i> file in the "styles" folder.<br>
+						Open the <i>app.css</i> file in the "styles" folder (/home/student/Desktop/myproject/app/styles/app.css.<br>
 						<br>
 						Add the following:<br>
 						<pre><code>.feed-img {
-	max-width: 100%
+	max-width: 100%;
 }</code></pre>
 						<br>
-						Now lets modify our application template (application.hbs in /templates) to use our formatting.<br>
+						Now lets modify our application template (application.hbs in /home/student/Desktop/myproject/app/templates) to use our formatting.<br>
 						<br>
 						Change:<br>
 						<pre><code>...
@@ -551,7 +547,7 @@ export default Ember.Controller.extend({
 						<br>
 						Lets start by adding a search bar, so that users can sort through content by title.<br>
 						<br>
-						Before we introduce the functionality, lets modify our application.hbs template to introduce a search bar into the user interface. Lets also clean up our app look by adding a navbar. <br>
+						Before we introduce the functionality, lets modify our /home/student/Desktop/myproject/app/templates/application.hbs template to introduce a search bar into the user interface. Lets also clean up our app look by adding a navbar. <br>
 						<br>
 						In your application.hbs template, change: <br>
 						<pre><code>&lt;!-- app/templates/application.hbs --&gt;
@@ -593,26 +589,27 @@ export default Ember.Controller.extend({
 	&lt;/ul&gt;
 &lt;/div&gt;</code></pre>
 						<br>
-						Lets break this down...<bR>
+						Save using ctrl+s and lets break this down...<bR>
 						<br>
 						The first part i.e. the <b>&lt;nav&gt;</b> element creates a navbar using the relevant bootstrap css to make the navbar stick to the top of the page.<br>
 						The <b>{{#bs-form}}</b> element is a ember-bootstrap component that wraps bootstrap's form element into a handy ember handlebars helper. This creates an in-line textfield, binds the field to the <i>searchField</i> variable in the controller, and then provides an action handler, called <b>search</b> that will fire if the user hits enter.<br>
 						<br>
 						You should see something like: <img src="images/nav-bar-introduced.png"/><br>
 						<br>
-						Lets add some quick styling to our app.css file to clean this up<br>
+						Lets add some quick styling to our /home/student/Desktop/myproject/app/styles/app.css file to clean this up<br>
 						<br>
-						Add<br>
+						In sublime, Add<br>
 						<pre><code>body { padding-top: 70px; }
 .search-field {
 	padding-top: 8px;
 	padding-right: 10px;
 }</code></pre>
 						<br>
+						and save (ctrl+s),
 						This pads the content body, and centers our new search field.<br>
 						Time to make it actually work...<br>
 						<br>
-						Open up your application.js controller and make the following changes:<br>
+						Open up your /home/student/Desktop/myproject/app/controllers/application.js controller in sublime and make the following changes:<br>
 						<pre><code>export default Ember.Controller.extend({
 	photos: testPhotos
 });</code></pre>
@@ -636,7 +633,7 @@ export default Ember.Controller.extend({
 	}
 });</code></pre>
 						<br>
-						There is a lot going on here. Lets take each part one at a time.<br>
+						Save with ctrl+s. There is a lot going on here. Lets take each part one at a time.<br>
 						<br>
 						First, the <b>searchField</b> variable is defined so we can work with it in our controller. <br>
 						Next, we're defining a <b>filteredPhotos</b> collection, that can collect only the subset of items that we want to filter and display.<br>
@@ -654,7 +651,7 @@ export default Ember.Controller.extend({
 						<br>
 						Pretty cool, but how do we actually get the filter to work on our page?<br>
 						<br>
-						The answer is actually really simple. Go back to your application.hbs template and change "photos" to "filteredPhotos"
+						The answer is actually really simple. Go back to your /home/student/Desktop/myproject/app/templatesapplication.hbs template in sublime and change "photos" to "filteredPhotos"
 						<br>
 						e.g.:<br>
 						<pre><code>...
@@ -662,10 +659,11 @@ export default Ember.Controller.extend({
 {{#each photo in filteredPhotos}}
 ...</code></pre>
 						<br>
-						Now try typing google in your search bar and hitting enter again.<br>
+						Save (ctrl+s) and now try typing google in your search bar and hitting enter again.<br>
 						You have a search bar, Awesome!<br>
-						Lets also commit our code
-						<pre><code>git status
+						Lets also commit our code. In one of your terminals not running ember server type the following:<br>
+						<pre><code>cd /home/student/Desktop/myproject/
+git status
 git add -A
 git commit -m "end of task 13, created search bar"
 git push</code></pre>
@@ -675,7 +673,7 @@ git push</code></pre>
 						<h3>13. Jazzing up the search bar </h3>
 						Lets make the search autocomplete as well. It turns out this is really easy to do in ember!<br>
 						<br>
-						go back to your application.js controller and add the following:<br>
+						go back (in sublime) to your /home/student/Desktop/myproject/app/controllers/application.js controller and add the following:<br>
 						<pre><code>export default Ember.Controller.extend({
 	photos: testPhotos,
 	searchField: '',
@@ -695,13 +693,13 @@ git push</code></pre>
 	}
 });</code></pre>
 						<br>
-						What did we do, you ask?<br>
+						Save (ctrl+s). What did we do, you ask?<br>
 						We introduced something called a <b>computed property</b> that automatically updates based on the variables its linked to. In this case, we linked "filteredPhotos" to <b>photos</b> and <b>searchField</b>. This means that anytime either of those variables changes, the filteredPhotos property is updated.<br>
 						So when the user starts typing in the search field, filteredPhotos is automatically updated, and the template refreshes because it is observing our filteredPhotos property. Pretty cool huh?<br>
 						<br>
 						Lets also make the search bar look a little nicer, now that we have it working.<br>
 						<br>
-						In application.hbs, change: <br>
+						Using sublime, change the code in /home/student/Desktop/myproject/app/templates/application.hbs from: <br>
 						<pre><code>&lt;!-- app/templates/application.hbs --&gt;
 &lt;nav class="navbar navbar-default navbar-fixed-top"&gt;
 	&lt;div class="container-fluid"&gt;
@@ -755,7 +753,7 @@ git push</code></pre>
 	&lt;/ul&gt;
 &lt;/div&gt;</code></pre>
 						<br>
-						Ah, much cleaner yeah?<br>
+						Now save (ctrl+s). Ah, much cleaner yeah?<br>
 						<br>
 					</div><!-- end task 14-->
 					<div id="task14" class="taskitem">
@@ -782,13 +780,9 @@ git push</code></pre>
 						First lets actually focus on getting flickr data into our page.<br>
 						To begin, lets create a function that makes <b>ajax requests</b> to the flickr api to get <b>JSON</b> data.<br>
 
-						In your application.js controller, add an action called "getPhotos" (See below): <br>
+						Using sublime, open your /home/student/Desktop/myproject/app/controllers/application.js controller, add an action called "getPhotos" (See below): <br>
 
-						<pre><code>...
-actions: {
-	search: function () {
-		this.get('filteredPhotos');
-	},
+						<pre><code>
 	getPhotos: function(){
 		var apiKey = '46afdefe8cde4ac04e84904e6e10de9e';
 		var host = 'https://api.flickr.com/services/rest/';
@@ -799,14 +793,13 @@ actions: {
 			console.log(data);
 		});
 	},
-}
-...</code></pre>
-			
+</code></pre><br>
+						This getPhotos code should go inside of the 'actions' block already in your controller. Once added, make sure to ctrl+s to save.
 						This function will invoke the flickr API and load the latest photos related to the "hi" tag. The loaded photos are then just pushed to the console as output.<br>
 						<br>
 						To test our function, lets add a temporary UI button to our application template and wire it up to this action.<br>
 						<br>
-						In application.hbs add a button as follows:<br>
+						Using sublime edit /home/student/Desktop/myproject/app/templates/application.hbs to add a button as follows:<br>
 						<pre><code>&lt;!-- app/templates/application.hbs --&gt;
 &lt;nav class="navbar navbar-default navbar-fixed-top"&gt;
 	&lt;div class="container-fluid"&gt;
@@ -818,7 +811,8 @@ actions: {
 				{{#bs-button type="primary" icon="glyphicon glyphicon-download" action="getPhotos"}}{{/bs-button}}
 				...</code></pre>
 
-						<br>
+						Be carefule to inser the new line of code at the appropriate place as indicated above.<br>
+						Once added, press ctrl+s to save.<br>
 						Now you should see a download button like: <img src="images/download-button.png"/><br>
 
 						Click this button, then observe your console and you should see some data downloaded from the flickr api.<br>
@@ -828,7 +822,7 @@ actions: {
 						Hooray! You've loaded in some data. Now its time to make it work with out photos collection object, so that we can display it on the page.<br>
 						For this, we need to add some attributes to our Photo object.<br>
 						<br>
-						In your application.js controller change Photo to:<bR>
+						In your /home/student/Desktop/myproject/app/controllers/application.js controller change Photo to:<bR>
 						<pre><code>var Photo = Ember.Object.extend({
 	title: '',
 	username: '',
@@ -841,11 +835,11 @@ actions: {
 	secret: '',
 	server: '',
 });</code></pre>
-						This will allow us to capture the relevant data into our object model<br>
+						and save (Ctrl+s). This will allow us to capture the relevant data into our object model<br>
 						<br>
 						Now lets change our getPhotos method to load the data into our photo collection, instead of the console.<br>
 
-						change to the following:
+						Open /home/student/Desktop/myproject/app/controllers/application.js and swap out the getPhotos method for the following:
 						<pre><code>getPhotos: function(){
 	var apiKey = '46afdefe8cde4ac04e84904e6e10de9e';
 	var host = 'https://api.flickr.com/services/rest/';
@@ -873,12 +867,12 @@ actions: {
 	});
 },</code></pre>
 						<br>
-						This code will get the response from the flickr API (the variable named "data"), iterate over the data item and find each photo in the collection. Finally the code creates a new instance of our Photo object, instantiates it with the data loaded from the API, and pushes it into the photos collection using the <b>pushObject</b> method.<br>
+						Now save (Ctrl+s). This code will get the response from the flickr API (the variable named "data"), iterate over the data item and find each photo in the collection. Finally the code creates a new instance of our Photo object, instantiates it with the data loaded from the API, and pushes it into the photos collection using the <b>pushObject</b> method.<br>
 						<br>
 						We have to make one last change to see the results in our page.<bR>
 						Since we are updating the "photos" data collection, we need to make sure that our computed property <b>filteredPhotos</b> is updated each time it is updated.<br>
 						<br>
-						For that, we need to change the property to make it observe each item in photos, in the application.js controller, change:<br>
+						For that, we need to change the property to make it observe each item in photos, in the /home/student/Desktop/myproject/app/controllers/application.js controller, change:<br>
 						<pre><code>filteredPhotos: function () {
 		var filter = this.get('searchField');
 		var rx = new RegExp(filter, 'gi');
@@ -900,7 +894,7 @@ actions: {
 		});
 	}.property('photos.@each','searchField'),</code></pre>
 						<br>
-						Save this change, and then click the download button. You should see the data from flickr being loaded into your page. Pretty cool huh?<br>
+						Save this change (ctrl+s), and then click the download button. You should see the data from flickr being loaded into your page. Pretty cool huh?<br>
 						<br>
 						But, you also probably notice a problem. Where is the actual photo?<br>
 						Well you may have noticed that we didn't load the url parameter, so our app doesnt know where to go to find the actual photo<br>
