@@ -3,7 +3,7 @@
 Firewalls are often a first line of defense for an enterprise or home network. In this unit we will understand the fundamentals of firewalls, write firewall rules that configure its behavior and then test if the firewall performs as expected.
 
 ### Cybersecurity First Principles
-* __Minimization__: Minimization refers to having the least functionality of a program or device. The goal of minimization is to simplify and decrease the number of ways the software can be exploited. This can include **turning of ports that are not needed**, reduce the amount of code running and turn of unneeded features.
+* __Minimization__: Minimization refers to having the least functionality necessary in a program or device. The goal of minimization is to simplify and decrease the number of ways that software can be exploited. This can include **turning off ports that are not needed**, reducing the amount of code running on a machine, and/or turning off unneeded features in an application. This lesson focuses specifically on turning off ports that aren't in use.
 
 ### Table of Contents  
 [Overview](#overview)  
@@ -19,13 +19,25 @@ The name firewall is inspired from its physical manifestation in construction wh
 
 ![Firewall in a substation](https://upload.wikimedia.org/wikipedia/commons/3/3c/Firewall_Electrical_Substation.jpg)
 
-While these firewalls are "cool", we are interesting in a different kind of firewall. The ones that protect internal networks from external networks. These kinds of firewalls allow us to control the flow of information across networks. Firewalls, __minimize__ the number of ways the internal networks and computers can be exploited. They allow having __least functionality__ by turning off ports that are not needed. Firewalls can also drop network traffic that does not conform to expected patterns.
+While these firewalls are "cool", we are interested in a different kind of firewall. Namely, the ones that protect internal networks from external networks. These kinds of firewalls allow us to control the flow of information between networks. Firewalls, __minimize__ the number of ways that internal networks and computers on them can be exploited. They also encourage __least functionality__ by turning off ports that are not needed. Firewalls can also drop network traffic that does not conform to expected patterns (such as malicious requests to an application server).
 
 ![network firewalls](../img/firewall/networkfirewall.png)
 
-All popular operating systems now come with a firewall installed. For server installations we will focus on the NETfilter packet filtering module built into the linux kernel itself. This module acts as a firewall and is configured using the `iptables` command. The command line use of iptables provides the utmost flexibility and control over the firewall configuration.
+All popular operating systems now come with a firewall installed. For server installations we will focus on the NETfilter packet filtering module built into the linux kernel itself. This module is configured using the `iptables` command issued in a terminal. The iptables provides a lot of flexibility and control over the configuration of the firewall.
 
 ![iptables screenshot](../img/firewall/iptables.png)
+
+In order for two machines to communicate (such as a client talking to a server), there are many different __layers__ that are involved. Each of these layers is progressively lower level as you move downward. In general there are 7 layers:
+
+- Application - The highest level layer where application data is handled (http/ftp/DHCP/SSH/SSL, etc)
+- Presentation - often the same as the application level, sometimes acts as a translate between application and session
+- Session - The layer that is used to form sessions between applications (often issues remote procedure calls (RPCs))
+- Transport - One of the two layers that are foundational to the modern internet (TCP / UDP), this layer serves to transport packets from one host to another.
+- Network - The second of the foundation layers for the modern internet (IP, IPv4, IPv6, IPSec, etc). This layer serves to transport packets between routers (often referred to as __packet forwarding__).
+- Data Link - The biggest example of the data link layer is ethernet. It provides a protocol for exchanging data over a local network.
+- and Physical - This layer is nothing but raw bits that underly the higher level interpretation of those bits at higher levels.
+
+![network layers](http://electronicdesign.com/site-files/electronicdesign.com/files/uploads/2013/09/0913_WTD_osi_F1.gif)
 
 ### Question
 
@@ -44,7 +56,7 @@ The headers on ethernet frames at the Data link layer and below are not useful f
 
 A Firewall can be understood as a collection of valves  
 
-* Each valve/port corresponds to single service  (e.g. http, ssh, https, smtp)
+* Each valve/port corresponds to single service at the application level (e.g. http, ssh, https, smtp)
 * Each valve can  
   - Permit traffic in one or both directions  
   - Deny traffic  
@@ -53,8 +65,7 @@ A Firewall can be understood as a collection of valves
 
 Here are three basic scenarios to keep in mind.  
 
-First lets consider, **Ports 1 and 4**. These ports are open. Which means they permit packets from internal and external sources. So in the case of TCP protocol, which forms explicit connections or circuits before transmitting data via a handshake mechanism, such connections can be externally or internally initiated.
-
+First lets consider, **Ports 1 and 4**. These ports are open. Which means they permit packets from internal and external sources. So in the case of the TCP protocol, which forms explicit connections or circuits before transmitting data via a handshake mechanism, such connections can be externally or internally initiated.
 
 In the case of **Port 2**, it allows unrestricted flow of information if the connection is initiated internally. However, it blocks all external requests to initiate an information flow. That is, it permits packets from external sources only if they correspond to a “connection” initiated by an internal source. The firewall will not permit connection requests from external sources. This restriction is useful when an internal web client initiates a web browsing request, then the firewall will allow the corresponding incoming response from an external webserver to pass through the firewall. Any connection initiated externally will not be allowed.
 
@@ -64,9 +75,9 @@ Finally, **Port 3** is closed. Which means that it denies all traffic. A closed 
 
 ## Firewall Rules
 
-Firewalls are configured using simple `if then` rules. In a packet filtering firewall, a rule says: `if source, destination, protocol and service is a match THEN take this action`. Since there are many rules involved, the order of the rules matters. **A LOT!**
+Firewalls are configured using simple `if then` rules. In a packet filtering firewall, a rule says: `if source, destination, protocol, and service match a pattern THEN take this action`. Since there are many rules involved, the order of the rules matters. **A LOT!**
 
-Rules are evaluated in order, starting with the first one at the top until a first match is discovered. If your top rule is very generic, i.e. matches almost every packet, then **none of the later specific rules will ever be evaluated**. So it best to start with rules related to specific services that a very little chance of interfering with other rules. Also rules that match the majority of your network traffic should be placed higher.
+Rules are evaluated in order, starting with the first one at the top until a first match is discovered. If your top rule is very generic, i.e. matches almost every packet, then **none of the later specific rules will ever be evaluated**. So it best to start with rules that are the most restrictive (i.e rules that focus on to specific services and have a very small chance of interfering with other rules). After ordering by restrictiveness it is then best to order rules according to how well they match the majority of your network traffic. This minimizes the number of checks required to find a matching rule.
 
 Always start firewall configuration with a _whitelisting_ philosophy, where you “Deny by default” and then allow only specific information flows. This means, start the firewall configuration by dropping all packets. Then add rules to allow specific traffic patterns as required by application needs.
 
@@ -106,11 +117,11 @@ You should see something like this:
 
 What are those `-nL` commandline parameters for?  
 
-`-n` This option tell iptables to not resolve domain names for the ip addresses in the matching rules. This results in faster display of the rules.
+`-n` This option tells iptables to not resolve domain names for the ip addresses in the matching rules. This results in faster display of the rules.
 
 `-L` Lists all the rules in a specified chain. If no chain is specified then all chains are listed.
 
-But wait! what is a **Chain**? A chain is a list of rules that can match a set of packets. It is similar to the example table that we discussed before. There are several built-in chains: INPUT, FORWARD and OUTPUT. For packet filtering, INPUT and OUTPUT chains are sufficient. As their names suggest, INPUT chain is a set of rules that match the "incoming" packets to your computer. Similarly, OUTPUT chain is a set of rules that match the "outgoing" packets. In the screenshot you can observe that currently both these chains are empty! Also `(policy ACCEPT)` suggests that the default policy for both chains is set to ACCEPT all packets. So essentially, your firewall is WIDE OPEN at this point. We better start to close it!
+But wait! what is a **Chain**? A chain is a list of rules that can match a set of packets. It is similar to the example table that we discussed before. There are several built-in chains: INPUT, FORWARD and OUTPUT. For packet filtering, INPUT and OUTPUT chains are sufficient. As their names suggest, INPUT chain is a set of rules that match the "incoming" packets to your computer. Similarly, OUTPUT chain is a set of rules that match the "outgoing" packets. In the screenshot you can observe that currently both of these chains are empty! Also `(policy ACCEPT)` suggests that the default policy for both chains is set to ACCEPT all packets. So essentially, your firewall is WIDE OPEN at this point. We better start to close it!
 
 > A note before we move forward: When in doubt, consult the iptables manual pages using the following command: `man iptables`. Alternatively, here is a [web version](http://ipset.netfilter.org/iptables.man.html).
 
@@ -141,7 +152,7 @@ Let's examine each element in this structure in detail.
 
 ---
 `<option> <chain>`  
-Immediately following the iptables command the **option** component allows to specify the position in which the rule will be inserted into a **chain**. For example `–A INPUT` appends the rule in the INPUT chain. `–I OUTPUT 3` inserts the rule at a specified position in the OUTPUT chain. The rule numbers start at position 1.
+Immediately following the iptables command the **option** component allows us to specify the position in which the rule will be inserted into a **chain**. For example `–A INPUT` appends the rule in the INPUT chain. `–I OUTPUT 3` inserts the rule at a specified position in the OUTPUT chain. The rule numbers start at position 1.
 
 So this option `-I INPUT 1` says: Insert this Rule at position 1 in the INPUT chain.
 
@@ -174,7 +185,7 @@ sudo iptables -nL INPUT
 ```
 ![iptables screenshot](../img/firewall/inputwebrule.png)
 
-This output looks much similar to the example table that we discussed earlier. Here source and desination ip addresses of `0.0.0.0\0` is equivalent to "any". So the rule is equivalent to saying, match all TCP packets from **any** source to **any** desitination with a destination port 80.
+This output looks very similar to the example table that we discussed earlier. Here source and desination ip addresses of `0.0.0.0\0` is equivalent to "any". So the rule is equivalent to saying, match all TCP packets from **any** source to **any** desitination with a destination port 80.
 
 If you did it right, your webserver should be accessible again. Go ahead and confirm.
 
