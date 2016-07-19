@@ -347,6 +347,11 @@ sudo service apache2 restart</code></pre><br>
 						If all goes well, you should see the same app as before, but hosted on localhost, instead of using the 8000 port: e.g.<br>
 						<img src="images/apache-django-configured.png"/><br>
 						Now we have two specific setups. One for development (/var/www/gencybersite) and one for production (/var/www/production/). Henceforth, we will make coding changes in development, push our changes to our github repo and then pull them down into our production setup when we are ready.<br>
+						<br>
+
+						To help keep a picture of our environments, review how the GitHub repository, the development, and production environments are related.<br>
+						<img src="images/django-git-dev-prod.png"><br> 
+
 			        </div><!-- End Task 3-->
 
 			        <div id="task4" class="taskitem">
@@ -380,6 +385,10 @@ ember build --watch -o /var/www/gencybersite/static/ember</code></pre><br>
 			            Now you should see a familiar ember build watch running. The only difference is now it is building into a directory other than /dist/. Specifically it is building into a static folder called "ember/" in /var/www/gencybersite/static/<br>
 			            <br>
 			            <img src="images/ember-build.png"/><br>
+			            <br>
+			            To help visualize again, use the diagram as an overview.  The ember build process puts code into the gencybersite development area to be served via django's web server.  <br>
+			            <img src="images/django-git-dev-prod-ember.png"><br>
+			            <br>
 
 			            Now we just need to tell django to host ember on our root url<br>
 			            In another terminal window (ctrl+shift+t for a new one) run runserver as follows:<br>
