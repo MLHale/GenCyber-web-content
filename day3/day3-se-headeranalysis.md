@@ -8,7 +8,7 @@
 * __Think before you act:__ Be wary of communications that implore you to act immediately, offer something that sounds too good to be true or ask for personal information.
 
 ### Cybersecurity First Principles
-* __Layering__: Cyber security uses multiple layers of defense or protecting information. If one layer is defeated the next layer should catch it.
+* __Layering__: Cyber security uses multiple layers of defense or protecting information. If one layer is defeated the next layer should catch it. This lesson emphasizes the human element, that is we as humans have to catch problems (like phishing) that make it past the email-level and browser-level filtering mechanisms.
 
 ### Table of Contents  
 [Introduction](#introduction)  
@@ -24,9 +24,7 @@
 
 Email is an indispensable communication tool. We use it everyday. Unfortunately many attacks also originate in emails. Wouldn't it be great if everyone had some mad email ninja skills! Don't worry, you will feel pretty good about your email analysis skills at the end of this session.
 
-A vigilant, trained and aware human user is a critical layer of defense against threats both internal and external. Even if malicious URLs and Emails get past spam filters and anti-virus software, a human user can catch it. Such a defensive strategy is common in secure system designs. It is a *cyber security first principle* called `Layering.`
-
-> __Layering__: Cyber security uses multiple layers of defense or protecting information. If one layer is defeated the next layer should catch it.
+A vigilant, trained and aware human user is a critical layer of defense against threats both internal and external. Even if malicious URLs and Emails get past spam filters and anti-virus software, a human user can catch it. Such a defensive strategy is common in secure system designs. It also demonstrates a *cyber security first principle* called `Layering.`
 
 When reading emails, the first item that grabs our attention is the sender's name, email and subject. But, it may come as a surprise that spoofing these in a email is a pretty easy thing! It is also effective at fooling unsuspecting email users. Take a look at some of the statistics in the [Verizon Data Breach Reports](http://www.verizonenterprise.com/verizon-insights-lab/dbir/).
 
@@ -222,7 +220,7 @@ Google has a [online tool](https://toolbox.googleapps.com/apps/messageheader/) t
 
 ## Exercise
 
-Open up the files in the ["email-headers" Folder](./email-headers) and then answer the questions in each one of them. Check your answers with a peer. If they differ then work with your peer to come to a final conclusion. Use the following online tools as shown above.
+Open up the files in the ["email-headers" Folder](./email-headers) using the Google Header analysis tool and then answer the questions in each one of them. Check your answers with a peer. If they differ then work with your peer to come to a final conclusion. Links to the online tools are shown above.
 
 * [network-tools](http://network-tools.com)
 * [Google Message Header Analyzer](https://toolbox.googleapps.com/apps/messageheader/)
@@ -297,7 +295,7 @@ Questions:
 
 ## Additional Tasks
 
-Pick an spam email in your inbox. Inspect discrepancies in its headers and investigate the source of the email. Spot traps that can misguide a email user. Share this knowledge with your friends and family.
+Pick a spam email in your inbox. Inspect discrepancies in its headers and investigate the source of the email. Spot traps that can misguide a email user. Share this knowledge with your friends and family.
 
 [Phishing](https://www.consumer.ftc.gov/articles/0003-phishing) emails often appear to be from someone you know. They  ask for urgent and critical actions like sending money, sharing bank information and passwords. Double-check the real source of the email. Follow-up with a call to confirm the emergency.
 
