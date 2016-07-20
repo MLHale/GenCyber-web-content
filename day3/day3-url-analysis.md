@@ -14,7 +14,7 @@
 ### Cybersecurity First Principles
 * __Layering__: Cyber security uses multiple layers of defense or protecting information. If one layer is defeated the next layer should catch it.
 
-* __Information Hiding__: Information hiding is any attempt to prevent people from being able to see information. It can be hiding the content of a letter, or it can be applied to hiding how the letter is delivered. Both ways can prevent people from being able to see the information.
+* __Information Hiding__: Information hiding is any attempt to prevent people from being able to see information. It can be hiding the content of a letter, or it can be applied to hiding how the letter is delivered. Both ways can prevent people from being able to see the information. This lesson looks at how malicious information can be hidden in URLs or other data fields.
 
 ## Phishing Humor
 
@@ -40,10 +40,7 @@ Phishing victims often fear ridicule and do not report crimes...
 
 Most Phishing attacks start with a specially-crafted URL. When clicked on, phishing URLs take you to fake websites, download malware or prompt for credentials.
 
-A URL is an acronym for Uniform Resource Locator. It is a standard format for locating web resources on the Internet. Most Internet users refer it as the "address for a website". For example, http://www.amazon.com. News story URLs like this one: http://www.cnn.com/2016/07/06/health/juno-jupiter-nasa/index.html are often much longer. On social media sites we are used to seeing short URLs like this one: http://cnn.it/29lG6OK or links on shopping sites: https://amzn.com/0132390779. Even emails are often filled with URLs that senders want us to click on. URLs also give us access to our bank accounts, tax filing, healthcare, billing, and many government services. While all Internet users use it everyday, very few are confident in their abilities to read a URL, much less understand what might happen if clicked on. Let's change that. A vigilant, trained and aware human user is a critical layer of defense against threats both internal and external. Even if malicious URLs and Emails get past spam filters and anti-virus software, a human user can catch it. Such a defensive strategy is common in secure system designs. It is a *cyber security first principle* called `Layering.`
-
-> __Layering__: Cyber security uses multiple layers of defense or protecting information. If one layer is defeated the next layer should catch it.
-
+A URL is an acronym for Uniform Resource Locator. It is a standard format for locating web resources on the Internet. Most Internet users refer to it as the "address for a website". For example, http://www.amazon.com. News story URLs like this one: http://www.cnn.com/2016/07/06/health/juno-jupiter-nasa/index.html are often much longer. On social media sites we are used to seeing short URLs like this one: http://cnn.it/29lG6OK or links on shopping sites: https://amzn.com/0132390779. Even emails are often filled with URLs that senders want us to click on. URLs also give us access to our bank accounts, tax filing, healthcare, billing, and many government services. While all Internet users use it everyday, very few are confident in their abilities to read a URL, much less understand what might happen if clicked on. Let's change that. A vigilant, trained and aware human user is a critical layer of defense against threats both internal and external. Even if malicious URLs and Emails get past spam filters and anti-virus software, a human user can catch it. Such a defensive strategy is common in secure system designs. It is a *cyber security first principle* called `Layering.`
 
 [Top](#table-of-contents)
 
@@ -93,7 +90,7 @@ This is depicted in the figure below.
 ![domainnames](../img/phishing/domainnames.png)
 
 
-So if wikipedia wants to name a computer `apple` in its domain, then it has full freedom to do so. The name of the computer on the Internet would be `apple.wikipedia.org.` This URL has nothing to do with `apple.com.` top-level domain.
+So if wikipedia wants to name a computer `apple` in its domain, then it has full freedom to do so. The name of the computer on the Internet would be `apple.wikipedia.org.` This URL has nothing to do with the `apple.com.` top-level domain.
 
 Now it should be apparent that the "right" way to read a url is to actually start reading it from the *right*. Starting from the right allows us to identify the top-level domain for the URL. There are two simple rules to follow:
 
@@ -104,7 +101,7 @@ Now it should be apparent that the "right" way to read a url is to actually star
 * If single forward-slash characters (`/`) exist in the URL, then find the farthest one from the right. Start reading the top-level domain names right to left from that point onwards.
 
   > For example: `http://activate.facebook.fblogins.net/88adbao798283o8298398?login.asp`   
-  In this link the farthest single forward-slash(`/`) from the right is between `net` and `88adbao798283o8298398`. So the top-level domains here are `net` and then `fblogins`. Beyond these two names, the organization that owns `fblogins` domain can makeup whaterver names that it wants, such as `www`, `login`,`facebook`, `apple` or `google`.   
+  In this link the farthest single forward-slash(`/`) from the right is between `net` and `88adbao798283o8298398`. So the top-level domains here are `net` and then `fblogins`. Beyond these two names, the organization that owns `fblogins` domain can makeup whatever names that it wants, such as `www`, `login`,`facebook`, `apple` or `google`.   
   So now we know that this link is not at all affiliated with `facebook.com`!
 
 
@@ -372,7 +369,7 @@ https://oit.byuh.edu/help/anti-phishing
 
 ## Spear-Phishing
 
-Crafting URLs is just one part of the deception used by Spammers. *Spear-Phishing* is a social engineering technique where a spammer uses intimate details about your life, your contacts and recent activities to tailor a very specific attack.
+Crafting URLs is just one part of the deception used by Spammers. *Spear-Phishing* is a social engineering technique where a spammer uses intimate details about your life, your contacts, and/or recent activities to tailor a very specific attack.
 
 Watch this 3 min video (if you do not have audio, it is OK):   
 https://www.youtube.com/watch?v=F7pYHN9iC9I
@@ -390,7 +387,7 @@ Sites like Facebook, Linkedin, Company websites, Organizational Charts and Emplo
 
 ## Geolocation
 
-GPS-enabled smartphones allow photos, videos, messages and social media posts to be **Geotagged**. Location information is embedded in the metadata for media alongside file name, date, camera information, etc. When geotagged media is shared publicly, location information is inadvertently shared along with it. Such information aggregated over time starts to reveal private information such as: work and home locations, daily routines, frequented places, vacation destinations, shopping places, and much more.
+GPS-enabled smartphones allow photos, videos, messages and social media posts to be **Geotagged**. Location information is embedded in the metadata for media alongside file name, date, camera information, etc. When geotagged media is shared publicly, location information is often inadvertently shared along with it. Such information aggregated over time starts to reveal private information such as: work and home locations, daily routines, frequented places, vacation destinations, shopping places, and much more.
 
 Tools are freely available for conducting Geolocation OSINT. For example, this tool is aptly named geoCreepy!  
 Downloads: http://www.geocreepy.com/  
@@ -404,7 +401,7 @@ This web-application takes a twitter handle and aggregates all publicly availabl
 
 ![geotagging](../img/phishing/stevewoz.png)
 
-It is often prudent for celebrities and politicians to turn off geotagging in their posts. Here is Donald Trump's twitter account. He (or someone on his behalf) has taken appropriate steps to avoid leaking information about his whereabouts through social media.
+It is often prudent for celebrities and politicians to turn off geotagging in their posts. Here is Donald Trump's twitter account. He (or someone on his behalf) has taken appropriate steps to avoid leaking information about his whereabouts through social media, even while leaking hot air.
 
 ![geotagging](../img/phishing/trump.png)
 
@@ -412,13 +409,13 @@ Hillary Clinton is also very cautious about her privacy, unlike her handling of 
 
  ![geotagging](../img/phishing/clinton.png)
 
-To prevent inadvertent sharing of geolocation data, turn of **location services** for social media applications. Also, remove geotags from photos before sharing them on social media.  Here is some more guidance: http://teachingprivacy.org/prevention/#location
+To prevent inadvertent sharing of geolocation data, turn off **location services** for social media applications. Also, remove geotags from photos before sharing them on social media.  Here is some more guidance: http://teachingprivacy.org/prevention/#location
 
-Here is a twitter setting (Settings --> Security and Privacy) to delete any previously tagged locations.
+For instance, if you have a twitter account, there is a setting (Settings --> Security and Privacy) to delete any previously tagged locations.
 
 ![geotagging](../img/phishing/deletelocation.png)
 
-Protecting privacy requires __Information Hiding__. Deleting or hiding metadata prevents sensitive patterns to be learned over time. This is true even for encrypted `https` Internet traffic. While `https` encryption protects message contents, it still reveals the communication endpoints. Over time an accurate communication graph can be built by examining such communications. To conceal  browsing patterns over the Internet, Virtual Private Networks (VPN) are very effective.
+Protecting privacy requires __Information Hiding__. Deleting or hiding metadata prevents sensitive patterns from being learned over time. This is true even for encrypted `https` Internet traffic. While `https` encryption protects message contents, it still reveals the communication endpoints. Over time an accurate communication graph can be built by examining many such communications. To conceal  browsing patterns over the Internet, Virtual Private Networks (VPN) are very effective. VPNs work by forming a tunnel between your current connection and a known network (such as the unomaha network). Once a tunnel is formed, all requests you make appear as if they originate from within the known network, since they emanate from the location you have tunneled to.
 
 [Top](#table-of-contents)
 
