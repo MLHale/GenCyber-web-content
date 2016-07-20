@@ -48,7 +48,7 @@ Before we get started, consider this email from President Barack Obama to a Rese
 ![email](../img/email/emailpresident.png)
 
 
-Anyways...we see emails like this all the time using desktop or web-based email clients. The section pointed to by the big red arrow, is the part of the email header that most people are familiar with.
+Anyways...we see emails like this all the time using desktop or web-based email clients. The section pointed to by the big red arrow in the figure above, is the part of the email header that most people are familiar with.
 
 There is more to this header. To reveal the full message header, different desktop or web email applications have different methods. Here are instructions to get the full email headers using popular email applications:
 
@@ -222,7 +222,7 @@ Google has a [online tool](https://toolbox.googleapps.com/apps/messageheader/) t
 
 Open up the files in the ["email-headers" Folder](./email-headers) using the Google Header analysis tool and then answer the questions in each one of them. Check your answers with a peer. If they differ then work with your peer to come to a final conclusion. Links to the online tools are shown above.
 
-* [network-tools](http://network-tools.com)
+* [Network-tools](http://network-tools.com)
 * [Google Message Header Analyzer](https://toolbox.googleapps.com/apps/messageheader/)
 
 [Top](#table-of-contents)
@@ -307,6 +307,8 @@ Stay Vigilant!
 
 * How to locate raw headers in email clients. [mxtoolbox](https://mxtoolbox.com/Public/Content/EmailHeaders/)
 * Advanced email headers. [ARCLAB](https://www.arclab.com/en/kb/email/how-to-read-and-analyze-the-email-header-fields-spf-dkim.html)
+* DomainKeys Identified Mail (DKIM), https://en.wikipedia.org/wiki/DomainKeys_Identified_Mail
+* Sender Policy Framework (SPF), http://www.openspf.org
 
 [Top](#table-of-contents)
 
