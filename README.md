@@ -36,19 +36,15 @@ The guides are organized by camp days and are available at the linked urls:
 
 ### Day 4: Teacher-Student group exercises
 
-##### Module 1. Virtualization, Version Control and Collaboration  
-* [Virtualization Primer](./day1/virtualization-primer.md)   
-* [Github Primer](./day1/github-primer.md)   
-
-##### Module 2. Server Hardening and Firewalls
-  * [Firewalls](./day2/day2-firewalls-iptables.md)  
-
-##### Module 3. Avoiding Phishing
-  * [Email Header Analysis](./day3/day3-se-headeranalysis.md)
+##### Module 1. Phishing
   * [URL Analysis](./day3/day3-url-analysis.md)
+  * [Email Header Analysis](./day3/day3-se-headeranalysis.md)
 
-##### Module 4. REST API Hardening
-  * [Input filtering and API hardening](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task11)
+##### Module 2. REST API Hardening
+  * [REST API hardening with Access Control and Input Filtering](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task10)
+
+##### Module 3. Firewalls
+  * [Firewalls](./day2/day2-firewalls-iptables.md)
 
 ##### Evaluation Forms
 * [Student Evaluation Form](https://docs.google.com/forms/d/e/1FAIpQLSfaTgdb9j8x86PVtDRYB0XSJZHDF0M2g8-R5QD-_aJmKs-lLw/viewform)
