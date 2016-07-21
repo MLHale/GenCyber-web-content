@@ -4,6 +4,9 @@ Files in this repository are intended to provide step-by-step self paced tutoria
 # Camp Study Guides
 The guides are organized by camp days and are available at the linked urls:
 
+### Camp Schedule
+[schedule](./schedule/uno-camp-schedule-2016.pdf)
+
 ### Day1: Development Environment and Client-side App Creation
 1. [Virtualization Primer](./day1/virtualization-primer.md)  
 2. [Github Primer](./day1/github-primer.md)
@@ -32,25 +35,28 @@ The guides are organized by camp days and are available at the linked urls:
   * [Email Header Analysis](./day3/day3-se-headeranalysis.md)
   * [URL Analysis](./day3/day3-url-analysis.md)
 2. Avoiding Network Snooping
-  * Hands-on with Cryptography  
+  * [Hands-on with Cryptography](./day3/day3-crypto.md)
 
 ### Day 4: Teacher-Student group exercises
 
-1. Avoiding Phishing
-  * <a href="./day3/day3-url-analysis.md" target="_blank">URL Analysis</a>
-  * <a href="./day3/day3-se-headeranalysis.md" target="_blank">Email Header Analysis</a>
+[Ethics statement](./ethics-statement/ethics-sample.md)
 
-2. <a href="http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task10" target="_blank">REST API hardening with Access Control and Input Filtering</a>
+Session 1. Avoiding Phishing
+  * [URL Analysis](./day3/day3-url-analysis.md)
+  * [Email Header Analysis](./day3/day3-se-headeranalysis.md)
 
-3. <a href="./day2/day2-firewalls-iptables.md" target="_blank">Firewalls</a>
+Session 2. [REST API hardening with Access Control and Input Filtering](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task10)
 
-4. Evaluation Forms
-  * <a href="https://docs.google.com/forms/d/e/1FAIpQLSfaTgdb9j8x86PVtDRYB0XSJZHDF0M2g8-R5QD-_aJmKs-lLw/viewform" target="_blank">Student Evaluation Form</a>
-  * <a href="https://docs.google.com/forms/d/e/1FAIpQLSeApna8ZsyeOtrWHEmlr_epKYarDq4EaxYnIPoyV3HDDVOTeA/viewform" target="_blank">Teacher Peer Evaluation Form</a>
-  * <a href="https://docs.google.com/forms/d/e/1FAIpQLSfGxM5p10WfOeANDcxylNF240cVEeFew8HbCsAjss5IJawVyQ/viewform" target="_blank">Teacher Module Evaluation Form</a>
+Session 3. [Firewalls](./day2/day2-firewalls-iptables.md)
+
+Evaluation Forms
+  * [Student Evaluation Form](https://docs.google.com/forms/d/e/1FAIpQLSfaTgdb9j8x86PVtDRYB0XSJZHDF0M2g8-R5QD-_aJmKs-lLw/viewform)
+  * [Teacher Peer Evaluation Form](https://docs.google.com/forms/d/e/1FAIpQLSeApna8ZsyeOtrWHEmlr_epKYarDq4EaxYnIPoyV3HDDVOTeA/viewform)
+  * [Teacher Module Evaluation Form](https://docs.google.com/forms/d/e/1FAIpQLSfGxM5p10WfOeANDcxylNF240cVEeFew8HbCsAjss5IJawVyQ/viewform)
 
 ### Day 5: Capture the Flag Contest
-1. [Jeopardy style contest among student-teacher teams](https://genctf.mlhale.com).
+* [Jeopardy style contest among student-teacher teams](https://genctf.mlhale.com).
+* [Facebook ctf setup](./facebookctf/fbctf.md)
 
 ## Self Exploration Kits
 
