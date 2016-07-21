@@ -4,6 +4,7 @@ Files in this repository are intended to provide tutorials to teachers seeking t
 ### These presentations are modules given to students July 18-20, 2016. 
 
 1. [Camp Introduction](https://github.com/MLHale/GenCyber-web-content/blob/master/student-content/Gen-Cyber%20Intro%20-%202016.pptx)
+2. [Gen-Cyber Teacher Overview](https://github.com/MLHale/GenCyber-web-content/blob/master/student-content/Gencyber%20teacher%20overview.pptx)
 2. [Cyber Careers](https://github.com/MLHale/GenCyber-web-content/blob/master/student-content/Cyber%20Resume.pptx)
 3. [Numbering Systems] (https://github.com/MLHale/GenCyber-web-content/blob/master/student-content/Numbering%20Systems.pptx)
 4. [Cryptography] (https://github.com/MLHale/GenCyber-web-content/blob/master/student-content/Cryptography.pptx)
