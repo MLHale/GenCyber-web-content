@@ -3,12 +3,17 @@ Files in this repository are intended to provide tutorials to teachers seeking t
 
 ### These presentations are modules given to students July 18-20, 2016. 
 
-1. [Camp Introduction](./student-content/)
-2. [Cyber Careers](./student-content/)
-3. 
+1. [Camp Introduction](./student-content/Gen-Cyber Intro - 2016.pptx)
+2. [Cyber Careers](./student-content/Cyber Resume.pptx)
+3. [Operating Systems](./student-content/Operating Systems.pptx)
+4. [Raspberry Pi 3 Setup](./student-content/Raspberry Pi 3.pptx)
+5. [Networking & Network security](./student-content/Raspberry Pi 3.pptx)
+6. [Security Toolkit](./student-content/Security Toolkit.pptx)
+7. [Computer Forensics](./student-content/Forensics.pptx)
+8. [Malware Analysis & cleanup](./student-content/Malware.pptx)
   
 
-[Ethics statement](./ethics-statement/ethics-sample.md)
+[Ethics statement](https://github.com/MLHale/GenCyber-web-content/tree/master/ethics-statement)
 
 
 ## Contacts
