@@ -93,7 +93,7 @@ University of Nebraska at Omaha
 
 ### License  
 Gencyber web content.  
-Copyright (C) 2016  Dr. Matthew L. Hale  
+Copyright (C) 2016  Dr. Matthew L. Hale  and Dr. Robin Gandhi 
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
