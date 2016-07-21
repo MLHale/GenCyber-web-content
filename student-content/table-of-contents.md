@@ -13,7 +13,7 @@ Files in this repository are intended to provide tutorials to teachers seeking t
 8. [Malware Analysis & cleanup](https://github.com/MLHale/GenCyber-web-content/blob/master/student-content/Malware.pptx)
 
 There are additional files in the student content folder: <br />
-1. [Forensic JPG Image](https://github.com/MLHale/GenCyber-web-content/blob/master/student-content/Forensics-Geotagged-image.jpg) - a picture that is geotagged. Challenge your students to figure out where it was taken, when, and with what device. 
+1. [Forensic JPG Image](https://github.com/MLHale/GenCyber-web-content/blob/master/student-content/Forensics-Geotagged-image.jpg) - a picture that is geotagged. Challenge your students to figure out where it was taken, when, and with what device. <br />
 2. [Operating Systems Identification Worksheet](https://github.com/MLHale/GenCyber-web-content/blob/master/student-content/Operating%20System%20ID%20Sheet.docx) - Worksheet to identify components of Windows and Linux operating systems.  Useful for system hardening and forensics. 
 
 [Ethics statement](https://github.com/MLHale/GenCyber-web-content/tree/master/ethics-statement)
