@@ -44,7 +44,7 @@ General information about the features of this tool are available here:
 
 ### Lab Assignments
 Using Cryptool 2, complete the following assignments
-* [Caesar, Hill, Vigenère, XOR and Vernam, Transposition and Substitution](./crypto-resources/ryptology-lab-sheet.pdf)
+* [Caesar, Hill, Vigenère, XOR and Vernam, Transposition and Substitution](./crypto-resources/cryptology-lab-sheet.pdf)
 * [Analyzing encrypted texts](./crypto-resources/cryptanalysis-lab-sheet2.pdf)
 
 ## Additional Resources
