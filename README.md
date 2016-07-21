@@ -31,25 +31,23 @@ The guides are organized by camp days and are available at the linked urls:
 1. Avoiding Phishing
   * [Email Header Analysis](./day3/day3-se-headeranalysis.md)
   * [URL Analysis](./day3/day3-url-analysis.md)
-3. Avoiding Network Snooping
+2. Avoiding Network Snooping
   * Hands-on with Cryptography  
 
 ### Day 4: Teacher-Student group exercises
 
-##### Module 1. Phishing
-  * [URL Analysis](./day3/day3-url-analysis.md)
-  * [Email Header Analysis](./day3/day3-se-headeranalysis.md)
+1. Avoiding Phishing
+  * <a href="./day3/day3-url-analysis.md" target="_blank">URL Analysis</a>
+  * <a href="./day3/day3-se-headeranalysis.md" target="_blank">Email Header Analysis</a>
 
-##### Module 2. REST API Hardening
-  * [REST API hardening with Access Control and Input Filtering](http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task10)
+2. <a href="http://htmlpreview.github.com/?https://github.com/MLHale/GenCyber-web-content/blob/master/day2/day2.html#task10" target="_blank">REST API hardening with Access Control and Input Filtering</a>
 
-##### Module 3. Firewalls
-  * [Firewalls](./day2/day2-firewalls-iptables.md)
+3. <a href="./day2/day2-firewalls-iptables.md" target="_blank">Firewalls</a>
 
-##### Evaluation Forms
-* [Student Evaluation Form](https://docs.google.com/forms/d/e/1FAIpQLSfaTgdb9j8x86PVtDRYB0XSJZHDF0M2g8-R5QD-_aJmKs-lLw/viewform)
-* [Teacher Peer Evaluation Form](https://docs.google.com/forms/d/e/1FAIpQLSeApna8ZsyeOtrWHEmlr_epKYarDq4EaxYnIPoyV3HDDVOTeA/viewform)
-* [Teacher Module Evaluation Form](https://docs.google.com/forms/d/e/1FAIpQLSfGxM5p10WfOeANDcxylNF240cVEeFew8HbCsAjss5IJawVyQ/viewform)
+4. Evaluation Forms
+  * <a href="https://docs.google.com/forms/d/e/1FAIpQLSfaTgdb9j8x86PVtDRYB0XSJZHDF0M2g8-R5QD-_aJmKs-lLw/viewform" target="_blank">Student Evaluation Form</a>
+  * <a href="https://docs.google.com/forms/d/e/1FAIpQLSeApna8ZsyeOtrWHEmlr_epKYarDq4EaxYnIPoyV3HDDVOTeA/viewform" target="_blank">Teacher Peer Evaluation Form</a>
+  * <a href="https://docs.google.com/forms/d/e/1FAIpQLSfGxM5p10WfOeANDcxylNF240cVEeFew8HbCsAjss5IJawVyQ/viewform" target="_blank">Teacher Module Evaluation Form</a>
 
 ### Day 5: Capture the Flag Contest
 1. [Jeopardy style contest among student-teacher teams](https://genctf.mlhale.com).
