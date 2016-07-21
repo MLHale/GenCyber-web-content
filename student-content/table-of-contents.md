@@ -3,14 +3,14 @@ Files in this repository are intended to provide tutorials to teachers seeking t
 
 ### These presentations are modules given to students July 18-20, 2016. 
 
-1. [Camp Introduction](./student-content/Gen-Cyber Intro - 2016.pptx)
-2. [Cyber Careers](./student-content/Cyber Resume.pptx)
-3. [Operating Systems](./student-content/Operating Systems.pptx)
-4. [Raspberry Pi 3 Setup](./student-content/Raspberry Pi 3.pptx)
-5. [Networking & Network security](./student-content/Raspberry Pi 3.pptx)
-6. [Security Toolkit](./student-content/Security Toolkit.pptx)
-7. [Computer Forensics](./student-content/Forensics.pptx)
-8. [Malware Analysis & cleanup](./student-content/Malware.pptx)
+1. [Camp Introduction](https://github.com/MLHale/GenCyber-web-content/blob/master/student-content/Gen-Cyber%20Intro%20-%202016.pptx)
+2. [Cyber Careers](https://github.com/MLHale/GenCyber-web-content/blob/master/student-content/Cyber%20Resume.pptx)
+3. [Operating Systems](https://github.com/MLHale/GenCyber-web-content/blob/master/student-content/Operating%20Systems.pptx)
+4. [Raspberry Pi 3 Setup](https://github.com/MLHale/GenCyber-web-content/blob/master/student-content/Raspberry%20Pi%203.pptx)
+5. [Networking & Network security](https://github.com/MLHale/GenCyber-web-content/blob/master/student-content/Networking.pptx)
+6. [Security Toolkit](https://github.com/MLHale/GenCyber-web-content/blob/master/student-content/Security%20Toolkit.pptx)
+7. [Computer Forensics](https://github.com/MLHale/GenCyber-web-content/blob/master/student-content/Forensics.pptx)
+8. [Malware Analysis & cleanup](https://github.com/MLHale/GenCyber-web-content/blob/master/student-content/Malware.pptx)
   
 
 [Ethics statement](https://github.com/MLHale/GenCyber-web-content/tree/master/ethics-statement)
