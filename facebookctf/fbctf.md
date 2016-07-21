@@ -45,12 +45,12 @@ where <new password> should be replace by the password you would like to set.
 ### Logging in
 
 Once running, you may navigate to the listed IP address and you should see something like:
-![login](/img/welcome.png)
+![login](./img/welcome.png)
 
 Login using the password you set or the default password.
 
 Clicking 'gameboard' from the admin menu will take you to a country board that looks like:
-![login](/img/gameboard.png)
+![login](./img/gameboard.png)
 
 ### Aditional Info
 For more information, refer to the [FBCtf documentation](https://github.com/facebook/fbctf)
