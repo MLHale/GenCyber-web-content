@@ -1,4 +1,4 @@
-# GenCyber Camp @ The University of Nebraska at Omaha
+# GenCyber Camp @ [The University of Nebraska at Omaha](http://www.unomaha.edu/college-of-information-science-and-technology/academics/information-assurance.php)
 Files in this repository are intended to provide step-by-step self paced tutorials to teachers seeking to learn about cybersecurity first principles as part of the UNO Gencyber camp. The strategy is to *learn by doing*. The overall theme is to develop components of a web application with cybersecurity first principles *baked-in*.
 
 # Camp Study Guides
@@ -72,6 +72,10 @@ For teachers interested in self exploration of Maker/Hacker kits, several option
 8. [Little Bits Starter Kit](http://store-usa.arduino.cc/collections/kit/products/mk00641)
 9. [Little Bits Cloud Kit](http://store-usa.arduino.cc/collections/kit/products/mk00678)
 
+## Student Camp Resources
+
+[Instructional modules](./student-content/table-of-contents.md) from [Bellevue University](http://www.bellevue.edu) for Day 1 to Day 3 of the student portion of the camp.
+
 ## Other Resources
 
 [NSA Day of Cyber](http://nsadayofcyber.com)  
@@ -93,7 +97,7 @@ University of Nebraska at Omaha
 
 ### License  
 Gencyber web content.  
-Copyright (C) 2016  Dr. Matthew L. Hale  and Dr. Robin Gandhi 
+Copyright (C) 2016  Dr. Matthew L. Hale  and Dr. Robin Gandhi
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
