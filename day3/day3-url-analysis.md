@@ -34,7 +34,9 @@ Phishing victims often fear ridicule and do not report crimes...
 [AntiPhishing Phil Game](#antiphishing-phil-game)   
 [Spear Phishing](#spear-phishing)  
 [Geolocation](#geolocation)  
-[Additional Readings](#additional-readings)
+[Additional Readings](#additional-readings)  
+[Teacher Developed Modules](#teacher-developed-modules)  
+[Acknowledgements](#special-thanks)
 
 ## Introduction to URLs
 
@@ -374,8 +376,6 @@ https://oit.byuh.edu/help/anti-phishing
 
 ## Spear-Phishing
 
-[*](https://docs.google.com/presentation/d/1v88tRWOJDjamhhF4YIRo7_wVDZ5u4qVTt7liD20-EyU/edit?ts=5790d96e#slide=id.p)
-
 Crafting URLs is just one part of the deception used by Spammers. *Spear-Phishing* is a social engineering technique where a spammer uses intimate details about your life, your contacts, and/or recent activities to tailor a very specific attack.
 
 Watch this 3 min video (if you do not have audio, it is OK):   
@@ -432,6 +432,12 @@ Protecting privacy requires __Information Hiding__. Deleting or hiding metadata 
 * [Reporting Phishing](https://www.consumer.ftc.gov/articles/0003-phishing), Federal Trade Commission
 * APWG, Phishing [Public Education](http://phish-education.apwg.org/r/en/index.htm)
 * Teaching Privacy: http://teachingprivacy.org
+
+[Top](#table-of-contents)
+
+## Teacher Developed Modules
+
+* [Phishing Discussion @ GenCyber Camp 2016](https://docs.google.com/presentation/d/1v88tRWOJDjamhhF4YIRo7_wVDZ5u4qVTt7liD20-EyU/edit?ts=5790d96e#slide=id.p)
 
 [Top](#table-of-contents)
 
