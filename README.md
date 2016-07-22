@@ -57,6 +57,8 @@ Evaluation Forms
 ### Day 5: Capture the Flag Contest
 * [Jeopardy style contest among student-teacher teams](https://genctf.mlhale.com).
 * [Facebook ctf setup](./facebookctf/fbctf.md)
+* [Exit Survey (Teachers)](https://www.surveymonkey.com/r/AIMInstitute_T1)
+* [Exit Survey(Students)](https://www.surveymonkey.com/r/AIMInstitute_S1) 
 
 ## Self Exploration Kits
 

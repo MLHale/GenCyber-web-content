@@ -437,7 +437,7 @@ Protecting privacy requires __Information Hiding__. Deleting or hiding metadata 
 
 ## Teacher Developed Modules
 
-* [Phishing Discussion @ GenCyber Camp 2016](https://docs.google.com/presentation/d/1v88tRWOJDjamhhF4YIRo7_wVDZ5u4qVTt7liD20-EyU/edit?ts=5790d96e#slide=id.p)
+* [Phishing Discussion @ GenCyber Camp 2016](https://dl.dropboxusercontent.com/u/4594444/Gencyber-teacher-modules/spear%20phishing.pptx)
 
 [Top](#table-of-contents)
 
