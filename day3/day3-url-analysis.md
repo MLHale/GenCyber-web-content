@@ -96,7 +96,7 @@ So if wikipedia wants to name a computer `apple` in its domain, then it has full
 
 Now it should be apparent that the "right" way to read a url is to actually start reading it from the *right*. Starting from the right allows us to identify the top-level domain for the URL. There are two simple rules to follow:
 
-* If no single forward-slash characters (`/`) exits in the URL, start reading the top-level domain names from the far right to left.
+* If no single forward-slash characters (`/`) exists in the URL, start reading the top-level domain names from the far right to left.
 
   > For example: https://www.icann.org has no single forward-slash characters. It does have double forward-slash characters (`//`), but that is not what we are looking for. So in this case, start reading the top-level domains from the far right to left. It is `org` and then `icann`
 
