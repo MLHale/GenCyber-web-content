@@ -1214,17 +1214,18 @@ export default Ember.Component.extend({
 			        	Finally, we are ready to switch back to security work. We've created this pretty cool API and nice client-side interface to use it. However, our API is by default pretty insecure! <br>
 			        	There are several problems. First, lets go back to our browser and go to <a href=localhost:8000/api/likes/>localhost:8000/api/likes/</a>. Now make sure you are logged out and you should still see all of the data:<br>
 			        	<img src="images/insecure-1.png"/><br>
-			        	Thinking about this screenshot, it might occur to you that this is problematic. This issue illustrates the failure of a cybersecurity first principle: Resource encapsulation. The REST APIs are currently a "exposed represenation" that can be invoked independent of other interfaces. Right now, all of our API calls can be executed without a user actually being logged in. To prove this and explore just how bad the security of the API is, we will be using a tool called the 'advanced rest client' Open the tool by going <a href="chrome-extension://bljmokabgbdkoefbmccaeficehkmlnao/RestClient.html" target="_parent">here</a>.<br>
+			        	Thinking about this screenshot, it might occur to you that this is problematic. This issue illustrates the failure of a cybersecurity first principle: Resource encapsulation. The REST APIs are currently an "exposed representation" that can be invoked independent of other interfaces. Right now, all of our API calls can be executed without a user actually being logged in. To prove this and explore just how bad the security of the API is, we will be using a tool called the 'advanced rest client' Open the tool by going <a href="chrome-extension://bljmokabgbdkoefbmccaeficehkmlnao/RestClient.html" target="_parent">here</a>.<br>
 
 			        	Once opened, lets start with a simple GET request to http://localhost:8000/api/likes/. Enter the url, select GET and hit 'send'. As you can see the data is wide open without authentication or permissions.<br>
 			        	<img src="images/insecure-2.png"/><br>
 			        	Next lets try making an un-authenticated POST request. Select POST, click 'form', and then enter the following key / value pairs in the payload.
-			        	user: 1
-			        	title: &lt;p onmouseover=javascript:alert('well, this is insecure')&gt;test&lt;/p&gt;
-			        	objid: 1000
-			        	secret: hi
-			        	server: hi
-			        	farm: hi
+			        	user: 1<br>
+			        	title: &lt;p onmouseover=javascript:alert('well, this is insecure')&gt;test&lt;/p&gt;<br>
+			        	objid: 1000<br>
+			        	secret: hi<br>
+			        	server: hi<br>
+			        	farm: hi<br>
+			        	When done, hit send.
 			        	<img src="images/rest-client-1.png"/><br>
 			        	<img src="images/rest-client-2.png"/><br>
 			        	Notice that it happily accepts the submission and produces the new like for us. This is a totally random, unauthenticated user that just made an arbitrary textual post to another user's profile page. Worse, the post has malicious javascript in it that could run if the real user 1 sees the page. Lets check this out. Going back and signing in as student and going to the student user profile we see <a href=localhost:8000/profile/1>localhost:8000/profile/1</a>:<br>
@@ -1235,12 +1236,12 @@ export default Ember.Component.extend({
 			        	<img src="images/rest-client-5.png"/><br>
 			        	Lastly, lets DELETE this item entirely. Select DELETE and just hit send.<br>
 			        	<img src="images/rest-client-6.png"/><br>
-			        	Poof - there it goes.<br> Check it yourself: <a href=http://localhost:8000/profile/1>http://localhost:8000/profile/1</a>. Log in as student if you are not to notice the deleted "see what i did" post that we have put there before.
+			        	Poof - there it goes.<br> Check it yourself: <a href=http://localhost:8000/profile/1>http://localhost:8000/profile/1</a>. Log in as student, if you are not already logged in, to notice the deleted "see what i did" post that we have put there before.
 			        </div><!-- End Task 10-->
 			        <div id="task11" class="taskitem">
 			        	<h3 class="taskitem">11. Adding access control and permissions for API calls</h3>
 			        	Obviously there are lots of problems with these default security measures. Lets start by actually requiring users to at least authenticate before they can make requests to the API.<br>
-			        	Do enable authenicated views only, we need to open /var/www/gencybersite/gencybersite/settings.py in sublime<br>
+			        	To enable authenticated views only, we need to open /var/www/gencybersite/gencybersite/settings.py in sublime<br>
 			        	Scroll down until you see the REST_FRAMEWORK block and add in the following:<br>
 			        	<pre><code>'DEFAULT_PERMISSION_CLASSES': [
     'rest_framework.permissions.IsAuthenticated'
