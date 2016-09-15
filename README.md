@@ -1,7 +1,7 @@
 # GenCyber Camp @ [The University of Nebraska at Omaha](http://www.unomaha.edu/college-of-information-science-and-technology/academics/information-assurance.php)
 Files in this repository are intended to provide step-by-step self paced tutorials to teachers seeking to learn about cybersecurity first principles as part of the UNO Gencyber camp. The strategy is to *learn by doing*. The overall theme is to develop components of a web application with cybersecurity first principles *baked-in*.
 
-<img src="https://unomaha.box.com/shared/static/tohoaafm75i3grucyslrcv61r7o07q8c.png" width=150/>
+<img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/1a/University_of_Nebraska_at_Omaha_wordmark.svg/1280px-University_of_Nebraska_at_Omaha_wordmark.svg.png" width=150/>
 <img src="http://www.bellevue.edu/lp/images/footer-lp-logo.png" width=150/>
 <img src="http://bloximages.chicago2.vip.townnews.com/journalstar.com/content/tncms/assets/v3/editorial/5/9e/59ea32bb-eb8e-5961-b46a-1b55ef3cb9d0/516dd0ed4d696.image.jpg"/ width=150/>
 
